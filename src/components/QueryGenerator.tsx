@@ -27,7 +27,7 @@ function QueryGenerator(){
 
 async function generateQueries(){
     setOverlayOpen(true);
-    const {data} =  await axios.post('http://localhost:8000/query', fieldsMap);
+    const {data} =  await axios.post('http://localhost:9998/query', fieldsMap);
     setQueries(data);
     setOverlayOpen(false);
     }

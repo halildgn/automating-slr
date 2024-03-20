@@ -18,9 +18,10 @@ import dayjs, { Dayjs } from 'dayjs';
 
 function Filtering(){
 
+  const [displayFields, setDisplayFields] = useState(false);
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
  const [includedPublicationTypes, setIncludedPublicationTypes] = useState<{[publicationTypes: string]: boolean}>({});
- const [dateAndPageRange, setDateAndPageRange] = useState<{display: boolean, pageStart: string|null, pageEnd: string|null, startYear: string|null, endYear: string|null }>({display: false, pageStart: null, pageEnd: null, startYear: null, endYear: null});
+ const [dateAndPageRange, setDateAndPageRange] = useState<{minPages: string|null, maxPages: string|null, startYear: string|null, endYear: string|null }>({pageStart: null, pageEnd: null, startYear: null, endYear: null});
 
   async function handleFileUpload (e: ChangeEvent<HTMLInputElement>) {
     if (!e.target.files) {
@@ -31,19 +32,26 @@ const formData = new FormData();
     for(const file of files){
 formData.append(file.name, file);
     }
-setDateAndPageRange({display: false, pageStart: null , pageEnd: null, startYear: null, endYear: null});
+    setDisplayFields(false);
+setDateAndPageRange({minPages: null , maxPages: null, startYear: null, endYear: null});
     setOverlayOpen(true);
-    const {data} : {data: string[]} =  await axios.post('http://localhost:9999/availablePublications', formData);
+    const {data} : {data: string[]} =  await axios.post('http://localhost:9998/availablePublications', formData);
     const publicationTypes = data.reduce((accumulator, publicationType)=>{
        accumulator[publicationType] = true; 
       return accumulator;
     }, {} as {[pubType: string]: boolean})
     setIncludedPublicationTypes(publicationTypes);
-setDateAndPageRange({display: true, pageStart: null , pageEnd: null, startYear: null, endYear: null});
+setDateAndPageRange({minPages: null , maxPages: null, startYear: null, endYear: null});
+    setDisplayFields(true);
     setOverlayOpen(false);
   };
 
-  function setRange(field: 'pageStart' | 'pageEnd' | 'startYear' | 'endYear' ,value: Dayjs){
+  async function filter(){
+    const {data}  =  await axios.post('http://localhost:9998/filter', {publicationTypes: includedPublicationTypes, ...dateAndPageRange});
+    console.log(data)
+  }
+
+  function setRange(field: 'minPages' | 'maxPages' | 'startYear' | 'endYear' ,value: Dayjs){
     const updatedRanges = Object.assign({},dateAndPageRange);
     updatedRanges[field] = value.year().toString();
     setDateAndPageRange(updatedRanges);
@@ -78,7 +86,7 @@ setDateAndPageRange({display: true, pageStart: null , pageEnd: null, startYear: 
   }
 
   function PageNDate(){
-  if(!dateAndPageRange.display){
+  if(!displayFields){
      return;         
     }
 
@@ -87,15 +95,15 @@ setDateAndPageRange({display: true, pageStart: null , pageEnd: null, startYear: 
 <FormControl>
    <TextField
           label="Minimum number of pages"
-value={dateAndPageRange.pageStart}
-   onChange={(e)=>{setRange('pageStart',e.target.value)}}
+value={dateAndPageRange.minPages}
+   onChange={(e)=>{setRange('minPages',e.target.value)}}
         />
  </FormControl>
 <FormControl>
    <TextField
           label="Maximum number of pages"
    value={dateAndPageRange.pageEnd}
-  onChange={(e)=>{setRange('pageEnd',e.target.value)}}
+  onChange={(e)=>{setRange('maxPages',e.target.value)}}
         />
  </FormControl>
  <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -109,7 +117,6 @@ value={dateAndPageRange.pageStart}
     value={dayjs(dateAndPageRange.endYear)}
    onChange={(e)=>{setRange('endYear',e)}}
       />
-
     </LocalizationProvider>
     </>
     )
@@ -134,6 +141,7 @@ return (
 <Button className="field-container" variant="outlined" onClick={()=>{ document.getElementById('file-upload')?.click() }}>Choose files to filter</Button>
 <PublicationTypes />
 <PageNDate />
+<Button variant="outlined" onClick={filter}>Filter</Button> 
 </>
 )
 }
