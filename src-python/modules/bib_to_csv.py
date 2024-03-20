@@ -1,6 +1,7 @@
 from pathlib import Path
 import csv
 from modules.filter import *
+import os
 
 def get_unique_publication_types(bib_databases):
     unique_types = set()
@@ -11,12 +12,21 @@ def get_unique_publication_types(bib_databases):
 
     return list(unique_types)
 
+# If "file.csv" in save directory exists, save as "file1.csv", and so on.
+def get_available_file_name():
+    counter = 1
+    filename = "filtered_results_{}.csv"
+    while os.path.isfile(Path.home().joinpath('Downloads', filename.format(counter))):
+        counter += 1
+    filename = filename.format(counter)
+    return filename
+
 def bib_to_csv(bib_databases, min_pages = None, max_pages= None,
                start_date = None, end_date = None, publication_types = None):
     unique_entries = set()  # Used to track items that have been processed
     unique_doi = set()
     duplicate_count = 0
-    csv_path = Path.home().joinpath('Downloads', 'file.csv')
+    csv_path = Path.home().joinpath('Downloads', get_available_file_name())
     if min_pages is not None:
         min_pages = int(min_pages)
     if max_pages is not None:
