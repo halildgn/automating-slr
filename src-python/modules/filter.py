@@ -7,7 +7,7 @@ def filter_by_publication_date(entries, start_date=None, end_date=None):
     for entry in entries:
         # Extract publication date from the entry
         pub_date = extract_publication_date(entry)
-
+        
         # Check if the publication date is within the specified range
         date_condition = (
             (start_date is None or (pub_date is not None and pub_date >= start_date)) and

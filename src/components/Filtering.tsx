@@ -23,6 +23,16 @@ function Filtering(){
  const [includedPublicationTypes, setIncludedPublicationTypes] = useState<{[publicationTypes: string]: boolean}>({});
  const [dateAndPageRange, setDateAndPageRange] = useState<{minPages: string|null, maxPages: string|null, startYear: string|null, endYear: string|null }>({pageStart: null, pageEnd: null, startYear: null, endYear: null});
 
+  function getIncludedPublicationTypes(): string[]{
+    return Object.keys(includedPublicationTypes).reduce((publicationTypesToInclude, publicationType)=>{
+          if(includedPublicationTypes[publicationType]){
+          publicationTypesToInclude.push(publicationType);
+      }
+      return publicationTypesToInclude;
+    }, [] as string[])
+  }
+
+
   async function handleFileUpload (e: ChangeEvent<HTMLInputElement>) {
     if (!e.target.files) {
       return;
@@ -47,8 +57,11 @@ setDateAndPageRange({minPages: null , maxPages: null, startYear: null, endYear: 
   };
 
   async function filter(){
-    const {data}  =  await axios.post('http://localhost:9998/filter', {publicationTypes: includedPublicationTypes, ...dateAndPageRange});
-    console.log(data)
+    const includedPubTypes = getIncludedPublicationTypes();
+    const {status}  =  await axios.post('http://localhost:9998/filter', {publicationTypes: includedPubTypes, ...dateAndPageRange});
+    if(status === 200){
+      console.log('OK')
+    }
   }
 
   function setRange(field: 'minPages' | 'maxPages' | 'startYear' | 'endYear' ,value: Dayjs){

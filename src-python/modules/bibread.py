@@ -1,21 +1,3 @@
-import chardet
-import os
-
-
-def list_bib_files(folder_path):
-    bib_files = []
-    for file in os.listdir(folder_path):
-        if file.endswith(".bib"):
-            bib_files.append(os.path.join(folder_path, file))
-    return bib_files
-
-
-def detect_encoding(file):
-    with open(file, 'rb') as f:
-        result = chardet.detect(f.read())
-    return result['encoding']
-
-
 def extract_page_number(entry):
     # Try to get the number of pages from the 'numpages' field
     numpages = entry.get('numpages', '')

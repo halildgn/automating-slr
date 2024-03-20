@@ -1,7 +1,8 @@
 import gc
+import bibtexparser
 from modules.query import *
 from modules.bib_to_csv import *
-from flask import Flask, request, jsonify, Response 
+from flask import Flask, request, jsonify 
 from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
@@ -26,16 +27,16 @@ def getAvailablePublications():
 
 @app.route("/filter",methods=['POST'])
 def filter():
-    print('AAAAAAAAAAAAA: ', request.json)
     global bib_files
-    result = bib_to_csv(bib_files, request.json.minPages, request.json.maxPages, request.json.startYear, request.json.endYear, request.json.publicationTypes)
+    result = bib_to_csv(bib_files, request.json['minPages'], request.json['maxPages'], request.json['startYear'], request.json['endYear'], request.json['publicationTypes'])
     del bib_files
     gc.collect()
-    return Response(
-        result,
-        mimetype="text/csv",
-        headers={"Content-disposition":
-                 "attachment; filename=filtered.csv"})
+    return app.response_class(status=200)
+    # return Response(
+    #     result,
+    #     mimetype="text/csv",
+    #     headers={"Content-disposition":
+    #              "attachment; filename=filtered.csv"})
 
 if __name__ == '__main__':
     app.run(host="localhost", port=9998, debug=True)
