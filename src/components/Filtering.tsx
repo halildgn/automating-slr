@@ -1,12 +1,10 @@
 import FormControl from '@mui/material/FormControl';
+import Alert from '@mui/material/Alert';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Checkbox from '@mui/material/Checkbox';
-import FormGroup from '@mui/material/FormGroup';
-import FormHelperText from '@mui/material/FormHelperText';
 import { useState } from 'react';
 import { Button } from '@mui/material';
 import { ChangeEvent } from 'react';
@@ -18,6 +16,7 @@ import dayjs, { Dayjs } from 'dayjs';
 
 function Filtering(){
 
+  const [displayFilterButton, setDisplayFilterButton] = useState(false);
   const [displayFields, setDisplayFields] = useState(false);
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
  const [includedPublicationTypes, setIncludedPublicationTypes] = useState<{[publicationTypes: string]: boolean}>({});
@@ -32,6 +31,14 @@ function Filtering(){
     }, [] as string[])
   }
 
+  function FilterButton(){
+    if(!displayFilterButton){
+        return;
+    }
+    return (
+<Button variant="outlined" onClick={filter}>Filter</Button> 
+    )
+  }
 
   async function handleFileUpload (e: ChangeEvent<HTMLInputElement>) {
     if (!e.target.files) {
@@ -43,7 +50,7 @@ const formData = new FormData();
 formData.append(file.name, file);
     }
     setDisplayFields(false);
-setDateAndPageRange({minPages: null , maxPages: null, startYear: null, endYear: null});
+setDisplayFilterButton(false);
     setOverlayOpen(true);
     const {data} : {data: string[]} =  await axios.post('http://localhost:9998/availablePublications', formData);
     const publicationTypes = data.reduce((accumulator, publicationType)=>{
@@ -53,6 +60,7 @@ setDateAndPageRange({minPages: null , maxPages: null, startYear: null, endYear: 
     setIncludedPublicationTypes(publicationTypes);
 setDateAndPageRange({minPages: null , maxPages: null, startYear: null, endYear: null});
     setDisplayFields(true);
+setDisplayFilterButton(true);
     setOverlayOpen(false);
   };
 
@@ -143,6 +151,7 @@ return (
       >
         <CircularProgress color="inherit" />
       </Backdrop>
+      <Alert severity="success">This is a success Alert.</Alert>
 <input
   style={{ display: 'none' }}
   onChange={handleFileUpload}
@@ -154,7 +163,7 @@ return (
 <Button className="field-container" variant="outlined" onClick={()=>{ document.getElementById('file-upload')?.click() }}>Choose files to filter</Button>
 <PublicationTypes />
 <PageNDate />
-<Button variant="outlined" onClick={filter}>Filter</Button> 
+<FilterButton /> 
 </>
 )
 }
