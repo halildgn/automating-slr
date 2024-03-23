@@ -6,7 +6,7 @@ import os
 def get_unique_publication_types(bib_databases):
     unique_types = set()
     for bib_database in bib_databases: 
-        for entry in bib_database.entries:
+        for entry in bib_database["entries"]:
             entry_type = entry.get('ENTRYTYPE', '').lower()
             unique_types.add(entry_type)
 
@@ -21,7 +21,7 @@ def get_available_file_name():
     filename = filename.format(counter)
     return filename
 
-def bib_to_csv(bib_databases, min_pages = None, max_pages= None,
+def filter_and_save_as_csv(bib_databases, min_pages = None, max_pages= None,
                start_date = None, end_date = None, publication_types = None):
     unique_entries = set()  # Used to track items that have been processed
     unique_doi = set()
@@ -49,7 +49,7 @@ def bib_to_csv(bib_databases, min_pages = None, max_pages= None,
         for bib_database in bib_databases:
 
             # Use filter_entries function to filter
-            filtered_entries = filter_entries(bib_database.entries, min_pages, max_pages, publication_types)
+            filtered_entries = filter_entries(bib_database["entries"], min_pages, max_pages, publication_types)
             # Use the new filter_by_publication_date function
             filtered_entries = filter_by_publication_date(filtered_entries, start_date, end_date)
 
