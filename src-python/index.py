@@ -20,6 +20,7 @@ def getAvailablePublications():
     bib_databases = []
     for _, data in request.files.items():
         bib_databases.append(bibtexparser.load(data))
+    # cache it for next request
     global bib_files
     bib_files = bib_databases
     unique_publication_types = get_unique_publication_types(bib_databases)
@@ -29,14 +30,10 @@ def getAvailablePublications():
 def filter():
     global bib_files
     result = bib_to_csv(bib_files, request.json['minPages'], request.json['maxPages'], request.json['startYear'], request.json['endYear'], request.json['publicationTypes'])
+    # clear the cache
     del bib_files
     gc.collect()
     return app.response_class(status=200)
-    # return Response(
-    #     result,
-    #     mimetype="text/csv",
-    #     headers={"Content-disposition":
-    #              "attachment; filename=filtered.csv"})
 
 if __name__ == '__main__':
     app.run(host="localhost", port=9998, debug=True)
