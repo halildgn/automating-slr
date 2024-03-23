@@ -47,7 +47,6 @@ def bib_to_csv(bib_databases, min_pages = None, max_pages= None,
 
         # Process each BibTeX file
         for bib_database in bib_databases:
-            print(bib_database)
 
             # Use filter_entries function to filter
             filtered_entries = filter_entries(bib_database.entries, min_pages, max_pages, publication_types)

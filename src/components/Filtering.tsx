@@ -52,7 +52,7 @@ formData.append(file.name, file);
     setDisplayFields(false);
 setDisplayFilterButton(false);
     setOverlayOpen(true);
-    const {data} : {data: string[]} =  await axios.post('http://localhost:9998/availablePublications', formData);
+    const {data} : {data: string[]} =  await axios.post('http://localhost:9997/availablePublications', formData);
     const publicationTypes = data.reduce((accumulator, publicationType)=>{
        accumulator[publicationType] = true; 
       return accumulator;
@@ -66,7 +66,7 @@ setDisplayFilterButton(true);
 
   async function filter(){
     const includedPubTypes = getIncludedPublicationTypes();
-    const {status}  =  await axios.post('http://localhost:9998/filter', {publicationTypes: includedPubTypes, ...dateAndPageRange});
+    const {status}  =  await axios.post('http://localhost:9997/filter', {publicationTypes: includedPubTypes, ...dateAndPageRange});
     if(status === 200){
       console.log('OK')
     }
@@ -156,7 +156,7 @@ return (
   style={{ display: 'none' }}
   onChange={handleFileUpload}
   id="file-upload"
-  accept=".bib , .csv"
+  accept=".csv, text/csv"
   multiple
   type="file"
   />
