@@ -8,7 +8,6 @@ app = Flask(__name__)
 CORS(app)
 bib_files = None
 
-
 @app.route("/query",methods=['POST'])
 def getQueries():
     payload = request.json
@@ -29,7 +28,7 @@ def getAvailablePublications():
 @app.route("/filter",methods=['POST'])
 def filter():
     global bib_files
-    result = bib_to_csv(bib_files, request.json['minPages'], request.json['maxPages'], request.json['startYear'], request.json['endYear'], request.json['publicationTypes'])
+    bib_to_csv(bib_files, request.json['minPages'], request.json['maxPages'], request.json['startYear'], request.json['endYear'], request.json['publicationTypes'])
     # clear the cache
     del bib_files
     gc.collect()
