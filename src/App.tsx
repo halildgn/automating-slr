@@ -70,8 +70,6 @@ function LinkTab(props: LinkTabProps) {
           setLocation("/query");
       }else if(newValue === 1){
            setLocation("/filtering");
-      }else if(newValue === 2){
-           setLocation("/both");
       }
       }
     }
@@ -88,7 +86,6 @@ function LinkTab(props: LinkTabProps) {
       >
         <LinkTab label="Query Generator" href="/query" />
         <LinkTab label="Filtering" href="/filtering" />
-        <LinkTab label="Both" href="/both" />
       </Tabs>
     </Box>
     <Switch>
