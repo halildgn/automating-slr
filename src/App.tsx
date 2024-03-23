@@ -15,7 +15,7 @@ import Filtering from './components/Filtering';
 function App() {
 
   const [value, setValue] = useState(0);
-  const [loc, setLocation] = useLocation();
+  const [_, setLocation] = useLocation();
 
 function samePageLinkNavigation(
   event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,

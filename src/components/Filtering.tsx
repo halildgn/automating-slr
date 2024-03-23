@@ -20,7 +20,7 @@ function Filtering(){
   const [displayFields, setDisplayFields] = useState(false);
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
  const [includedPublicationTypes, setIncludedPublicationTypes] = useState<{[publicationTypes: string]: boolean}>({});
- const [dateAndPageRange, setDateAndPageRange] = useState<{minPages: string|null, maxPages: string|null, startYear: string|null, endYear: string|null }>({pageStart: null, pageEnd: null, startYear: null, endYear: null});
+ const [dateAndPageRange, setDateAndPageRange] = useState<{minPages: string|null, maxPages: string|null, startYear: string|null, endYear: string|null }>({minPages: null, maxPages: null, startYear: null, endYear: null});
 
   function getIncludedPublicationTypes(): string[]{
     return Object.keys(includedPublicationTypes).reduce((publicationTypesToInclude, publicationType)=>{
@@ -117,26 +117,26 @@ setDisplayFilterButton(true);
    <TextField
           label="Minimum number of pages"
 value={dateAndPageRange.minPages}
-   onChange={(e)=>{setRange('minPages',e.target.value)}}
+   onChange={(e)=>{setRange('minPages',e.target.value as unknown as Dayjs)}}
         />
  </FormControl>
 <FormControl>
    <TextField
           label="Maximum number of pages"
-   value={dateAndPageRange.pageEnd}
-  onChange={(e)=>{setRange('maxPages',e.target.value)}}
+   value={dateAndPageRange.maxPages}
+  onChange={(e)=>{setRange('maxPages',e.target.value  as unknown as Dayjs)}}
         />
  </FormControl>
  <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker label="Start date" views={['year']}
    value={dayjs(dateAndPageRange.startYear)}
-   onChange={(e)=>{setRange('startYear',e)}}
+   onChange={(e)=>{setRange('startYear',e  as unknown as Dayjs)}}
       />
     </LocalizationProvider>
   <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker label="End date" views={['year']}
     value={dayjs(dateAndPageRange.endYear)}
-   onChange={(e)=>{setRange('endYear',e)}}
+   onChange={(e)=>{setRange('endYear',e  as unknown as Dayjs)}}
       />
     </LocalizationProvider>
     </>
