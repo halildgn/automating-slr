@@ -156,7 +156,7 @@ return (
   style={{ display: 'none' }}
   onChange={handleFileUpload}
   id="file-upload"
-  accept=".csv, text/csv"
+  accept=".csv, text/csv, .bib, text/x-bibtex"
   multiple
   type="file"
   />
