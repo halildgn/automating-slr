@@ -17,6 +17,10 @@ def getQueries():
 @app.route("/availablePublications",methods=['POST'])
 def getAvailablePublications():
     bib_databases = []
+    global bib_files
+    if bib_files is not None:
+        del bib_files
+        gc.collect()
     for _, data in request.files.items():
         bib_databases.append(bibtexparser.load(data))
     # cache it for next request

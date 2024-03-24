@@ -78,6 +78,10 @@ setDisplayFilterButton(true);
     } 
   };
 
+function resetFilteringAndFileUpload(){
+
+  }
+
   async function filter(){
     const includedPubTypes = getIncludedPublicationTypes();
     const {status}  =  await axios.post('http://localhost:9998/filter', {publicationTypes: includedPubTypes, ...dateAndPageRange});
@@ -264,7 +268,7 @@ function FileUpload(){
     )
     }
 return (
-<Button className="field-container" variant="outlined" onClick={()=>{ }}>Reset</Button>
+<Button className="field-container" variant="outlined" onClick={resetFilteringAndFileUpload}>Reset</Button>
 )
   }
 
