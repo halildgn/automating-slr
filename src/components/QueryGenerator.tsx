@@ -27,7 +27,7 @@ function QueryGenerator(){
 
 async function generateQueries(){
     setOverlayOpen(true);
-    const {data} =  await axios.post('http://localhost:9997/query', fieldsMap);
+    const {data} =  await axios.post('http://localhost:9998/query', fieldsMap);
     setQueries(data);
     setOverlayOpen(false);
     }
@@ -144,7 +144,7 @@ return (
       </Backdrop>
 <Relation isFirst={i=== 0} index={i}/>
          <Box className="field-container" sx={{ minWidth: 120 }}>
-    <FormControl fullWidth>
+    <FormControl className="flex-item" fullWidth>
         <InputLabel id="demo-simple-select-label">Field</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -160,7 +160,7 @@ return (
           <MenuItem value={'Keyword'}>Keyword</MenuItem>
         </Select>
       </FormControl>
-<FormControl>
+<FormControl className="flex-item">
    <TextField
           label="Keywords"
    value={fieldEl.keywords?.toString()}

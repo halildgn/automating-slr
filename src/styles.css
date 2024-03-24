@@ -43,3 +43,8 @@ display: flex;
 .file-upload-container{
   width: 100%;
 }
+
+.flex-item{
+ flex-basis: 50%;
+  flex-grow: 0;
+}
