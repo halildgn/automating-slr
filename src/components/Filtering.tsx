@@ -70,9 +70,11 @@ setDateAndPageRange({minPages: null , maxPages: null, startYear: null, endYear: 
 setDisplayFilterButton(true);
     setOverlayOpen(false);
     setIsUploadSuccess(true)
+    setUploadOrReset('reset');
     }else{
+      setUploadOrReset('upload');
    setOverlayOpen(false);
-   setIsUploadSuccess(false)
+   setIsUploadSuccess(false);
     } 
   };
 
@@ -246,6 +248,7 @@ value={dateAndPageRange.minPages}
   }
 
 function FileUpload(){
+    if(uploadOrReset === 'upload'){
     return (
       <>
 <input
@@ -259,6 +262,10 @@ function FileUpload(){
 <Button className="field-container" variant="outlined" onClick={()=>{ document.getElementById('file-upload')?.click() }}>Choose files to filter</Button>
 </>
     )
+    }
+return (
+<Button className="field-container" variant="outlined" onClick={()=>{ }}>Reset</Button>
+)
   }
 
 return (
