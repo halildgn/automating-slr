@@ -163,7 +163,7 @@ return (
 <FormControl className="flex-item">
    <TextField
           label="Keywords"
-   value={fieldEl.keywords?.toString()}
+   value={fieldEl.keywords?.toString() ?? ''}
    onChange={(e)=>{changeFieldKeywords((e as SelectChangeEvent),i)}}
         />
  </FormControl>

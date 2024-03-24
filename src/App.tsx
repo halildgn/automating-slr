@@ -86,6 +86,7 @@ function LinkTab(props: LinkTabProps) {
       >
         <LinkTab label="Query Generator" href="/query" />
         <LinkTab label="Filtering" href="/filtering" />
+   <LinkTab label="My Queries" href="/my-queries" />
       </Tabs>
     </Box>
     <Switch>
