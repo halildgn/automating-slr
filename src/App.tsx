@@ -91,6 +91,7 @@ function LinkTab(props: LinkTabProps) {
     <Switch>
       <Route path="/query" component={QueryGenerator} />
     <Route path="/filtering" component={Filtering} />
+      {/* <Route path="/bookmarks" component={Bookmarks} */}
       <Route component= {QueryGenerator}/>
     </Switch>
 </div>

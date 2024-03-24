@@ -17,6 +17,8 @@ import dayjs, { Dayjs } from 'dayjs';
 function Filtering(){
 
   const [isUploadSuccess, setIsUploadSuccess] = useState<null | boolean>(null);
+  const [uploadOrReset, setUploadOrReset] = useState<string>('upload');
+  const [isFilteringSuccess, setIsFilteringSuccess] = useState<null | boolean>(null);
   const [displayFilterButton, setDisplayFilterButton] = useState(false);
   const [displayFields, setDisplayFields] = useState(false);
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
@@ -78,7 +80,9 @@ setDisplayFilterButton(true);
     const includedPubTypes = getIncludedPublicationTypes();
     const {status}  =  await axios.post('http://localhost:9998/filter', {publicationTypes: includedPubTypes, ...dateAndPageRange});
     if(status === 200){
-      console.log('OK')
+      setIsFilteringSuccess(true);
+    }else{
+     setIsFilteringSuccess(false); 
     }
   }
 
@@ -153,7 +157,7 @@ value={dateAndPageRange.minPages}
     )
   }
 
-  function SuccessFailIndicator(){
+  function UploadSuccessFailIndicator(){
     if(isUploadSuccess === null){
         return;
     }
@@ -161,7 +165,8 @@ value={dateAndPageRange.minPages}
       return(
    <Backdrop
    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={overlayOpen}
+        open={isUploadSuccess}
+      onClick={()=>setIsUploadSuccess(null)}
        in={isUploadSuccess} //Write the needed condition here to make it appear
        timeout={{ enter: 1000, exit: 1000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
        addEndListener={() => {
@@ -179,8 +184,9 @@ value={dateAndPageRange.minPages}
     return (
    <Backdrop
    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={overlayOpen}
-       in={isUploadSuccess} //Write the needed condition here to make it appear
+        open={!isUploadSuccess}
+   onClick={()=>setIsUploadSuccess(null)}
+       in={!isUploadSuccess} //Write the needed condition here to make it appear
        timeout={{ enter: 1000, exit: 1000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
        addEndListener={() => {
          setTimeout(() => {
@@ -195,15 +201,53 @@ value={dateAndPageRange.minPages}
     )
   }
 
-return (
-<>
- <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={overlayOpen}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      <SuccessFailIndicator />
+  function FilterSuccessFailIndicator(){
+  if(isFilteringSuccess === null){
+        return;
+    }
+    if(isFilteringSuccess){
+      return(
+   <Backdrop
+   sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isFilteringSuccess}
+       in={isFilteringSuccess} //Write the needed condition here to make it appear
+ onClick={()=>setIsFilteringSuccess(null)}
+       timeout={{ enter: 1000, exit: 1000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+       addEndListener={() => {
+         setTimeout(() => {
+           setIsFilteringSuccess(null);
+         }, 3000);
+       }}
+       >
+
+      <Alert severity="success">Csv file that consists of filtered entries is saved to Downloads directory</Alert>
+
+    </Backdrop>
+      )
+    }
+    return (
+   <Backdrop
+   sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={!isFilteringSuccess}
+ onClick={()=>setIsFilteringSuccess(null)}
+       in={!isFilteringSuccess} //Write the needed condition here to make it appear
+       timeout={{ enter: 1000, exit: 1000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+       addEndListener={() => {
+         setTimeout(() => {
+           setIsUploadSuccess(null);
+         }, 2000);
+       }}
+       >
+   <Alert severity="error">
+        Filtering was not sucessful
+      </Alert>
+    </Backdrop>
+    )
+  }
+
+function FileUpload(){
+    return (
+      <>
 <input
   style={{ display: 'none' }}
   onChange={handleFileUpload}
@@ -213,6 +257,21 @@ return (
   type="file"
   />
 <Button className="field-container" variant="outlined" onClick={()=>{ document.getElementById('file-upload')?.click() }}>Choose files to filter</Button>
+</>
+    )
+  }
+
+return (
+<>
+ <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={overlayOpen}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <UploadSuccessFailIndicator />
+      <FilterSuccessFailIndicator />
+<FileUpload/>
 <PublicationTypes />
 <PageNDate />
 <FilterButton /> 
