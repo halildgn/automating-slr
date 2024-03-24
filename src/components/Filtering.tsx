@@ -88,9 +88,9 @@ setDisplayFilterButton(true);
     }
   }
 
-  function setRange(field: 'minPages' | 'maxPages' | 'startYear' | 'endYear' ,value: Dayjs){
+  function setRange(field: 'minPages' | 'maxPages' | 'startYear' | 'endYear' ,value: string | Dayjs){
     const updatedRanges = Object.assign({},dateAndPageRange);
-    updatedRanges[field] = value.year().toString();
+    updatedRanges[field] = (value as Dayjs).year ? (value as Dayjs).year().toString() : value as string; 
     setDateAndPageRange(updatedRanges);
   }
 
