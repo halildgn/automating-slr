@@ -5,7 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Checkbox from '@mui/material/Checkbox';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@mui/material';
 import { ChangeEvent } from 'react';
 import Backdrop from '@mui/material/Backdrop';
@@ -22,16 +22,6 @@ function Filtering(){
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
  const [includedPublicationTypes, setIncludedPublicationTypes] = useState<{[publicationTypes: string]: boolean}>({});
  const [dateAndPageRange, setDateAndPageRange] = useState<{minPages: string|null, maxPages: string|null, startYear: string|null, endYear: string|null }>({minPages: null, maxPages: null, startYear: null, endYear: null});
-  useEffect(() => {
-    const timeId = setTimeout(() => {
-      // After 3 seconds set the show value to false
-      setIsUploadSuccess(null);
-    }, 3000)
-
-    return () => {
-      clearTimeout(timeId)
-    }
-  }, []);
 
   function getIncludedPublicationTypes(): string[]{
     return Object.keys(includedPublicationTypes).reduce((publicationTypesToInclude, publicationType)=>{
