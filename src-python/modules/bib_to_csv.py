@@ -3,15 +3,6 @@ import csv
 from modules.filter import *
 import os
 
-def get_unique_publication_types(bib_databases):
-    unique_types = set()
-    for bib_database in bib_databases: 
-        for entry in bib_database.entries:
-            entry_type = entry.get('ENTRYTYPE', '').lower()
-            unique_types.add(entry_type)
-
-    return list(unique_types)
-
 # If "file.csv" in save directory exists, save as "file1.csv", and so on.
 def get_available_file_name():
     counter = 1

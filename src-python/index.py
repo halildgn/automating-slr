@@ -14,8 +14,8 @@ def getQueries():
     generatedQueries = generate_query(payload)
     return jsonify(generatedQueries)
 
-@app.route("/availablePublications",methods=['POST'])
-def getAvailablePublications():
+@app.route("/boundariesForFilterParameters",methods=['POST'])
+def getBoundaries():
     bib_databases = []
     global bib_files
     if bib_files is not None:
@@ -26,8 +26,8 @@ def getAvailablePublications():
     # cache it for next request
     global bib_files
     bib_files = bib_databases
-    unique_publication_types = get_unique_publication_types(bib_databases)
-    return jsonify(unique_publication_types)
+    boundaries = get_boundaries(bib_databases)
+    return jsonify(boundaries)
 
 @app.route("/filter",methods=['POST'])
 def filter():
