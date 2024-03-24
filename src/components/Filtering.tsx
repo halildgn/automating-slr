@@ -5,7 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Checkbox from '@mui/material/Checkbox';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 import { ChangeEvent } from 'react';
 import Backdrop from '@mui/material/Backdrop';
@@ -16,11 +16,22 @@ import dayjs, { Dayjs } from 'dayjs';
 
 function Filtering(){
 
+  const [isUploadSuccess, setIsUploadSuccess] = useState<null | boolean>(null);
   const [displayFilterButton, setDisplayFilterButton] = useState(false);
   const [displayFields, setDisplayFields] = useState(false);
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
  const [includedPublicationTypes, setIncludedPublicationTypes] = useState<{[publicationTypes: string]: boolean}>({});
  const [dateAndPageRange, setDateAndPageRange] = useState<{minPages: string|null, maxPages: string|null, startYear: string|null, endYear: string|null }>({minPages: null, maxPages: null, startYear: null, endYear: null});
+  useEffect(() => {
+    const timeId = setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setIsUploadSuccess(null);
+    }, 3000)
+
+    return () => {
+      clearTimeout(timeId)
+    }
+  }, []);
 
   function getIncludedPublicationTypes(): string[]{
     return Object.keys(includedPublicationTypes).reduce((publicationTypesToInclude, publicationType)=>{
@@ -49,11 +60,15 @@ const formData = new FormData();
     for(const file of files){
 formData.append(file.name, file);
     }
+    setIsUploadSuccess(null);
     setDisplayFields(false);
 setDisplayFilterButton(false);
     setOverlayOpen(true);
-    const {data} : {data: string[]} =  await axios.post('http://localhost:9998/availablePublications', formData);
-    const publicationTypes = data.reduce((accumulator, publicationType)=>{
+    const response =  await axios.post('http://localhost:9998/availablePublications', formData)
+
+    if(response.status === 200){
+      const data: string[] = response.data;
+   const publicationTypes = data.reduce((accumulator, publicationType)=>{
        accumulator[publicationType] = true; 
       return accumulator;
     }, {} as {[pubType: string]: boolean})
@@ -62,6 +77,11 @@ setDateAndPageRange({minPages: null , maxPages: null, startYear: null, endYear: 
     setDisplayFields(true);
 setDisplayFilterButton(true);
     setOverlayOpen(false);
+    setIsUploadSuccess(true)
+    }else{
+   setOverlayOpen(false);
+   setIsUploadSuccess(false)
+    } 
   };
 
   async function filter(){
@@ -143,6 +163,48 @@ value={dateAndPageRange.minPages}
     )
   }
 
+  function SuccessFailIndicator(){
+    if(isUploadSuccess === null){
+        return;
+    }
+    if(isUploadSuccess){
+      return(
+   <Backdrop
+   sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={overlayOpen}
+       in={isUploadSuccess} //Write the needed condition here to make it appear
+       timeout={{ enter: 1000, exit: 1000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+       addEndListener={() => {
+         setTimeout(() => {
+           setIsUploadSuccess(null);
+         }, 2000);
+       }}
+       >
+
+      <Alert severity="success"> Upload was sucessful, please fill the filter conditions</Alert>
+
+    </Backdrop>
+      )
+    }
+    return (
+   <Backdrop
+   sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={overlayOpen}
+       in={isUploadSuccess} //Write the needed condition here to make it appear
+       timeout={{ enter: 1000, exit: 1000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+       addEndListener={() => {
+         setTimeout(() => {
+           setIsUploadSuccess(null);
+         }, 2000);
+       }}
+       >
+   <Alert severity="error">
+        Upload was not succesful
+      </Alert>
+    </Backdrop>
+    )
+  }
+
 return (
 <>
  <Backdrop
@@ -151,7 +213,7 @@ return (
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <Alert severity="success">This is a success Alert.</Alert>
+      <SuccessFailIndicator />
 <input
   style={{ display: 'none' }}
   onChange={handleFileUpload}
