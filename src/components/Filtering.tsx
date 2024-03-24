@@ -145,13 +145,13 @@ value={dateAndPageRange.minPages}
  </FormControl>
  <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker label="Start date" views={['year']}
-   value={dayjs(dateAndPageRange.startYear)}
+   value={dateAndPageRange.startYear ? dayjs(dateAndPageRange.startYear) : null}
    onChange={(e)=>{setRange('startYear',e  as unknown as Dayjs)}}
       />
     </LocalizationProvider>
   <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker label="End date" views={['year']}
-    value={dayjs(dateAndPageRange.endYear)}
+    value={dateAndPageRange.endYear ? dayjs(dateAndPageRange.endYear) : null}
    onChange={(e)=>{setRange('endYear',e  as unknown as Dayjs)}}
       />
     </LocalizationProvider>
