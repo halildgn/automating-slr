@@ -24,6 +24,7 @@ function Filtering(){
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
  const [includedPublicationTypes, setIncludedPublicationTypes] = useState<{[publicationTypes: string]: boolean}>({});
  const [dateAndPageRange, setDateAndPageRange] = useState<{minPages: string|null, maxPages: string|null, startYear: string|null, endYear: string|null }>({minPages: null, maxPages: null, startYear: null, endYear: null});
+  const [recommendations, setRecommendations ] =  useState<{minPages: string|null, maxPages: string|null, startYear: string|null, endYear: string|null }>({minPages: null, maxPages: null, startYear: null, endYear: null});
 
   function getIncludedPublicationTypes(): string[]{
     return Object.keys(includedPublicationTypes).reduce((publicationTypesToInclude, publicationType)=>{
@@ -65,7 +66,7 @@ setDisplayFilterButton(false);
       return accumulator;
     }, {} as {[pubType: string]: boolean})
     setIncludedPublicationTypes(publicationTypes);
-setDateAndPageRange({minPages: data.min_page , maxPages: data.max_page, startYear: data.earliest_date, endYear: data.latest_date});
+      setRecommendations({minPages: data.min_page , maxPages: data.max_page, startYear: data.earliest_date, endYear: data.latest_date});
     setDisplayFields(true);
 setDisplayFilterButton(true);
     setOverlayOpen(false);
@@ -80,6 +81,7 @@ setDisplayFilterButton(true);
 
 function resetFilteringAndFileUpload(){
     setIncludedPublicationTypes({});
+setDateAndPageRange({minPages: null, maxPages: null, startYear: null, endYear: null});
     setIsUploadSuccess(null);
     setDisplayFields(false);
 setDisplayFilterButton(false);
@@ -139,26 +141,21 @@ setDisplayFilterButton(false);
       <>
 <FormControl>
    <TextField
-          label="Minimum number of pages"
+          label={`Minimum number of pages -> Available minimum is ${recommendations.minPages}`}
 value={dateAndPageRange.minPages}
    onChange={(e)=>{setRange('minPages',e.target.value as unknown as Dayjs)}}
         />
  </FormControl>
 <FormControl>
    <TextField
-          label="Maximum number of pages"
+    label={`Maximum number of pages -> Available maximum is ${recommendations.maxPages}`}
    value={dateAndPageRange.maxPages}
   onChange={(e)=>{setRange('maxPages',e.target.value  as unknown as Dayjs)}}
         />
  </FormControl>
  <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
-// slotProps={{
-//     textField: {
-//       helperText: `Earliest possible ${dateAndPageRange.startYear}`,
-//     }
-//   }}
-            label="Start date in years" views={['year']}
+            label={`Start date in years -> Newest available entry is from ${recommendations.startYear}`} views={['year']}
    value={dateAndPageRange.startYear ? dayjs(dateAndPageRange.startYear) : null}
    onChange={(e)=>{setRange('startYear',e  as unknown as Dayjs)}}
       />
@@ -167,16 +164,11 @@ value={dateAndPageRange.minPages}
       <DatePicker 
    slotProps={{
              textField: {
-               helperText: Number(dateAndPageRange.endYear) < Number(dateAndPageRange.startYear)?"End date cant be earlier than start date":"",
+               helperText: Number(dateAndPageRange.endYear) < Number(dateAndPageRange.startYear)?"End date cant be earlier than start date": "",
                error: Number(dateAndPageRange.endYear) < Number(dateAndPageRange.startYear),
              },
            }}
-// slotProps={{
-//     textField: {
-//       helperText: `Latest possible ${dateAndPageRange.endYear}`,
-//     }
-//   }}
-            label="End date in years" views={['year']}
+      label={`End date in years -> Latest available entry is from ${recommendations.endYear}`} views={['year']}
     value={dateAndPageRange.endYear ? dayjs(dateAndPageRange.endYear) : null}
    onChange={(e)=>{setRange('endYear',e  as unknown as Dayjs)}}
       />
