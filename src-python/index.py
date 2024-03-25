@@ -18,13 +18,10 @@ def getQueries():
 def getBoundaries():
     bib_databases = []
     global bib_files
-    if bib_files is not None:
-        del bib_files
-        gc.collect()
+    bib_files = None
     for _, data in request.files.items():
         bib_databases.append(bibtexparser.load(data))
     # cache it for next request
-    global bib_files
     bib_files = bib_databases
     boundaries = get_boundaries(bib_databases)
     return jsonify(boundaries)
