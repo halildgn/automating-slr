@@ -4,11 +4,21 @@ def get_boundaries(bib_databases):
     unique_page_numbers = set()
     for bib_database in bib_databases: 
         for entry in bib_database.entries:
-            unique_types.add(extract_page_number(entry))
-            unique_years.add(extract_publication_date(entry))
-            unique_page_numbers.add(extract_page_number(entry))
+            publication_type =  extract_publication_type(entry)
+            if isinstance(publication_type, str):
+                if not publication_type:
+                   continue 
+            unique_years.add(publication_type)    
+            year =  extract_publication_date(entry)
+            if year is None: 
+                   continue
+            unique_years.add(year)
+            page_number = extract_page_number(entry) 
+            if page_number is None: 
+                   continue
+            unique_types.add(page_number) 
 
-    return {"available_publication_types": list(unique_types), "earliest_date": min(unique_years), "latest_date": max(unique_years), "min_page": min(unique_page_numbers), "max_page": max(unique_page_numbers)}
+    return {"available_publication_types": list(unique_types), "earliest_date": str(min(unique_years)), "latest_date": str(max(unique_years)), "min_page": str(min(unique_page_numbers)), "max_page": str(max(unique_page_numbers))}
 
 def extract_publication_type(entry):
     entry_type = entry.get('ENTRYTYPE', '').lower()

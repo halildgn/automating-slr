@@ -56,16 +56,16 @@ formData.append(file.name, file);
     setDisplayFields(false);
 setDisplayFilterButton(false);
     setOverlayOpen(true);
-    const response =  await axios.post('http://localhost:9998/availablePublications', formData)
+    const response =  await axios.post('http://localhost:9998/boundariesForFilterParameters', formData)
 
     if(response.status === 200){
-      const data: string[] = response.data;
-   const publicationTypes = data.reduce((accumulator, publicationType)=>{
+      const data: {available_publication_types: string[],earliest_date: string, latest_date: string, min_page: string, max_page: string } = response.data;
+   const publicationTypes = data.available_publication_types.reduce((accumulator, publicationType)=>{
        accumulator[publicationType] = true; 
       return accumulator;
     }, {} as {[pubType: string]: boolean})
     setIncludedPublicationTypes(publicationTypes);
-setDateAndPageRange({minPages: null , maxPages: null, startYear: null, endYear: null});
+setDateAndPageRange({minPages: data.min_page , maxPages: data.max_page, startYear: data.earliest_date, endYear: data.latest_date});
     setDisplayFields(true);
 setDisplayFilterButton(true);
     setOverlayOpen(false);
