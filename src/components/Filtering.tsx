@@ -148,13 +148,31 @@ value={dateAndPageRange.minPages}
         />
  </FormControl>
  <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker label="Start date" views={['year']}
+      <DatePicker
+// slotProps={{
+//     textField: {
+//       helperText: `Earliest possible ${dateAndPageRange.startYear}`,
+//     }
+//   }}
+            label="Start date in years" views={['year']}
    value={dateAndPageRange.startYear ? dayjs(dateAndPageRange.startYear) : null}
    onChange={(e)=>{setRange('startYear',e  as unknown as Dayjs)}}
       />
     </LocalizationProvider>
   <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker label="End date" views={['year']}
+      <DatePicker 
+   slotProps={{
+             textField: {
+               helperText: Number(dateAndPageRange.endYear) < Number(dateAndPageRange.startYear)?"End date cant be earlier than start date":"",
+               error: Number(dateAndPageRange.endYear) < Number(dateAndPageRange.startYear),
+             },
+           }}
+// slotProps={{
+//     textField: {
+//       helperText: `Latest possible ${dateAndPageRange.endYear}`,
+//     }
+//   }}
+            label="End date in years" views={['year']}
     value={dateAndPageRange.endYear ? dayjs(dateAndPageRange.endYear) : null}
    onChange={(e)=>{setRange('endYear',e  as unknown as Dayjs)}}
       />
