@@ -188,15 +188,15 @@ value={dateAndPageRange.minPages}
         open={isUploadSuccess}
       onClick={()=>setIsUploadSuccess(null)}
        in={isUploadSuccess} //Write the needed condition here to make it appear
-       timeout={{ enter: 1000, exit: 1000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+       timeout={{ enter: 1000, exit: 2000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
        addEndListener={() => {
          setTimeout(() => {
            setIsUploadSuccess(null);
-         }, 2000);
+         }, 3000);
        }}
        >
 
-      <Alert severity="success"> Upload was sucessful, please fill the filter conditions</Alert>
+      <Alert severity="success"> Upload was sucessful, please fill the filter conditions. To only remove duplicates, click on "filter" without filling the fields.</Alert>
 
     </Backdrop>
       )
@@ -207,11 +207,11 @@ value={dateAndPageRange.minPages}
         open={!isUploadSuccess}
    onClick={()=>setIsUploadSuccess(null)}
        in={!isUploadSuccess} //Write the needed condition here to make it appear
-       timeout={{ enter: 1000, exit: 1000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+       timeout={{ enter: 1000, exit: 2000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
        addEndListener={() => {
          setTimeout(() => {
            setIsUploadSuccess(null);
-         }, 2000);
+         }, 3000);
        }}
        >
    <Alert severity="error">
@@ -232,7 +232,7 @@ value={dateAndPageRange.minPages}
         open={isFilteringSuccess}
        in={isFilteringSuccess} //Write the needed condition here to make it appear
  onClick={()=>setIsFilteringSuccess(null)}
-       timeout={{ enter: 1000, exit: 1000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+       timeout={{ enter: 1000, exit: 2000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
        addEndListener={() => {
          setTimeout(() => {
            setIsFilteringSuccess(null);
@@ -251,11 +251,11 @@ value={dateAndPageRange.minPages}
         open={!isFilteringSuccess}
  onClick={()=>setIsFilteringSuccess(null)}
        in={!isFilteringSuccess} //Write the needed condition here to make it appear
-       timeout={{ enter: 1000, exit: 1000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+       timeout={{ enter: 1000, exit: 2000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
        addEndListener={() => {
          setTimeout(() => {
            setIsUploadSuccess(null);
-         }, 2000);
+         }, 3000);
        }}
        >
    <Alert severity="error">
