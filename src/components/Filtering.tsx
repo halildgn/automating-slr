@@ -40,7 +40,7 @@ function Filtering(){
         return;
     }
     return (
-<Button variant="outlined" onClick={filter}>Filter</Button> 
+<Button variant="outlined" onClick={()=>{filter(); resetFilteringAndFileUpload();}}>Filter</Button> 
     )
   }
 
