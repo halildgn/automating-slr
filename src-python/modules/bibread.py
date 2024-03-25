@@ -5,19 +5,14 @@ def get_boundaries(bib_databases):
     for bib_database in bib_databases: 
         for entry in bib_database.entries:
             publication_type =  extract_publication_type(entry)
-            if isinstance(publication_type, str):
-                if not publication_type:
-                   continue 
-            unique_types.add(publication_type)    
+            if publication_type:
+                unique_types.add(publication_type)    
             year =  extract_publication_date(entry)
-            if year is None: 
-                   continue
-            unique_years.add(year)
+            if year is not None: 
+                unique_years.add(year)
             page_number = extract_page_number(entry) 
-            if page_number is None: 
-                   continue
-            unique_page_numbers.add(page_number) 
-
+            if page_number is not None: 
+                unique_page_numbers.add(page_number) 
     return {"available_publication_types": list(unique_types), "earliest_date": str(min(unique_years)), "latest_date": str(max(unique_years)), "min_page": str(min(unique_page_numbers)), "max_page": str(max(unique_page_numbers))}
 
 def extract_publication_type(entry):
@@ -26,6 +21,7 @@ def extract_publication_type(entry):
 
 def extract_page_number(entry):
     # Try to get the number of pages from the 'numpages' field
+    # case example numpages = {15}
     numpages = entry.get('numpages', '')
     if numpages.isdigit():
         return int(numpages)
@@ -33,13 +29,21 @@ def extract_page_number(entry):
     # Try to extract the page number range from the 'pages' field and calculate the number of pages, if '-' is not
     # present, the number of pages is 1
     pages = entry.get('pages', '')
-
     # Check if the string is valid before trying to split
     if '-' in pages:
         start, end = map(str.strip, pages.split('-'))
+        # case example : pages = {E154-E157} -> 157-154+1
+        if start[0].isalpha() and end[0].isalpha():
+            return int(end[1:]) - int(start[1:]) + 1
+        # case example: Pages = {979-983}
         if start.isdigit() and end.isdigit():
             return int(end) - int(start) + 1
-
+        # case example: Pages = {E203}
+    if bool(pages) and pages[0].isalpha():
+        return 1
+        # case example: Pages = {84}
+    if pages.isdigit():
+        return 1
     return None
 
 

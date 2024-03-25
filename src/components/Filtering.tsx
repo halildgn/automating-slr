@@ -79,7 +79,11 @@ setDisplayFilterButton(true);
   };
 
 function resetFilteringAndFileUpload(){
-
+    setIncludedPublicationTypes({});
+    setIsUploadSuccess(null);
+    setDisplayFields(false);
+setDisplayFilterButton(false);
+      setUploadOrReset('upload');
   }
 
   async function filter(){
