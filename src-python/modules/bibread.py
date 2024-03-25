@@ -31,13 +31,17 @@ def extract_page_number(entry):
     pages = entry.get('pages', '')
     # Check if the string is valid before trying to split
     if '-' in pages:
-        start, end = map(str.strip, pages.split('-'))
-        # case example : pages = {E154-E157} -> 157-154+1
-        if start[0].isalpha() and end[0].isalpha():
-            return int(end[1:]) - int(start[1:]) + 1
-        # case example: Pages = {979-983}
-        if start.isdigit() and end.isdigit():
-            return int(end) - int(start) + 1
+        # check if length of map(str.strip, pages.split('-')) is exactly 2
+        # str strip is applied to pages.split array
+        if len(list(map(str.strip, pages.split('-'))))==2: 
+            start, end = map(str.strip, pages.split('-'))
+            # case example : pages = {E154-E157} -> 157-154+1
+            if start[0].isalpha() and end[0].isalpha():
+                if start[1:].isdigit() and end[1:].isdigit():   
+                    return int(end[1:]) - int(start[1:]) + 1
+            # case example: Pages = {979-983}
+            if start.isdigit() and end.isdigit():
+                return int(end) - int(start) + 1
         # case example: Pages = {E203}
     if bool(pages) and pages[0].isalpha():
         return 1
