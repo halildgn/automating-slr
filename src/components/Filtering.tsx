@@ -98,7 +98,6 @@ setDisplayFilterButton(false);
       filteredDateAndPageRanges[key] = null; 
       }
     }
-    console.log(filteredDateAndPageRanges)
     const {status}  =  await axios.post('http://localhost:9998/filter', {publicationTypes: includedPubTypes, ...filteredDateAndPageRanges});
     if(status === 200){
       setIsFilteringSuccess(true);

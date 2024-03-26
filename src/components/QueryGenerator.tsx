@@ -23,7 +23,7 @@ function QueryGenerator(){
 
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
  const [fieldsMap, setFieldsMap] = useState<Array<{label: string|null, keywords: string[] | null, logical_operator: string | null}>>([{label: null, keywords: null, logical_operator: null }]); 
-  const [queries, setQueries] = useState({acm: null, ieee: null, wos: null, scopus: null });
+  const [queries, setQueries] = useState({acm: null, ieee: null, wos: null, scopus: null, ebsco: null });
 
 async function generateQueries(){
     setOverlayOpen(true);
@@ -121,6 +121,14 @@ function changeRelationType(event: SelectChangeEvent, index: number){
   <Box className="queries-container">
             <div style={{color:'#1976d2'}}>Scopus Query:</div>
       <Paper onClick={() => {navigator.clipboard.writeText(queries.scopus ?? '')}} elevation={3}>{queries.scopus}
+                 <Tooltip title="Copy">
+              <FileCopyIcon style={{ color: 'gray' }} />
+          </Tooltip>
+              </Paper>
+    </Box>
+  <Box className="queries-container">
+            <div style={{color:'#1976d2'}}>EBSCO Query:</div>
+      <Paper onClick={() => {navigator.clipboard.writeText(queries.ebsco ?? '')}} elevation={3}>{queries.ebsco}
                  <Tooltip title="Copy">
               <FileCopyIcon style={{ color: 'gray' }} />
           </Tooltip>
