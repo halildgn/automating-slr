@@ -8,6 +8,9 @@ yarn-error.log*
 # smoke-tests repo
 /smoke-tests
 
+# Sidecar binary
+src-tauri/binaries/
+
 # Runtime data
 pids
 *.pid

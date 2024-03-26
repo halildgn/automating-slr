@@ -298,7 +298,7 @@ return (
       <FilterSuccessFailIndicator />
 <FileUpload/>
 <PublicationTypes />
-<PageNDate />
+{PageNDate()}
 <FilterButton /> 
 </>
 )
