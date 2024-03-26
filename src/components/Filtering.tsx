@@ -90,7 +90,16 @@ setDisplayFilterButton(false);
 
   async function filter(){
     const includedPubTypes = getIncludedPublicationTypes();
-    const {status}  =  await axios.post('http://localhost:9998/filter', {publicationTypes: includedPubTypes, ...dateAndPageRange});
+    const filteredDateAndPageRanges = Object.assign({}, dateAndPageRange);
+    for(const key of Object.keys(filteredDateAndPageRanges)){
+// @ts-expect-error
+            if( typeof filteredDateAndPageRanges[key] === 'string' && filteredDateAndPageRanges[key].trim() === ''){
+// @ts-expect-error
+      filteredDateAndPageRanges[key] = null; 
+      }
+    }
+    console.log(filteredDateAndPageRanges)
+    const {status}  =  await axios.post('http://localhost:9998/filter', {publicationTypes: includedPubTypes, ...filteredDateAndPageRanges});
     if(status === 200){
       setIsFilteringSuccess(true);
     }else{
