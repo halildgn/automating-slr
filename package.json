@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
- "tsc": "./node_modules/typescript/bin/tsc"
+ "tsc": "tsc",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
