@@ -7,15 +7,12 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import "./App.css";
 import { useState } from 'react';
-import { Route, Switch } from "wouter";
 import QueryGenerator from './components/QueryGenerator';
-import { useLocation } from "wouter";
 import Filtering from './components/Filtering';
 
 function App() {
 
-  const [value, setValue] = useState(0);
-  const [_, setLocation] = useLocation();
+  const [value, setValue] = useState<number>(0);
 
 function samePageLinkNavigation(
   event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -65,36 +62,38 @@ function LinkTab(props: LinkTabProps) {
           event as React.MouseEvent<HTMLAnchorElement, MouseEvent>,
         ))
     ) {
-      setValue(newValue);
       if(newValue === 0){
-          setLocation("/query");
+        setValue(0);
       }else if(newValue === 1){
-           setLocation("/filtering");
+        setValue(1);
       }
       }
     }
+
+  function MainComponent(){
+    if(value === 1){
+      return (<Filtering />);
+    }
+      return (<QueryGenerator />);
+  }
+
 
   return (
     <div className="container">
   <Box sx={{ width: '100%' }}>
       <Tabs
-        value={value}
+          value={value}
         onChange={handleChange}
         aria-label="nav tabs example"
         role="navigation"
           centered
       >
-        <LinkTab label="Query Generator" href="/query" />
-        <LinkTab label="Filtering" href="/filtering" />
+        <LinkTab label="Query Generator" />
+        <LinkTab label="Filtering" />
    {/* <LinkTab label="My Queries" href="/my-queries" /> */}
       </Tabs>
     </Box>
-    <Switch>
-      <Route path="/query" component={QueryGenerator} />
-    <Route path="/filtering" component={Filtering} />
-      {/* <Route path="/bookmarks" component={Bookmarks} */}
-      <Route component= {QueryGenerator}/>
-    </Switch>
+      <MainComponent />
 </div>
        );
 }
