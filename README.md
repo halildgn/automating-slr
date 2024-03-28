@@ -10,11 +10,11 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 
 3. Install pyinstaller with `pip install pyinstaller`
 
-3. Clone the repo 
+4. Clone the repo 
 
-4. Navigate to `automating-slr/src-python` directory   
+5. Navigate to `automating-slr/src-python` directory   
 
-5. Run the following to generate the binary for your OS&processor :
+6. Run the following to generate the binary for your OS&processor :
 
 ### Windows:
 
@@ -34,4 +34,4 @@ pip install -r requirements.txt && pyinstaller --add-data="index.html;." --nocon
 pip install -r requirements.txt && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
 ```
 
-6. The generated binary should now be placed in the `automating-slr/src-python/dist`  
+7. The generated binary should now be placed in the `automating-slr/src-python/dist`  
