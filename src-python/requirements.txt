@@ -1,3 +1,5 @@
 bibtexparser
 Flask
 flask_cors
+webbrowser
+psutil
