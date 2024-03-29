@@ -38,3 +38,4 @@ pip install -r requirements.txt && pyinstaller --add-data="index.html:." --nocon
 
 #### Warning:
 Recently microsoft started flagging pretty much all unsigned executables as virus. When you generate the executable if you have any kind of virus warning, please deactivate your "protection" against this executable.
+Please see the [Example](https://answers.microsoft.com/en-us/windows/forum/all/windows-defender-thinks-my-exe-file-is-a-virus/6f2562f3-772d-4696-bc29-43dbac8185f2)
