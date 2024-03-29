@@ -1,5 +1,6 @@
 import gc
 import webview
+import multiprocessing
 import sys
 import os
 import bibtexparser
@@ -50,6 +51,10 @@ def is_port_in_use(port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         return s.connect_ex(('localhost', port)) == 0
 
+def spin_up_server():
+     if(not is_port_in_use(9998)):
+        app.run(host="localhost", port=9998, debug=False) 
+
 class Api:
     def toggleFullscreen(self):
         webview.windows[0].toggle_fullscreen()
@@ -57,7 +62,8 @@ class Api:
 if __name__ == '__main__':
     frontend = resource_path("index.html")
     api = Api()
+    multiprocessing.Process(target=spin_up_server).start() 
     webview.create_window('Automating SLR', frontend, js_api=api, min_size=(600, 450))
     webview.start()
-    if(not is_port_in_use(9998)):
-        app.run(host="localhost", port=9998, debug=False) 
+
+   
