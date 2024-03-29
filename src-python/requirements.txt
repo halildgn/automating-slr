@@ -2,3 +2,4 @@ bibtexparser
 Flask
 flask_cors
 psutil
+pywebview
