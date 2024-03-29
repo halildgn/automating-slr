@@ -28,7 +28,7 @@ pip install pyinstaller ; pip install -r requirements.txt ; pyinstaller --add-da
 pip install pyinstaller && pip install -r requirements.txt && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
 ```
 
-7. The generated binary should now be placed in the `automating-slr/src-python/dist`  
+7. The generated binary should now be placed in the `automating-slr/src-python/dist`. You can now use this binary to launch the application without having to perform any additional steps(You can also distribute it to other machines with same OS&processor family but please see the warnings section below). 
 
 #### Warning for Windows users:
 Virus programs mark pretty much all unsigned executables as virus
@@ -47,4 +47,5 @@ You could also go to https://www.microsoft.com/en-us/wdsi/filesubmission , submi
 Since too many users made malware by freezing(making executable) python via tools that compile python code into exe, virus programs often detect them as such.
 
 #### MACOS: 
+MacOS also sometimes complain about unsigned apps.
 Users will need to disable gatekeeper functionality in System Preferences in order to run unsigned apps.
