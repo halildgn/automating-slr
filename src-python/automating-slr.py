@@ -55,16 +55,11 @@ def spin_up_server():
      if(not is_port_in_use(9998)):
         app.run(host="localhost", port=9998, debug=False) 
 
-class Api:
-    def toggleFullscreen(self):
-        webview.windows[0].toggle_fullscreen()
-
 if __name__ == '__main__':
     multiprocessing.freeze_support()
     frontend = resource_path("index.html")
-    api = Api()
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
-    webview.create_window('Automating SLR', frontend, js_api=api, fullscreen=True, resizable=True)
+    webview.create_window('Automating SLR', frontend, resizable=True)
     webview.start()
     server_process.terminate()
