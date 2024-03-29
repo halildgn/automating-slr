@@ -35,3 +35,9 @@ If you encounter this problem, please add this executable as an exclusion from y
 
 #### The worst case if things dont work out for you:
 Please navigate to `automating-slr/src-pyton` and launch the application via `python3 automating-slr.py`
+
+# For the possible future development cycles
+* Install `nodejs`
+* In `automating-slr`, install the packages via `npm install`
+* To spin up a development server, in `automating-slr`: `npm run dev` 
+* To build, in `automating-slr`: `npm run build`(generates a standalone `html` in `automating-slr/src-python` (`pyinstaller --add-data="index.html` directly consumes this) 

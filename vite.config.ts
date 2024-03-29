@@ -6,6 +6,10 @@ import { viteSingleFile } from "vite-plugin-singlefile"
 export default defineConfig(async () => ({
   plugins: [react(), viteSingleFile()],
   clearScreen: false,
+  build: {
+    outDir: './src-python',
+    emptyOutDir: false,
+  },
   server: {
     port: 1420,
     strictPort: true,
