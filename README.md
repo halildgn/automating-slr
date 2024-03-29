@@ -35,3 +35,6 @@ pip install -r requirements.txt && pyinstaller --add-data="index.html:." --nocon
 ```
 
 7. The generated binary should now be placed in the `automating-slr/src-python/dist`  
+
+#### Warning:
+Recently microsoft started flagging pretty much all unsigned executables as virus. When you generate the executable if you have any kind of virus warning, please deactivate your "protection" against this executable.
