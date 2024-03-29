@@ -12,6 +12,8 @@ app = Flask(__name__)
 CORS(app)
 bib_files = None
 
+# TYPE ANNOTATE EVERYTHING IN THE CODE!
+
 @app.route("/query",methods=['POST'])
 def getQueries():
     payload = request.json
