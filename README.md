@@ -30,11 +30,11 @@ pip install pyinstaller && pip install -r requirements.txt && pyinstaller --add-
 
 7. The generated binary should now be placed in the `automating-slr/src-python/dist`. You can now use this binary to launch the application without having to perform any additional steps(You can also distribute it to other machines with same OS&processor family but please see the warnings section below). 
 
-#### Warning for Windows users:
-Virus programs mark pretty much all unsigned executables as virus
+#### Warning for being marked as a virus:
+Since bad people abused python scripts to build malware executables, anti-virus softwares mark unsigned executables as a virus. (signing the code costs at least 100$). When you generate the executable if you have any kind of virus warning, please deactivate your "protection" against this executable.
+If you encounter this problem, please add this executable as an exclusion from your anti-virus software (you can see the source code anyway, there is no threat).  
 
-Recently microsoft started flagging pretty much all unsigned executables as virus(signing the code costs at least 100$). When you generate the executable if you have any kind of virus warning, please deactivate your "protection" against this executable.
-Please see the [Example](https://answers.microsoft.com/en-us/windows/forum/all/windows-defender-thinks-my-exe-file-is-a-virus/6f2562f3-772d-4696-bc29-43dbac8185f2)
+If you encounter with this problem on windows, please see the [Example](https://answers.microsoft.com/en-us/windows/forum/all/windows-defender-thinks-my-exe-file-is-a-virus/6f2562f3-772d-4696-bc29-43dbac8185f2)
 
 1. If you build the exe in your machine from the source code by following the instructions above, the generated binary(exe) is probably not going to be marked as a virus. However , if you try to transfer the binary to other windows machines(normally this is the purpose of the compilation, code is compiled once for the OS&Processor family pair and you can just run it on other computers, since almost all windows machines have x86-64 , it would normally run on all of them without needing to perform the steps above for every machine after compiling once) it is probably flagged as a virus.
 
@@ -45,10 +45,6 @@ You could also go to https://www.microsoft.com/en-us/wdsi/filesubmission , submi
 
 
 Since too many users made malware by freezing(making executable) python via tools that compile python code into exe, virus programs often detect them as such.
-
-#### MACOS: 
-MacOS also sometimes complain about unsigned apps.
-Users will need to disable gatekeeper functionality in System Preferences in order to run unsigned apps.
 
 #### The worst case if things dont work out for you:
 Please navigate to `automating-slr/src-pyton` and launch the application via `python3 automating-slr.py`
