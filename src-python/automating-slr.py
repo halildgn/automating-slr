@@ -62,8 +62,11 @@ class Api:
 if __name__ == '__main__':
     frontend = resource_path("index.html")
     api = Api()
-    multiprocessing.Process(target=spin_up_server).start() 
+    server_process = multiprocessing.Process(target=spin_up_server) 
+    server_process.start()
     webview.create_window('Automating SLR', frontend, js_api=api, min_size=(600, 450))
     webview.start()
+    server_process.terminate()
+    server_process.close()
 
    
