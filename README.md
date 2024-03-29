@@ -49,3 +49,6 @@ Since too many users made malware by freezing(making executable) python via tool
 #### MACOS: 
 MacOS also sometimes complain about unsigned apps.
 Users will need to disable gatekeeper functionality in System Preferences in order to run unsigned apps.
+
+#### The worst case if things dont work out for you:
+Please navigate to `automating-slr/src-pyton` and launch the application via `python3 automating-slr.py`
