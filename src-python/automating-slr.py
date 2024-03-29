@@ -49,28 +49,13 @@ def is_port_in_use(port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         return s.connect_ex(('localhost', port)) == 0
 
-# if another instance of the app is already running, kill that.
-def kill_other_instance_if_in_use():
-    process_to_kill = os.path.basename(sys.executable)
-
-    # get PID of the current process
-    my_pid = os.getpid()
-
-    # iterate through all running processes
-    for p in psutil.process_iter():
-        # if it's process we're looking for...
-        if p.name() == process_to_kill: 
-            # process name : automating-slr(e.g. pid is 4)
-            # pyinstaller process name that packs stuff(the sibling process) : automating-slr(e.g. pid is 3 or 5)
-            # if the process has a different pid than current process but has the same name, it means that it is an old instance.
-            # Kill it if it is not current process' sibling(meaning not current process'pid+1 and not current process pid-1) 
-            if not p.pid == my_pid and not (p.pid == my_pid -1 or p.pid == my_pid +1):
-                p.terminate()
-
    
 if __name__ == '__main__':
-    kill_other_instance_if_in_use()
+    # kill_other_instance_if_in_use()
     frontend = resource_path("index.html")
     webbrowser.open_new(frontend)
     if(not is_port_in_use(9998)):
         app.run(host="localhost", port=9998, debug=False) 
+# find way to run infinite loop most efficiently , sleep, block , etc. not to terminate the program
+    elif(not is_port_in_use(9997)):
+        app.run(host="localhost", port=9997, debug=False) 
