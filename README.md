@@ -8,13 +8,11 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 
 2. For next steps use powershell in windows and your standard terminal in Linux&MacOS
 
-3. Install pyinstaller with `pip install pyinstaller`
+3. Clone the repo 
 
-4. Clone the repo 
+4. Navigate to `automating-slr/src-python` directory   
 
-5. Navigate to `automating-slr/src-python` directory   
-
-6. Run the following to generate the binary for your OS&processor :
+5. Run the following to generate the binary for your OS&processor :
 
 ### Windows:
 
@@ -28,9 +26,10 @@ pip install pyinstaller ; pip install -r requirements.txt ; pyinstaller --add-da
 pip install pyinstaller && pip install -r requirements.txt && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
 ```
 
-7. The generated binary should now be placed in the `automating-slr/src-python/dist`. You can now use this binary to launch the application without having to perform any additional steps(You can also distribute it to other machines with same OS&processor family but please see the warnings section below). 
+6. The generated binary should now be placed in the `automating-slr/src-python/dist`. You can now use this binary to launch the application without having to perform any additional steps(You can also distribute it to other machines with same OS&processor family but please see the warnings section below). 
 
 #### Warning for being marked as a virus:
+When you build the binary/executable yourself by following the steps above, you will probably not encounter with any problems. If you try to share this executable with the people that use same OS&processor family(normally this is a very common and totally fine procedure), sometimes this executable could be marked as a virus by the other person's computer.  
 Since bad people abused python scripts to build malware executables, anti-virus softwares mark the unsigned executables as a virus. (signing the code costs at least 100$). When you generate the executable if you have any kind of virus warning, please deactivate your "protection" against this executable.
 If you encounter this problem, please add this executable as an exclusion from your anti-virus software (you can see the source code anyway, there is no threat).  
 
