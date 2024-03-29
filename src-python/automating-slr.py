@@ -60,6 +60,7 @@ class Api:
         webview.windows[0].toggle_fullscreen()
 
 if __name__ == '__main__':
+    multiprocessing.freeze_support()
     frontend = resource_path("index.html")
     api = Api()
     server_process = multiprocessing.Process(target=spin_up_server) 
