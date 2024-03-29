@@ -37,6 +37,8 @@ pip install -r requirements.txt && pyinstaller --add-data="index.html:." --nocon
 7. The generated binary should now be placed in the `automating-slr/src-python/dist`  
 
 #### Warning for Windows users:
+Virus programs mark pretty much all unsigned executables as virus
+
 Recently microsoft started flagging pretty much all unsigned executables as virus(signing the code costs at least 100$). When you generate the executable if you have any kind of virus warning, please deactivate your "protection" against this executable.
 Please see the [Example](https://answers.microsoft.com/en-us/windows/forum/all/windows-defender-thinks-my-exe-file-is-a-virus/6f2562f3-772d-4696-bc29-43dbac8185f2)
 
@@ -49,3 +51,6 @@ You could also go to https://www.microsoft.com/en-us/wdsi/filesubmission , submi
 
 
 Since too many users made malware by freezing(making executable) python via tools that compile python code into exe, virus programs often detect them as such.
+
+#### MACOS: 
+Users will need to disable gatekeeper functionality in System Preferences in order to run unsigned apps.

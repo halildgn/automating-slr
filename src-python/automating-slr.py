@@ -1,5 +1,4 @@
 import gc
-import psutil
 import sys
 import os
 import webbrowser
@@ -51,13 +50,9 @@ def is_port_in_use(port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         return s.connect_ex(('localhost', port)) == 0
 
-   
 if __name__ == '__main__':
-    # kill_other_instance_if_in_use()
     frontend = resource_path("index.html")
     webbrowser.open_new(frontend)
     if(not is_port_in_use(9998)):
         app.run(host="localhost", port=9998, debug=False) 
-# find way to run infinite loop most efficiently , sleep, block , etc. not to terminate the program
-    elif(not is_port_in_use(9997)):
-        app.run(host="localhost", port=9997, debug=False) 
+    # run here: find way to run infinite loop most efficiently , sleep, block , etc. not to terminate the program
