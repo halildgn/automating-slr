@@ -4,7 +4,7 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 
 # Setup 
 
-1. Make sure that you have python3 installed
+1. Make sure that you have python3 installed and it is on your `PATH` 
 
 2. For next steps use powershell in windows and your standard terminal in Linux&MacOS
 
@@ -19,19 +19,13 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 ### Windows:
 
 ```
-pip install -r requirements.txt ; pyinstaller --add-data="index.html;." --noconsole --onefile automating-slr.py
-```
-
-or 
-
-```
-pip install -r requirements.txt && pyinstaller --add-data="index.html;." --noconsole --onefile automating-slr.py
+pip install pyinstaller ; pip install -r requirements.txt ; pyinstaller --add-data="index.html;." --noconsole --onefile automating-slr.py
 ```
 
 ### Linux and MacOS:
 
 ```
-pip install -r requirements.txt && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
+pip install pyinstaller && pip install -r requirements.txt && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
 ```
 
 7. The generated binary should now be placed in the `automating-slr/src-python/dist`  
