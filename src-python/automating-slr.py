@@ -68,6 +68,3 @@ if __name__ == '__main__':
     webview.create_window('Automating SLR', frontend, js_api=api, fullscreen=True, resizable=True)
     webview.start()
     server_process.terminate()
-    server_process.close()
-
-   
