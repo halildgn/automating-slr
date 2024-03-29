@@ -72,5 +72,5 @@ if __name__ == '__main__':
     kill_other_instance_if_in_use()
     frontend = resource_path("index.html")
     webbrowser.open_new(frontend)
-    if(not is_port_in_use(9980)):
-        app.run(host="localhost", port=9980, debug=False) 
+    if(not is_port_in_use(9998)):
+        app.run(host="localhost", port=9998, debug=False) 
