@@ -1,7 +1,6 @@
-import {FieldMap} from '../types/index'
+import {FieldMap, Queries} from '@/types'
 import { useState } from 'react';
 import axios from 'axios';
-import "../App.css";
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -25,7 +24,7 @@ function QueryGenerator(){
 
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
  const [fieldMaps, setFieldMaps] = useState<Array<FieldMap>>([{label: null, keywords: null, logical_operator: null }]); 
-  const [queries, setQueries] = useState({acm: null, ieee: null, wos: null, scopus: null, ebsco: null });
+  const [queries, setQueries] = useState<Queries>({acm: null, ieee: null, wos: null, scopus: null, ebsco: null });
 
   function emptyFieldsPresent(): boolean{
     const firstField = fieldMaps[0];

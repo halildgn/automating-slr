@@ -5,7 +5,6 @@ import '@fontsource/roboto/700.css';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import "./App.css";
 import { useState } from 'react';
 import QueryGenerator from './components/QueryGenerator';
 import Filtering from './components/Filtering';

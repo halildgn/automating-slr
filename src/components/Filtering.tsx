@@ -1,3 +1,7 @@
+import { PublicationTypes, DateAndPageRange } from '@/types';
+import { useState } from 'react';
+import axios from 'axios'
+import dayjs, { Dayjs } from 'dayjs';
 import FormControl from '@mui/material/FormControl';
 import Alert from '@mui/material/Alert';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -5,14 +9,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Checkbox from '@mui/material/Checkbox';
-import { useState } from 'react';
 import { Button } from '@mui/material';
 import { ChangeEvent } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
-import axios from 'axios'
-import dayjs, { Dayjs } from 'dayjs';
 
 function Filtering(){
 
@@ -22,9 +23,9 @@ function Filtering(){
   const [displayFilterButton, setDisplayFilterButton] = useState(false);
   const [displayFields, setDisplayFields] = useState(false);
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
- const [includedPublicationTypes, setIncludedPublicationTypes] = useState<{[publicationTypes: string]: boolean}>({});
- const [dateAndPageRange, setDateAndPageRange] = useState<{minPages: string|null, maxPages: string|null, startYear: string|null, endYear: string|null }>({minPages: null, maxPages: null, startYear: null, endYear: null});
-  const [recommendations, setRecommendations ] =  useState<{minPages: string|null, maxPages: string|null, startYear: string|null, endYear: string|null }>({minPages: null, maxPages: null, startYear: null, endYear: null});
+ const [includedPublicationTypes, setIncludedPublicationTypes] = useState<PublicationTypes>({});
+ const [dateAndPageRange, setDateAndPageRange] = useState<DateAndPageRange>({minPages: null, maxPages: null, startYear: null, endYear: null});
+  const [boundaries, setBoundaries ] =  useState<DateAndPageRange>({minPages: null, maxPages: null, startYear: null, endYear: null});
 
   function getIncludedPublicationTypes(): string[]{
     return Object.keys(includedPublicationTypes).reduce((publicationTypesToInclude, publicationType)=>{
@@ -66,7 +67,7 @@ setDisplayFilterButton(false);
       return accumulator;
     }, {} as {[pubType: string]: boolean})
     setIncludedPublicationTypes(publicationTypes);
-      setRecommendations({minPages: data.min_page , maxPages: data.max_page, startYear: data.earliest_date, endYear: data.latest_date});
+      setBoundaries({minPages: data.min_page , maxPages: data.max_page, startYear: data.earliest_date, endYear: data.latest_date});
     setDisplayFields(true);
 setDisplayFilterButton(true);
     setOverlayOpen(false);
@@ -149,21 +150,21 @@ setDisplayFilterButton(false);
       <>
 <FormControl>
    <TextField
-          label={`Minimum number of pages -> Available minimum is ${recommendations.minPages}`}
+          label={`Minimum number of pages -> Available minimum is ${boundaries.minPages}`}
 value={dateAndPageRange.minPages}
    onChange={(e)=>{setRange('minPages',e.target.value as unknown as Dayjs)}}
         />
  </FormControl>
 <FormControl>
    <TextField
-    label={`Maximum number of pages -> Available maximum is ${recommendations.maxPages}`}
+    label={`Maximum number of pages -> Available maximum is ${boundaries.maxPages}`}
    value={dateAndPageRange.maxPages}
   onChange={(e)=>{setRange('maxPages',e.target.value  as unknown as Dayjs)}}
         />
  </FormControl>
  <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
-            label={`Start date in years -> Newest available entry is from ${recommendations.startYear}`} views={['year']}
+            label={`Start date in years -> Newest available entry is from ${boundaries.startYear}`} views={['year']}
    value={dateAndPageRange.startYear ? dayjs(dateAndPageRange.startYear) : null}
    onChange={(e)=>{setRange('startYear',e  as unknown as Dayjs)}}
       />
@@ -176,7 +177,7 @@ value={dateAndPageRange.minPages}
                error: Number(dateAndPageRange.endYear) < Number(dateAndPageRange.startYear),
              },
            }}
-      label={`End date in years -> Latest available entry is from ${recommendations.endYear}`} views={['year']}
+      label={`End date in years -> Latest available entry is from ${boundaries.endYear}`} views={['year']}
     value={dateAndPageRange.endYear ? dayjs(dateAndPageRange.endYear) : null}
    onChange={(e)=>{setRange('endYear',e  as unknown as Dayjs)}}
       />
