@@ -25,6 +25,16 @@ function QueryGenerator(){
  const [fieldsMap, setFieldsMap] = useState<Array<{label: string|null, keywords: string[] | null, logical_operator: string | null}>>([{label: null, keywords: null, logical_operator: null }]); 
   const [queries, setQueries] = useState({acm: null, ieee: null, wos: null, scopus: null, ebsco: null });
 
+  function emptyFieldsPresent(){
+    // TEST THIS:
+    // if fieldMaps.length > 1, the last logical operator can be empty the others can't be
+    // //Insted of every use findIndex and "-1", then use that index to display warning:
+   return fieldsMap.every((field, index)=>{
+      // TEST THIS:
+    return !!field.label && field.keywords && field.keywords.length > 0 && (fieldsMap.length > 1 && index !== fieldsMap.length -1 ? !!field.logical_operator : true)  
+    })
+  }
+
 async function generateQueries(){
     setOverlayOpen(true);
     const {data} =  await axios.post('http://localhost:9998/query', fieldsMap);
@@ -46,8 +56,11 @@ function changeRelationType(event: SelectChangeEvent, index: number){
 
   function changeFieldKeywords(event: SelectChangeEvent, index: number){
     const keywords = event.target.value.split(',');
+    const filteredKeywords = keywords.filter((keyword)=>{
+      return !!keyword;
+    })
      const fields = [...fieldsMap];
-    fields[index].keywords = keywords;
+    fields[index].keywords = filteredKeywords;
     setFieldsMap(fields);
   } 
 
