@@ -19,10 +19,12 @@ import axios from 'axios';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
+type FieldMap = {label: string|null, keywords: string[] | null, logical_operator: string | null};
+
 function QueryGenerator(){
 
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
- const [fieldMaps, setFieldMaps] = useState<Array<{label: string|null, keywords: string[] | null, logical_operator: string | null}>>([{label: null, keywords: null, logical_operator: null }]); 
+ const [fieldMaps, setFieldMaps] = useState<Array<FieldMap>>([{label: null, keywords: null, logical_operator: null }]); 
   const [queries, setQueries] = useState({acm: null, ieee: null, wos: null, scopus: null, ebsco: null });
 
   function emptyFieldsPresent(): boolean{
@@ -163,20 +165,9 @@ function changeRelationType(event: SelectChangeEvent, index: number){
     }
   }
 
-return (
-    <>
-{
-        fieldMaps.map((fieldEl, i) =>
-        <>
- <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={overlayOpen}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-<Relation isFirst={i=== 0} index={i}/>
-         <Box className="field-container" sx={{ minWidth: 120 }}>
-    <FormControl className="flex-item" fullWidth>
+  function FieldTypes(fieldEl: FieldMap, i: number){
+    return (
+<FormControl className="flex-item" fullWidth>
         <InputLabel id="demo-simple-select-label">Field</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -192,6 +183,12 @@ return (
           <MenuItem value={'Keyword'}>Keyword</MenuItem>
         </Select>
       </FormControl>
+
+    )
+  }
+
+  function Keywords(fieldEl: FieldMap, i: number){
+    return (
 <FormControl className="flex-item">
    <TextField
           label="Keywords"
@@ -199,6 +196,24 @@ return (
    onChange={(e)=>{changeFieldKeywords((e as SelectChangeEvent),i)}}
         />
  </FormControl>
+    )
+  }
+
+return (
+    <>
+{
+        fieldMaps.map((fieldEl, i) =>
+        <>
+ <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={overlayOpen}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+<Relation isFirst={i=== 0} index={i}/>
+  <Box className="field-container" sx={{ minWidth: 120 }}>
+        {FieldTypes(fieldEl, i)}
+   {Keywords(fieldEl, i)} 
     </Box>
 </>
           )
