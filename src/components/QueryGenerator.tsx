@@ -22,36 +22,47 @@ import CircularProgress from '@mui/material/CircularProgress';
 function QueryGenerator(){
 
  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
- const [fieldsMap, setFieldsMap] = useState<Array<{label: string|null, keywords: string[] | null, logical_operator: string | null}>>([{label: null, keywords: null, logical_operator: null }]); 
+ const [fieldMaps, setFieldMaps] = useState<Array<{label: string|null, keywords: string[] | null, logical_operator: string | null}>>([{label: null, keywords: null, logical_operator: null }]); 
   const [queries, setQueries] = useState({acm: null, ieee: null, wos: null, scopus: null, ebsco: null });
 
-  function emptyFieldsPresent(){
+  function emptyFieldsPresent(): boolean{
+    const firstField = fieldMaps[0];
+
+    if(fieldMaps.length === 1 && (!firstField.label || !firstField.logical_operator || !firstField.keywords ||firstField.keywords.length === 0 )){
+      return true;
+    }
     // TEST THIS:
     // if fieldMaps.length > 1, the last logical operator can be empty the others can't be
     // //Insted of every use findIndex and "-1", then use that index to display warning:
-   return fieldsMap.every((field, index)=>{
-      // TEST THIS:
-    return !!field.label && field.keywords && field.keywords.length > 0 && (fieldsMap.length > 1 && index !== fieldsMap.length -1 ? !!field.logical_operator : true)  
-    })
+   // return fieldMaps.every((field, index)=>{
+   //    // TEST THIS:
+   //  return !!field.label && field.keywords && field.keywords.length > 0 && (fieldMaps.length > 1 && index !== fieldMaps.length -1 ? !!field.logical_operator : true)  
+   //  })
+    return false;
   }
 
 async function generateQueries(){
-    setOverlayOpen(true);
-    const {data} =  await axios.post('http://localhost:9998/query', fieldsMap);
+    if(emptyFieldsPresent()){
+      return;
+    }
+    setOverlayOpen(true); 
+    const {data} =  await axios.post('http://localhost:9998/query', fieldMaps);
     setQueries(data);
     setOverlayOpen(false);
     }
 
   function changeFieldType (event: SelectChangeEvent, index: number) {
-      const fields = [...fieldsMap];
+      const fields = [...fieldMaps];
     fields[index].label = event.target.value;
-    setFieldsMap(fields);
+    setFieldMaps(fields);
   };
 
+
+
 function changeRelationType(event: SelectChangeEvent, index: number){
-     const fields = [...fieldsMap];
+     const fields = [...fieldMaps];
     fields[index].logical_operator = event.target.value;
-    setFieldsMap(fields);
+    setFieldMaps(fields);
   } 
 
   function changeFieldKeywords(event: SelectChangeEvent, index: number){
@@ -59,9 +70,9 @@ function changeRelationType(event: SelectChangeEvent, index: number){
     const filteredKeywords = keywords.filter((keyword)=>{
       return !!keyword;
     })
-     const fields = [...fieldsMap];
+     const fields = [...fieldMaps];
     fields[index].keywords = filteredKeywords;
-    setFieldsMap(fields);
+    setFieldMaps(fields);
   } 
 
   // function removeField(){
@@ -69,16 +80,16 @@ function changeRelationType(event: SelectChangeEvent, index: number){
   // }
 
   function addField(){
-    const fields = [...fieldsMap, {label: null, keywords: null, logical_operator: null }]
-      setFieldsMap(fields);
+    const fields = [...fieldMaps, {label: null, keywords: null, logical_operator: null }]
+      setFieldMaps(fields);
   }
 
   function resetFields(){
-    setFieldsMap([{label: null, keywords: null, logical_operator: null }]);
+    setFieldMaps([{label: null, keywords: null, logical_operator: null }]);
   }
 
   function Relation({isFirst, index}: {isFirst: boolean, index: number}){
-    if(fieldsMap.length === 1 || isFirst){
+    if(fieldMaps.length === 1 || isFirst){
         return null;
     }
 
@@ -90,7 +101,7 @@ function changeRelationType(event: SelectChangeEvent, index: number){
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label="Field"
-            value={fieldsMap[index].logical_operator}
+            value={fieldMaps[index].logical_operator}
             onChange={(e)=>{changeRelationType((e as SelectChangeEvent),index)}}
         >
           <MenuItem value={'OR'}>OR</MenuItem>
@@ -155,7 +166,7 @@ function changeRelationType(event: SelectChangeEvent, index: number){
 return (
     <>
 {
-        fieldsMap.map((fieldEl, i) =>
+        fieldMaps.map((fieldEl, i) =>
         <>
  <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
