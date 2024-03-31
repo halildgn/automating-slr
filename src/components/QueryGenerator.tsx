@@ -1,7 +1,7 @@
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+import {FieldMap} from '../types/index'
+import { useState } from 'react';
+import axios from 'axios';
+import "../App.css";
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -10,16 +10,16 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import "../App.css";
-import { useState } from 'react';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Tooltip from '@mui/material/Tooltip';
-import axios from 'axios';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
-type FieldMap = {label: string|null, keywords: string[] | null, logical_operator: string | null};
 
 function QueryGenerator(){
 
