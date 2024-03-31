@@ -1,4 +1,5 @@
-import {FieldMap, Queries} from '@/types'
+import {FieldMap, Queries, INFO} from '../types/index'
+import InfoIcon from '@mui/icons-material/Info';
 import { useState } from 'react';
 import axios from 'axios';
 import { Button } from '@mui/material';
@@ -26,26 +27,27 @@ function QueryGenerator(){
  const [fieldMaps, setFieldMaps] = useState<Array<FieldMap>>([{label: null, keywords: null, logical_operator: null }]); 
   const [queries, setQueries] = useState<Queries>({acm: null, ieee: null, wos: null, scopus: null, ebsco: null });
 
-  function emptyFieldsPresent(): boolean{
-    const firstField = fieldMaps[0];
+  // function emptyFieldsPresent(): boolean{
+  //   const firstField = fieldMaps[0];
+  //     // other than first one all consequtive field should have keywords.  
+  //   if(fieldMaps.length === 1 && (!firstField.label || !firstField.logical_operator -> wrong || !firstField.keywords ||firstField.keywords.length === 0 )){
 
-    if(fieldMaps.length === 1 && (!firstField.label || !firstField.logical_operator || !firstField.keywords ||firstField.keywords.length === 0 )){
-      return true;
-    }
-    // TEST THIS:
-    // if fieldMaps.length > 1, the last logical operator can be empty the others can't be
-    // //Insted of every use findIndex and "-1", then use that index to display warning:
-   // return fieldMaps.every((field, index)=>{
-   //    // TEST THIS:
-   //  return !!field.label && field.keywords && field.keywords.length > 0 && (fieldMaps.length > 1 && index !== fieldMaps.length -1 ? !!field.logical_operator : true)  
-   //  })
-    return false;
-  }
+  //     return true;
+  //   }
+  //   // TEST THIS:
+  //   // if fieldMaps.length > 1, the last logical operator can be empty the others can't be
+  //   // //Insted of every use findIndex and "-1", then use that index to display warning:
+  //  // return fieldMaps.every((field, index)=>{
+  //  //    // TEST THIS:
+  //  //  return !!field.label && field.keywords && field.keywords.length > 0 && (fieldMaps.length > 1 && index !== fieldMaps.length -1 ? !!field.logical_operator : true)  
+  //  //  })
+  //   return false;
+  // }
 
 async function generateQueries(){
-    if(emptyFieldsPresent()){
-      return;
-    }
+    // if(emptyFieldsPresent()){
+    //   return;
+    // }
     setOverlayOpen(true); 
     const {data} =  await axios.post('http://localhost:9998/query', fieldMaps);
     setQueries(data);
@@ -119,43 +121,58 @@ function changeRelationType(event: SelectChangeEvent, index: number){
         <>
   <Box className="queries-container">
             <div style={{color:'#1976d2'}}>WOS Query:</div>
-      <Paper onClick={() => {navigator.clipboard.writeText(queries.wos ?? '')}} elevation={3}>{queries.wos} 
+      <Paper elevation={3}>{queries.wos} 
               <Tooltip title="Copy">
-              <FileCopyIcon style={{ color: 'gray' }} />
+              <FileCopyIcon onClick={() => {navigator.clipboard.writeText(queries.wos ?? '')}} style={{ color: 'gray' }} />
+          </Tooltip>
+        <Tooltip title={INFO.WOS}>
+              <InfoIcon style={{ color: 'gray' }} />
           </Tooltip>
               </Paper>
     </Box> 
   <Box className="queries-container"
     >
             <div style={{color:'#1976d2'}}>IEEE Query:</div>
-      <Paper onClick={() => {navigator.clipboard.writeText(queries.ieee ?? '')}} elevation={3}> {queries.ieee}
+      <Paper  elevation={3}> {queries.ieee}
                 <Tooltip title="Copy">
-              <FileCopyIcon style={{ color: 'gray' }} />
+              <FileCopyIcon onClick={() => {navigator.clipboard.writeText(queries.ieee ?? '')}} style={{ color: 'gray' }} />
+          </Tooltip>
+    <Tooltip title={INFO.IEEE}>
+              <InfoIcon style={{ color: 'gray' }} />
           </Tooltip>
             </Paper>
             
     </Box> 
   <Box className="queries-container">
             <div style={{color:'#1976d2'}}>ACM Query:</div>
-      <Paper onClick={() => {navigator.clipboard.writeText(queries.acm ?? '')}} elevation={3}>{queries.acm}
+      <Paper elevation={3}>{queries.acm}
                  <Tooltip title="Copy">
-              <FileCopyIcon style={{ color: 'gray' }} />
+              <FileCopyIcon  onClick={() => {navigator.clipboard.writeText(queries.acm ?? '')}} style={{ color: 'gray' }} />
+          </Tooltip>
+<Tooltip title={INFO.ACM}>
+              <InfoIcon style={{ color: 'gray' }} />
           </Tooltip>
               </Paper>
     </Box>
   <Box className="queries-container">
             <div style={{color:'#1976d2'}}>Scopus Query:</div>
-      <Paper onClick={() => {navigator.clipboard.writeText(queries.scopus ?? '')}} elevation={3}>{queries.scopus}
+      <Paper elevation={3}>{queries.scopus}
                  <Tooltip title="Copy">
-              <FileCopyIcon style={{ color: 'gray' }} />
+              <FileCopyIcon onClick={() => {navigator.clipboard.writeText(queries.scopus ?? '')}} style={{ color: 'gray' }} />
+          </Tooltip>
+<Tooltip title={INFO.SCOPUS}>
+              <InfoIcon style={{ color: 'gray' }} />
           </Tooltip>
               </Paper>
     </Box>
   <Box className="queries-container">
             <div style={{color:'#1976d2'}}>EBSCO Query:</div>
-      <Paper onClick={() => {navigator.clipboard.writeText(queries.ebsco ?? '')}} elevation={3}>{queries.ebsco}
+      <Paper  elevation={3}>{queries.ebsco}
                  <Tooltip title="Copy">
-              <FileCopyIcon style={{ color: 'gray' }} />
+              <FileCopyIcon onClick={() => {navigator.clipboard.writeText(queries.ebsco ?? '')}} style={{ color: 'gray' }} />
+          </Tooltip>
+<Tooltip title={INFO.EBSCO}>
+              <InfoIcon style={{ color: 'gray' }} />
           </Tooltip>
               </Paper>
     </Box>

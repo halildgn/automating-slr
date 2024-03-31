@@ -6,3 +6,11 @@ export type PublicationTypes = {[publicationTypes: string]: boolean};
 
 // Convert this into a union type of DateRange and PageRange:
 export type DateAndPageRange = {minPages: string|null, maxPages: string|null, startYear: string|null, endYear: string|null };
+
+export enum INFO {
+  WOS= "wos info string",
+  IEEE = "ieee info string",
+  ACM = "acm info string",
+  SCOPUS = "scopus info string",
+  EBSCO = "ebsco info string" 
+};

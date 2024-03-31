@@ -1,4 +1,4 @@
-import { PublicationTypes, DateAndPageRange } from '@/types';
+import { PublicationTypes, DateAndPageRange } from '../types/index';
 import { useState } from 'react';
 import axios from 'axios'
 import dayjs, { Dayjs } from 'dayjs';
