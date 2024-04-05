@@ -1,5 +1,8 @@
-bibtexparser
-Flask
-flask_cors
+setuptools
+pyinstaller; sys_platform != 'darwin'
+py2app; sys_platform == 'darwin'
 psutil
 pywebview
+Flask
+flask_cors
+bibtexparser
