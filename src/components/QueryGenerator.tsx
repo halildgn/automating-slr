@@ -238,12 +238,11 @@ function Queries() {
     )
   }
 
-  function Keywords(fieldEl: FieldMap, i: number){
+  function Keywords(i: number){
     return (
 <FormControl className="flex-item">
    <TextField
           label="Keywords"
-   value={fieldEl.keywords?.toString() ?? ''}
    onChange={(e)=>{changeFieldKeywords((e as SelectChangeEvent),i)}}
         />
  </FormControl>
@@ -270,7 +269,7 @@ return (
 <Relation isFirst={i=== 0} index={i}/>
   <Box className="field-container" sx={{ minWidth: 120 }}>
         {FieldTypes(fieldEl, i)}
-   {Keywords(fieldEl, i)} 
+   {Keywords(i)} 
     </Box>
 </>
           )
