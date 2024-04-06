@@ -16,7 +16,7 @@ DATA_FILES = ['index.html']
 OPTIONS = {
     'argv_emulation': False,
     'strip': False,
-    # 'iconfile': 'src/assets/logo.icns',
+    'iconfile': 'colaps.ico',
     'packages': ['WebKit', 'Foundation', 'webview'],
     'plist': {
         'NSRequiresAquaSystemAppearance': False
