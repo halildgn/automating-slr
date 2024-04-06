@@ -27,7 +27,7 @@ import 'swiper/css/pagination';
 function QueryGenerator(){
 useEffect(() => {
   function handleEscapeKey(event: KeyboardEvent) {
-    if (event.code === 'Escape') {
+    if (event.key === 'q') {
       setQueriesOverlayOpen(false)
     }
   }
