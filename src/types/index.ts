@@ -1,3 +1,10 @@
+export enum COMPONENTS {
+GENERATOR,
+FILTERING,
+MY_QUERIES,
+DOWNLOAD
+};
+
 export type FieldMap = {label: string|null, keywords: string[] | null, logical_operator: string | null};
 
 export type Queries = {acm: null | string, ieee: null | string, wos: null | string, scopus: null | string, ebsco: null | string};

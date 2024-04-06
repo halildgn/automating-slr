@@ -9,10 +9,12 @@ import { useState } from 'react';
 import QueryGenerator from './components/QueryGenerator';
 import Filtering from './components/Filtering';
 import MyQueries from './components/MyQueries';
+import { COMPONENTS} from './types/index';
+import Download from './components/Download';
 
 function App() {
 
-  const [value, setValue] = useState<number>(0);
+  const [component, setComponent] = useState<COMPONENTS>(0);
 
 function samePageLinkNavigation(
   event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -53,8 +55,7 @@ function LinkTab(props: LinkTabProps) {
 }
 
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    // event.type can be equal to focus with selectionFollowsFocus.
+  const handleChange = (event: React.SyntheticEvent, newComponent: number) => {
     if (
       event.type !== 'click' ||
       (event.type === 'click' &&
@@ -62,24 +63,38 @@ function LinkTab(props: LinkTabProps) {
           event as React.MouseEvent<HTMLAnchorElement, MouseEvent>,
         ))
     ) {
-      if(newValue === 0){
-        setValue(0);
-      }else if(newValue === 1){
-        setValue(1);
-      }else if(newValue === 2){
-        setValue(2);
+      switch(newComponent){
+        case COMPONENTS.GENERATOR: 
+          setComponent(COMPONENTS.GENERATOR);
+          break;
+   case COMPONENTS.FILTERING: 
+          setComponent(COMPONENTS.FILTERING);
+          break;
+    case COMPONENTS.MY_QUERIES: 
+          setComponent(COMPONENTS.MY_QUERIES);
+          break;
+     case COMPONENTS.DOWNLOAD: 
+          setComponent(COMPONENTS.DOWNLOAD);
+          break;
+        default: 
+          break;
       }
       }
     }
 
   function MainComponent(){
-    if(value === 1){
-      return (<Filtering />);
-    }
-    if(value === 2){
-   return (<MyQueries />);
-    }
-      return (<QueryGenerator />);
+switch(component){
+        case COMPONENTS.GENERATOR: 
+         return (<QueryGenerator />) 
+   case COMPONENTS.FILTERING: 
+             return (<Filtering/>) 
+    case COMPONENTS.MY_QUERIES: 
+          return (<MyQueries/>) 
+     case COMPONENTS.DOWNLOAD: 
+          return (<Download/>) 
+        default: 
+          break;
+      }
   }
 
 
@@ -87,9 +102,9 @@ function LinkTab(props: LinkTabProps) {
     <div className="container">
   <Box sx={{ width: '100%' }}>
       <Tabs
-          value={value}
+          value={component}
         onChange={handleChange}
-        aria-label="nav tabs example"
+        aria-label="navigation tabs"
         role="navigation"
           centered
       >
@@ -97,7 +112,6 @@ function LinkTab(props: LinkTabProps) {
         <LinkTab label="Filtering" />
         <LinkTab label="My Queries" />
         <LinkTab label="Download(Experimental)" />
-   {/* <LinkTab label="My Queries" href="/my-queries" /> */}
       </Tabs>
     </Box>
       <MainComponent />
