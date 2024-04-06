@@ -1,4 +1,5 @@
 import gc
+import socket
 import webview
 import multiprocessing
 import sys
@@ -52,7 +53,6 @@ def resource_path(relative_path):
 
 
 def is_port_in_use(port: int) -> bool:
-    import socket
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         return s.connect_ex(('localhost', port)) == 0
 
