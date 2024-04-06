@@ -17,19 +17,19 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 ### Windows:
 
 ```
-pip install -r requirements.txt ; pyinstaller --add-data="index.html;." --noconsole --onefile automating-slr.py
+pip3 install -r requirements.txt ; pyinstaller --add-data="index.html;." --noconsole --onefile automating-slr.py
 ```
 
 ### Linux:
 
 ```
-pip install -r requirements.txt && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
+pip3 install -r requirements.txt && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
 ```
 
 ### MacOS:
 
 ```
-pip install -r requirements.txt && python3 py2app-macos-setup.py py2app
+pip3 install -r requirements.txt && python3 py2app-macos-setup.py py2app
 ```
 
 6. The generated binary should now be placed in the `automating-slr/src-python/dist`. You can now use this binary to launch the application without having to perform any additional steps(You can also distribute it to other machines with same OS&processor family but please see the warnings section below). 
