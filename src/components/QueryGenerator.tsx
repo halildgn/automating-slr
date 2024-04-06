@@ -1,6 +1,7 @@
 import {FieldMap, Queries, INFO} from '../types/index'
+import { Mousewheel, Pagination } from 'swiper/modules';
 import InfoIcon from '@mui/icons-material/Info';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -16,10 +17,26 @@ import Tooltip from '@mui/material/Tooltip';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 
 function QueryGenerator(){
+useEffect(() => {
+  function handleEscapeKey(event: KeyboardEvent) {
+    if (event.code === 'Escape') {
+      setQueriesOverlayOpen(false)
+    }
+  }
 
- const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
+  document.addEventListener('keydown', handleEscapeKey)
+  return () => document.removeEventListener('keydown', handleEscapeKey)
+}, [])
+ const [loadingOverlayOpen, setLoadingOverlayOpen] = useState<boolean>(false);
+ const [quriesOverlayOpen, setQueriesOverlayOpen] = useState<boolean>(false);
  const [fieldMaps, setFieldMaps] = useState<Array<FieldMap>>([{label: null, keywords: null, logical_operator: null }]); 
   const [queries, setQueries] = useState<Queries>({acm: null, ieee: null, wos: null, scopus: null, ebsco: null });
 
@@ -44,10 +61,11 @@ async function generateQueries(){
     // if(emptyFieldsPresent()){
     //   return;
     // }
-    setOverlayOpen(true); 
+    setLoadingOverlayOpen(true); 
     const {data} =  await axios.post('http://localhost:9998/query', fieldMaps);
     setQueries(data);
-    setOverlayOpen(false);
+    setLoadingOverlayOpen(false);
+    setQueriesOverlayOpen(true);
     }
 
   function changeFieldType (event: SelectChangeEvent, index: number) {
@@ -55,8 +73,6 @@ async function generateQueries(){
     fields[index].label = event.target.value;
     setFieldMaps(fields);
   };
-
-
 
 function changeRelationType(event: SelectChangeEvent, index: number){
      const fields = [...fieldMaps];
@@ -74,10 +90,6 @@ function changeRelationType(event: SelectChangeEvent, index: number){
     setFieldMaps(fields);
   } 
 
-  // function removeField(){
-
-  // }
-
   function addField(){
     const fields = [...fieldMaps, {label: null, keywords: null, logical_operator: null }]
       setFieldMaps(fields);
@@ -91,7 +103,6 @@ function changeRelationType(event: SelectChangeEvent, index: number){
     if(fieldMaps.length === 1 || isFirst){
         return null;
     }
-
   return (
  <Box className="field-container" sx={{ minWidth: 120 }}>
    <FormControl fullWidth>
@@ -111,13 +122,24 @@ function changeRelationType(event: SelectChangeEvent, index: number){
     )
   }
 
-  function Queries(){
-    if(queries.acm && queries.wos && queries.ieee){
-        return ( 
-        <>
-  <Box className="queries-container">
-            <div style={{color:'#1976d2'}}>WOS Query:</div>
-      <Paper elevation={3}>{queries.wos} 
+function Queries() {
+  return (
+    <>
+      <Swiper
+        direction={'vertical'}
+        slidesPerView={1}
+        spaceBetween={30}
+        mousewheel={true}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Mousewheel, Pagination]}
+        className="swiper-container"
+      >
+        <SwiperSlide className="swiper-content-container">  
+            
+      <Paper className="swiper-paper-content" elevation={3}> 
+<div style={{color:'#1976d2'}}>WOS Query:</div>
               <Tooltip title="Copy">
               <FileCopyIcon onClick={() => {navigator.clipboard.writeText(queries.wos ?? '')}} style={{ color: 'gray' }} />
           </Tooltip>
@@ -127,59 +149,73 @@ function changeRelationType(event: SelectChangeEvent, index: number){
     <Tooltip title="Add to my queries">
               <FavoriteBorderIcon onClick={() => {localStorage.setItem('example',queries.wos ?? '' )}} style={{ color: 'gray' }} />
           </Tooltip>
+{queries.wos}
               </Paper>
-    </Box> 
-  <Box className="queries-container"
-    >
-            <div style={{color:'#1976d2'}}>IEEE Query:</div>
-      <Paper  elevation={3}> {queries.ieee}
-                <Tooltip title="Copy">
+  </SwiperSlide>
+        <SwiperSlide className="swiper-content-container">  
+      <Paper className="swiper-paper-content" elevation={3}> 
+<div style={{color:'#1976d2'}}>IEEE Query:</div>
+              <Tooltip title="Copy">
               <FileCopyIcon onClick={() => {navigator.clipboard.writeText(queries.ieee ?? '')}} style={{ color: 'gray' }} />
           </Tooltip>
-    <Tooltip title={INFO.IEEE}>
+        <Tooltip title={INFO.IEEE}>
               <InfoIcon style={{ color: 'gray' }} />
           </Tooltip>
-            </Paper>
-            
-    </Box> 
-  <Box className="queries-container">
-            <div style={{color:'#1976d2'}}>ACM Query:</div>
-      <Paper elevation={3}>{queries.acm}
-                 <Tooltip title="Copy">
-              <FileCopyIcon  onClick={() => {navigator.clipboard.writeText(queries.acm ?? '')}} style={{ color: 'gray' }} />
+    <Tooltip title="Add to my queries">
+              <FavoriteBorderIcon onClick={() => {localStorage.setItem('example',queries.ieee ?? '' )}} style={{ color: 'gray' }} />
           </Tooltip>
-<Tooltip title={INFO.ACM}>
-              <InfoIcon style={{ color: 'gray' }} />
-          </Tooltip>
+{queries.ieee}
               </Paper>
-    </Box>
-  <Box className="queries-container">
-            <div style={{color:'#1976d2'}}>Scopus Query:</div>
-      <Paper elevation={3}>{queries.scopus}
-                 <Tooltip title="Copy">
+  </SwiperSlide>
+        <SwiperSlide className="swiper-content-container">  
+      <Paper className="swiper-paper-content" elevation={3}> 
+<div style={{color:'#1976d2'}}>ACM Query:</div>
+              <Tooltip title="Copy">
+              <FileCopyIcon onClick={() => {navigator.clipboard.writeText(queries.acm ?? '')}} style={{ color: 'gray' }} />
+          </Tooltip>
+        <Tooltip title={INFO.ACM}>
+              <InfoIcon style={{ color: 'gray' }} />
+          </Tooltip>
+    <Tooltip title="Add to my queries">
+              <FavoriteBorderIcon onClick={() => {localStorage.setItem('example',queries.acm ?? '' )}} style={{ color: 'gray' }} />
+          </Tooltip>
+{queries.acm}
+              </Paper>
+  </SwiperSlide>
+        <SwiperSlide className="swiper-content-container">  
+      <Paper className="swiper-paper-content" elevation={3}> 
+<div style={{color:'#1976d2'}}>SCOPUS Query:</div>
+              <Tooltip title="Copy">
               <FileCopyIcon onClick={() => {navigator.clipboard.writeText(queries.scopus ?? '')}} style={{ color: 'gray' }} />
           </Tooltip>
-<Tooltip title={INFO.SCOPUS}>
+        <Tooltip title={INFO.SCOPUS}>
               <InfoIcon style={{ color: 'gray' }} />
           </Tooltip>
+    <Tooltip title="Add to my queries">
+              <FavoriteBorderIcon onClick={() => {localStorage.setItem('example',queries.scopus ?? '' )}} style={{ color: 'gray' }} />
+          </Tooltip>
+{queries.scopus}
               </Paper>
-    </Box>
-  <Box className="queries-container">
-            <div style={{color:'#1976d2'}}>EBSCO Query:</div>
-      <Paper  elevation={3}>{queries.ebsco}
-                 <Tooltip title="Copy">
+  </SwiperSlide>
+        <SwiperSlide className="swiper-content-container">  
+      <Paper className="swiper-paper-content" elevation={3}> 
+<div style={{color:'#1976d2'}}>EBSCO Query:</div>
+              <Tooltip title="Copy">
               <FileCopyIcon onClick={() => {navigator.clipboard.writeText(queries.ebsco ?? '')}} style={{ color: 'gray' }} />
           </Tooltip>
-<Tooltip title={INFO.EBSCO}>
+        <Tooltip title={INFO.EBSCO}>
               <InfoIcon style={{ color: 'gray' }} />
           </Tooltip>
+    <Tooltip title="Add to my queries">
+              <FavoriteBorderIcon onClick={() => {localStorage.setItem('example',queries.ebsco ?? '' )}} style={{ color: 'gray' }} />
+          </Tooltip>
+{queries.ebsco}
               </Paper>
-    </Box>
+  </SwiperSlide>
+      </Swiper>
     </>
-      )
-    }
-  }
-
+  );
+}
   function FieldTypes(fieldEl: FieldMap, i: number){
     return (
 <FormControl className="flex-item" fullWidth>
@@ -216,12 +252,18 @@ function changeRelationType(event: SelectChangeEvent, index: number){
 
 return (
     <>
+ <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={quriesOverlayOpen}
+      >
+        <Queries />
+      </Backdrop>
 {
         fieldMaps.map((fieldEl, i) =>
         <>
  <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={overlayOpen}
+        open={loadingOverlayOpen}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -240,9 +282,6 @@ return (
 </Button>
       
 <Button variant="outlined" onClick={()=>{generateQueries()}}>Generate queries</Button> 
-
-<Queries />
-
        </>
 )
 }

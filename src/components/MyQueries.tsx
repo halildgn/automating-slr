@@ -1,4 +1,4 @@
-import {FieldMap, Queries, INFO} from '../types/index'
+import {FieldMap, INFO} from '../types/index'
 import InfoIcon from '@mui/icons-material/Info';
 import { useState , SyntheticEvent} from 'react';
 import axios from 'axios';
@@ -20,6 +20,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import QQQ from './Queries';
 
 // const [a,_] = useState(localStorage.getItem('example') ?? 'default')
 
@@ -35,7 +36,7 @@ function MyQueries(){
 
   return(
     <>
-      qwewq
+      {/* <QQQ /> */}
      </>
   )
 }

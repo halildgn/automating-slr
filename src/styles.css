@@ -48,3 +48,25 @@ display: flex;
  flex-basis: 50%;
   flex-grow: 0;
 }
+
+.swiper-container{
+  height: 100%;
+  width: 100%;
+}
+
+.swiper-content-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiper-paper-content{
+  height: 50vh;
+  width: 50vw;
+}
+
+.info-icon-queries-overlay{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
