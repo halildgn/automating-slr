@@ -1,23 +1,31 @@
-"""
-Usage:
-    `python setup.py py2app`
-"""
+import os
+import py2app
+import shutil
 
-from setuptools import setup
+from distutils.core import setup
+
+if os.path.exists('build'):
+    shutil.rmtree('build')
+
+if os.path.exists('dist/automating-slr.app'):
+    shutil.rmtree('dist/automating-slr.app')
 
 ENTRY_POINT = ['automating-slr.py']
 
-DATA_FILES = [('index.html')]
+DATA_FILES = ['index.html']
 OPTIONS = {
     'argv_emulation': False,
-    'strip': True,
-    #'iconfile': 'icon.icns', # uncomment to include an icon
-    'includes': ['WebKit', 'Foundation', 'webview'],
+    'strip': False,
+    # 'iconfile': 'src/assets/logo.icns',
+    'packages': ['WebKit', 'Foundation', 'webview'],
+    'plist': {
+        'NSRequiresAquaSystemAppearance': False
+    },
+    'resources': DATA_FILES
 }
 
 setup(
     app=ENTRY_POINT,
-    data_files=DATA_FILES,
     options={'py2app': OPTIONS},
     setup_requires=['py2app'],
 )

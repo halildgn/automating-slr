@@ -15,6 +15,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Tooltip from '@mui/material/Tooltip';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 function QueryGenerator(){
 
@@ -122,6 +123,9 @@ function changeRelationType(event: SelectChangeEvent, index: number){
           </Tooltip>
         <Tooltip title={INFO.WOS}>
               <InfoIcon style={{ color: 'gray' }} />
+          </Tooltip>
+    <Tooltip title="Add to my queries">
+              <FavoriteBorderIcon onClick={() => {localStorage.setItem('example',queries.wos ?? '' )}} style={{ color: 'gray' }} />
           </Tooltip>
               </Paper>
     </Box> 

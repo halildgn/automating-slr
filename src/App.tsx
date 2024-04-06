@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import { useState } from 'react';
 import QueryGenerator from './components/QueryGenerator';
 import Filtering from './components/Filtering';
+import MyQueries from './components/MyQueries';
 
 function App() {
 
@@ -65,6 +66,8 @@ function LinkTab(props: LinkTabProps) {
         setValue(0);
       }else if(newValue === 1){
         setValue(1);
+      }else if(newValue === 2){
+        setValue(2);
       }
       }
     }
@@ -72,6 +75,9 @@ function LinkTab(props: LinkTabProps) {
   function MainComponent(){
     if(value === 1){
       return (<Filtering />);
+    }
+    if(value === 2){
+   return (<MyQueries />);
     }
       return (<QueryGenerator />);
   }

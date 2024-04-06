@@ -42,9 +42,14 @@ def filter():
     return app.response_class(status=200)
 
 def resource_path(relative_path):
+    #macos&py2app
+    if os.path.exists(os.path.join(os.path.dirname(__file__), '/Resources/index.html')):
+        return '/Resources/index.html'
+    #linux&windows
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
+
 
 def is_port_in_use(port: int) -> bool:
     import socket
