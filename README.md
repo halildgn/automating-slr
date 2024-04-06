@@ -39,7 +39,7 @@ When you build the binary/executable yourself by following the steps above, you 
 Since bad people abused python scripts to build malware executables, anti-virus softwares mark the unsigned executables as a virus. (signing the code costs at least 100$). When you generate the executable if you have any kind of virus warning, please deactivate your "protection" against this executable.
 If you encounter this problem, please add this executable as an exclusion from your anti-virus software (you can see the source code anyway, there is no threat).  
 
-# For the possible future development cycles
+# For possible development cycles in the future
 * Install `nodejs`
 * In `automating-slr`, install the packages via `npm install`
 * To build, in `automating-slr`: `npm run build`(generates a standalone `html` in `automating-slr/src-python`
