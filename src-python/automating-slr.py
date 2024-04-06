@@ -1,3 +1,4 @@
+from typing import List
 import gc
 import socket
 import webview
@@ -12,8 +13,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 bib_files = None
-
-# TYPE ANNOTATE EVERYTHING IN THE CODE!
 
 @app.route("/query",methods=['POST'])
 def getQueries():
@@ -36,7 +35,12 @@ def getBoundaries():
 @app.route("/filter",methods=['POST'])
 def filter():
     global bib_files
-    bib_to_csv(bib_files, request.json['minPages'], request.json['maxPages'], request.json['startYear'], request.json['endYear'], request.json['publicationTypes'])
+    min_pages: str = request.json['minPages'] 
+    max_pages: str =  request.json['maxPages']
+    start_year: str =  request.json['startYear']
+    end_year: str = request.json['endYear']
+    publication_types: List[str] = request.json['publicationTypes']
+    bib_to_csv(bib_files, min_pages,max_pages, start_year, end_year, publication_types)
     # clear the cache
     del bib_files
     gc.collect()
