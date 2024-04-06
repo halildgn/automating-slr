@@ -17,7 +17,7 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 ### Windows:
 
 ```
-pip3 install -r requirements.txt ; pyinstaller --add-data="index.html;." --noconsole --onefile automating-slr.py
+pip3 install -r requirements.txt ; pyinstaller --add-data="index.html;." --icon=colaps.ico --noconsole --onefile automating-slr.py
 ```
 
 ### Linux:
@@ -39,11 +39,19 @@ When you build the binary/executable yourself by following the steps above, you 
 Since bad people abused python scripts to build malware executables, anti-virus softwares mark the unsigned executables as a virus. (signing the code costs at least 100$). When you generate the executable if you have any kind of virus warning, please deactivate your "protection" against this executable.
 If you encounter this problem, please add this executable as an exclusion from your anti-virus software (you can see the source code anyway, there is no threat).  
 
-#### The worst case if things dont work out for you:
-Please navigate to `automating-slr/src-pyton` and launch the application via `python3 automating-slr.py`
-
 # For the possible future development cycles
 * Install `nodejs`
 * In `automating-slr`, install the packages via `npm install`
-* To spin up a development server, in `automating-slr`: `npm run dev` 
 * To build, in `automating-slr`: `npm run build`(generates a standalone `html` in `automating-slr/src-python`
+* To spin up a frontend development server, in `automating-slr`: `npm run dev` 
+* To spin up the flask server, comment out the following lines before running the `automating-slr.py` script:
+```python
+if __name__ == '__main__':
+    # multiprocessing.freeze_support()
+    # frontend = resource_path("index.html")
+    server_process = multiprocessing.Process(target=spin_up_server) 
+    server_process.start()
+    # webview.create_window('Automating SLR', frontend, resizable=True)
+    # webview.start()
+    # server_process.terminate()
+```
