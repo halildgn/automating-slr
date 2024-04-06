@@ -46,4 +46,4 @@ Please navigate to `automating-slr/src-pyton` and launch the application via `py
 * Install `nodejs`
 * In `automating-slr`, install the packages via `npm install`
 * To spin up a development server, in `automating-slr`: `npm run dev` 
-* To build, in `automating-slr`: `npm run build`(generates a standalone `html` in `automating-slr/src-python` (`pyinstaller --add-data="index.html` directly consumes this) 
+* To build, in `automating-slr`: `npm run build`(generates a standalone `html` in `automating-slr/src-python`
