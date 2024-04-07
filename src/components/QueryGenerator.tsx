@@ -16,7 +16,6 @@ import FileCopyIcon from "@material-ui/icons/FileCopy";
 import Tooltip from "@mui/material/Tooltip";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -165,14 +164,6 @@ function QueryGenerator() {
               <Tooltip title={INFO.WOS}>
                 <InfoIcon style={{ color: "gray" }} />
               </Tooltip>
-              <Tooltip title="Add to my queries">
-                <FavoriteBorderIcon
-                  onClick={() => {
-                    localStorage.setItem("example", queries.wos ?? "");
-                  }}
-                  style={{ color: "gray" }}
-                />
-              </Tooltip>
               </div>
               </div>
               <div className="swiper-paper-content-query-text">
@@ -195,14 +186,6 @@ function QueryGenerator() {
               </Tooltip>
               <Tooltip title={INFO.IEEE}>
                 <InfoIcon style={{ color: "gray" }} />
-              </Tooltip>
-              <Tooltip title="Add to my queries">
-                <FavoriteBorderIcon
-                  onClick={() => {
-                    localStorage.setItem("example", queries.ieee ?? "");
-                  }}
-                  style={{ color: "gray" }}
-                />
               </Tooltip>
               </div>
               </div>
@@ -227,14 +210,6 @@ function QueryGenerator() {
               <Tooltip title={INFO.ACM}>
                 <InfoIcon style={{ color: "gray" }} />
               </Tooltip>
-              <Tooltip title="Add to my queries">
-                <FavoriteBorderIcon
-                  onClick={() => {
-                    localStorage.setItem("example", queries.acm ?? "");
-                  }}
-                  style={{ color: "gray" }}
-                />
-              </Tooltip>
               </div>
               </div>
               <div className="swiper-paper-content-query-text">
@@ -258,14 +233,6 @@ function QueryGenerator() {
               <Tooltip title={INFO.SCOPUS}>
                 <InfoIcon style={{ color: "gray" }} />
               </Tooltip>
-              <Tooltip title="Add to my queries">
-                <FavoriteBorderIcon
-                  onClick={() => {
-                    localStorage.setItem("example", queries.scopus ?? "");
-                  }}
-                  style={{ color: "gray" }}
-                />
-              </Tooltip>
               </div>
               </div>
               <div className="swiper-paper-content-query-text">
@@ -288,14 +255,6 @@ function QueryGenerator() {
               </Tooltip>
               <Tooltip title={INFO.EBSCO}>
                 <InfoIcon style={{ color: "gray" }} />
-              </Tooltip>
-              <Tooltip title="Add to my queries">
-                <FavoriteBorderIcon
-                  onClick={() => {
-                    localStorage.setItem("example", queries.ebsco ?? "");
-                  }}
-                  style={{ color: "gray" }}
-                />
               </Tooltip>
               </div>
               </div>
