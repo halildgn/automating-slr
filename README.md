@@ -42,7 +42,7 @@ If you encounter this problem, please add this executable as an exclusion from y
 # For possible development cycles in the future
 * Install `nodejs`
 * In `automating-slr`, install the packages via `npm install`
-* To build, in `automating-slr`: `npm run build`(generates a standalone `html` in `automating-slr/src-python`
+* To build, in `automating-slr`: `npm run build`(generates the standalone `html` in `automating-slr/src-python` which is going to be used while generating the binary)
 * To spin up a frontend development server, in `automating-slr`: `npm run dev` 
 * To spin up the flask server, comment out the following lines before running the `automating-slr.py` script:
 ```python
