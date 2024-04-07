@@ -17,6 +17,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Swiper, SwiperSlide } from "swiper/react";
+import NetworkError from "./NetworkError";
 
 // Import Swiper styles
 import "swiper/css";

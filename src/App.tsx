@@ -101,7 +101,7 @@ function App() {
     <>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <div className="container">
+        <div className={component === COMPONENTS.DOWNLOAD ? 'download-container' : 'container'}>
           <Box sx={{ width: "100%" }}>
             <Tabs
               value={component}

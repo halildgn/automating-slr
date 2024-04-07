@@ -31,6 +31,29 @@ body {
   overflow: scroll;
 }
 
+.download-container{
+  height: 100%;
+  width: 100%;
+}
+
+.download-setters-container{
+  height: 90%;
+    width: 100%;
+display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.download-setters-items-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.download-setters-individual-items-container{
+flex-basis: 100%;
+  flex-grow: 0;
+}
+
 .field-container {
   display: flex;
 }
