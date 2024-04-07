@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import QueryGenerator from "./components/QueryGenerator";
 import Filtering from "./components/Filtering";
-import MyQueries from "./components/MyQueries";
 import { COMPONENTS } from "./types/index";
 import Download from "./components/Download";
 
@@ -76,9 +75,6 @@ function App() {
         case COMPONENTS.FILTERING:
           setComponent(COMPONENTS.FILTERING);
           break;
-        case COMPONENTS.MY_QUERIES:
-          setComponent(COMPONENTS.MY_QUERIES);
-          break;
         case COMPONENTS.DOWNLOAD:
           setComponent(COMPONENTS.DOWNLOAD);
           break;
@@ -94,8 +90,6 @@ function App() {
         return <QueryGenerator />;
       case COMPONENTS.FILTERING:
         return <Filtering />;
-      case COMPONENTS.MY_QUERIES:
-        return <MyQueries />;
       case COMPONENTS.DOWNLOAD:
         return <Download />;
       default:
@@ -118,8 +112,7 @@ function App() {
             >
               <LinkTab label="Query Generator" />
               <LinkTab label="Filtering" />
-              <LinkTab label="My Queries" />
-              <LinkTab label="Download(Experimental)" />
+              <LinkTab label="Download" />
             </Tabs>
           </Box>
           <MainComponent />

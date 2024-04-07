@@ -1,7 +1,6 @@
 export enum COMPONENTS {
   GENERATOR,
   FILTERING,
-  MY_QUERIES,
   DOWNLOAD,
 }
 
