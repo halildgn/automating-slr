@@ -4,11 +4,11 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 
 # Setup 
 
-1. Make sure that you have python3 installed and it is on your `PATH` 
+1. Install `python3` and make sure that it is on your `PATH`(Even if it is already installed, please update it to the latest version) 
 
 2. For next steps use powershell in windows and your standard terminal in Linux&MacOS
 
-3. Clone the repo 
+3. Clone the repository 
 
 4. Navigate to `automating-slr/src-python` directory   
 
@@ -17,19 +17,19 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 ### Windows:
 
 ```
-pip3 install -r requirements.txt ; pyinstaller --add-data="index.html;." --icon=colaps.ico --noconsole --onefile automating-slr.py
+pip3 install -r requirements.txt ; playwright install --with-deps chromium; pyinstaller --add-data="index.html;." --icon=colaps.ico --noconsole --onefile automating-slr.py
 ```
 
 ### Linux:
 
 ```
-pip3 install -r requirements.txt && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
+pip3 install -r requirements.txt && playwright install --with-deps chromium && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
 ```
 
 ### MacOS:
 
 ```
-pip3 install -r requirements.txt && python3 py2app-macos-setup.py py2app
+pip3 install -r requirements.txt && playwright install --with-deps chromium && python3 py2app-macos-setup.py py2app
 ```
 
 6. The generated binary should now be placed in the `automating-slr/src-python/dist`. You can now use this binary to launch the application without having to perform any additional steps(You can also distribute it to other machines with same OS&processor family but please see the warnings section below). 
