@@ -138,9 +138,10 @@ function Filtering() {
     const includedPubTypes = getIncludedPublicationTypes();
     const filteredDateAndPageRanges = Object.assign({}, dateAndPageRange);
     for (const key of Object.keys(filteredDateAndPageRanges)) {
-      // @ts-expect-error
       if (
+      // @ts-expect-error
         typeof filteredDateAndPageRanges[key] === "string" &&
+      // @ts-expect-error
         filteredDateAndPageRanges[key].trim() === ""
       ) {
         // @ts-expect-error
