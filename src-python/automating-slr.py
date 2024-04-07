@@ -48,9 +48,10 @@ def filter():
     return app.response_class(status=200)
 
 @app.route("/download",methods=['POST'])
-def getQueries():
-    payload = request.json
-    crawl_n_download()
+async def download():
+    library: str = request.json['library']
+    query: str = request.json['query']
+    await crawl_n_download(library, query)
     return app.response_class(status=200)
 
 def resource_path(relative_path):
