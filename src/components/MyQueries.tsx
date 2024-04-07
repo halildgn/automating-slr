@@ -21,14 +21,8 @@
 // import Typography from '@mui/material/Typography';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-
-function MyQueries(){
-
-  return(
-        <>
-     My queries 
-     </>
-  )
+function MyQueries() {
+  return <>My queries</>;
 }
 
 export default MyQueries;

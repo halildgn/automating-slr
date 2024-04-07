@@ -1,10 +1,5 @@
-
-function Download(){
-  return (
-  <>
-      download
-  </>
-  )
+function Download() {
+  return <>download</>;
 }
 
 export default Download;
