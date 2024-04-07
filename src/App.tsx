@@ -2,6 +2,8 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -13,6 +15,11 @@ import { COMPONENTS} from './types/index';
 import Download from './components/Download';
 
 function App() {
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
   const [component, setComponent] = useState<COMPONENTS>(0);
 
@@ -99,6 +106,9 @@ switch(component){
 
 
   return (
+  <>
+  <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
     <div className="container">
   <Box sx={{ width: '100%' }}>
       <Tabs
@@ -116,6 +126,8 @@ switch(component){
     </Box>
       <MainComponent />
 </div>
+</ThemeProvider>
+</>
        );
 }
 export default App;
