@@ -4,7 +4,7 @@ from pathlib import Path
 # https://www.webofscience.com/wos/woscc/advanced-search
 async def run_wos(playwright: Playwright, query: str):
     chromium = playwright.chromium # or "firefox" or "webkit".
-    browser = await chromium.launch(channel="chrome",headless=True)
+    browser = await chromium.launch(channel="chrome",headless=False)
     page = await browser.new_page()
     await page.goto("https://www.webofscience.com/wos/woscc/advanced-search")
     await page.wait_for_selector('#onetrust-accept-btn-handler')
@@ -65,6 +65,5 @@ async def run_acm(playwright: Playwright, query: str):
 
 async def crawl_n_download(library: str, query: str):
     async with async_playwright() as playwright:
-        match library: 
-            case "WOS":
-                await run_wos(playwright,query)
+        if library == "WOS": 
+            await run_wos(playwright,query)

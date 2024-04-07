@@ -13,15 +13,15 @@ function Download() {
   const [query, setQuery] = useState<null | string>(null);
 
    async function downloadFilesForLibrary(){
-      const {status} = await axios.post("http://localhost:9998/download", {
+    await axios.post("http://localhost:9998/download", {
       library: library,
       query: query
     });
-    if(status === 200){
-      // show success alert
-    }else{
-      // show network error
-    }
+    // if(status === 200){
+    //   // show success alert
+    // }else{
+    //   // show network error
+    // }
    }
 
 
@@ -58,7 +58,7 @@ function Download() {
             variant="outlined"
      fullWidth={true}
             onClick={() => {
-              document.getElementById("file-upload")?.click();
+            downloadFilesForLibrary(); 
             }}
           >
             Download
