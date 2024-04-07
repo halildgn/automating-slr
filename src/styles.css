@@ -19,6 +19,14 @@ body {
   margin: 0;
 }
 
+.colaps-logo{
+position:absolute;
+left:5%;
+top:1%;
+height: 50px;
+width: 50px;
+}
+
 .container {
   height: 100%;
   width: 100%;

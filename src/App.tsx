@@ -12,6 +12,7 @@ import QueryGenerator from "./components/QueryGenerator";
 import Filtering from "./components/Filtering";
 import { COMPONENTS } from "./types/index";
 import Download from "./components/Download";
+import colapsLogo from './assets/colaps.png';
 
 function App() {
   const darkTheme = createTheme({
@@ -103,6 +104,7 @@ function App() {
         <CssBaseline />
         <div className={component === COMPONENTS.DOWNLOAD ? 'download-container' : 'container'}>
           <Box sx={{ width: "100%" }}>
+    <img src={colapsLogo} className="colaps-logo"/>
             <Tabs
               value={component}
               onChange={handleChange}

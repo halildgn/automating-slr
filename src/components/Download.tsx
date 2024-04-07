@@ -29,7 +29,7 @@ function Download() {
             //   changeRelationType(e as SelectChangeEvent);
             // }}
           >
-            <MenuItem value={"OR"}>OR</MenuItem>
+            <MenuItem value={"WOS"}>WOS</MenuItem>
             <MenuItem value={"AND"}>AND</MenuItem>
           </Select>
         </FormControl>
