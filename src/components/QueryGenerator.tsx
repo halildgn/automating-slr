@@ -25,14 +25,14 @@ import "swiper/css/pagination";
 
 function QueryGenerator() {
   useEffect(() => {
-    function handleEscapeKey(event: KeyboardEvent) {
+    function handleQueryViewQuit(event: KeyboardEvent) {
       if (event.key === "q") {
         setQueriesOverlayOpen(false);
       }
     }
 
-    document.addEventListener("keydown", handleEscapeKey);
-    return () => document.removeEventListener("keydown", handleEscapeKey);
+    document.addEventListener("keydown", handleQueryViewQuit);
+    return () => document.removeEventListener("keydown", handleQueryViewQuit);
   }, []);
   const [loadingOverlayOpen, setLoadingOverlayOpen] = useState<boolean>(false);
   const [quriesOverlayOpen, setQueriesOverlayOpen] = useState<boolean>(false);
@@ -150,7 +150,9 @@ function QueryGenerator() {
         >
           <SwiperSlide className="swiper-content-container">
             <Paper className="swiper-paper-content" elevation={3}>
-              <div style={{ color: "#1976d2" }}>WOS Query:</div>
+              <div className="swiper-paper-content-query-name-icons-container">
+              <div style={{ color: "#1976d2" }}>WOS Query</div>
+                <div>
               <Tooltip title="Copy">
                 <FileCopyIcon
                   onClick={() => {
@@ -170,12 +172,18 @@ function QueryGenerator() {
                   style={{ color: "gray" }}
                 />
               </Tooltip>
+              </div>
+              </div>
+              <div className="swiper-paper-content-query-text">
               {queries.wos}
+              </div>
             </Paper>
           </SwiperSlide>
-          <SwiperSlide className="swiper-content-container">
+  <SwiperSlide className="swiper-content-container">
             <Paper className="swiper-paper-content" elevation={3}>
-              <div style={{ color: "#1976d2" }}>IEEE Query:</div>
+              <div className="swiper-paper-content-query-name-icons-container">
+              <div style={{ color: "#1976d2" }}>IEEE Query</div>
+                <div>
               <Tooltip title="Copy">
                 <FileCopyIcon
                   onClick={() => {
@@ -195,12 +203,18 @@ function QueryGenerator() {
                   style={{ color: "gray" }}
                 />
               </Tooltip>
+              </div>
+              </div>
+              <div className="swiper-paper-content-query-text">
               {queries.ieee}
+              </div>
             </Paper>
           </SwiperSlide>
-          <SwiperSlide className="swiper-content-container">
+   <SwiperSlide className="swiper-content-container">
             <Paper className="swiper-paper-content" elevation={3}>
-              <div style={{ color: "#1976d2" }}>ACM Query:</div>
+              <div className="swiper-paper-content-query-name-icons-container">
+              <div style={{ color: "#1976d2" }}>ACM Query</div>
+                <div>
               <Tooltip title="Copy">
                 <FileCopyIcon
                   onClick={() => {
@@ -220,12 +234,18 @@ function QueryGenerator() {
                   style={{ color: "gray" }}
                 />
               </Tooltip>
+              </div>
+              </div>
+              <div className="swiper-paper-content-query-text">
               {queries.acm}
+              </div>
             </Paper>
           </SwiperSlide>
-          <SwiperSlide className="swiper-content-container">
+   <SwiperSlide className="swiper-content-container">
             <Paper className="swiper-paper-content" elevation={3}>
-              <div style={{ color: "#1976d2" }}>SCOPUS Query:</div>
+              <div className="swiper-paper-content-query-name-icons-container">
+              <div style={{ color: "#1976d2" }}>SCOPUS Query</div>
+                <div>
               <Tooltip title="Copy">
                 <FileCopyIcon
                   onClick={() => {
@@ -245,12 +265,18 @@ function QueryGenerator() {
                   style={{ color: "gray" }}
                 />
               </Tooltip>
+              </div>
+              </div>
+              <div className="swiper-paper-content-query-text">
               {queries.scopus}
+              </div>
             </Paper>
           </SwiperSlide>
-          <SwiperSlide className="swiper-content-container">
+   <SwiperSlide className="swiper-content-container">
             <Paper className="swiper-paper-content" elevation={3}>
-              <div style={{ color: "#1976d2" }}>EBSCO Query:</div>
+              <div className="swiper-paper-content-query-name-icons-container">
+              <div style={{ color: "#1976d2" }}>EBSCO Query</div>
+                <div>
               <Tooltip title="Copy">
                 <FileCopyIcon
                   onClick={() => {
@@ -270,7 +296,11 @@ function QueryGenerator() {
                   style={{ color: "gray" }}
                 />
               </Tooltip>
+              </div>
+              </div>
+              <div className="swiper-paper-content-query-text">
               {queries.ebsco}
+              </div>
             </Paper>
           </SwiperSlide>
         </Swiper>

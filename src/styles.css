@@ -62,7 +62,20 @@ body {
 .swiper-paper-content {
   height: 50vh;
   width: 50vw;
+  overflow: auto;
 }
+
+.swiper-paper-content-query-name-icons-container{
+display: flex;
+  justify-content: space-between;
+}
+
+.swiper-paper-content-query-text{
+display: flex;
+  justify-content: center;
+}
+
+
 
 .info-icon-queries-overlay {
   position: absolute;
