@@ -50,6 +50,7 @@ function App() {
 
   function toggleTheme(){
     setToDark(!isDark);
+    console.log('AAAAAAAA: ', isDark)
   }
 
   function samePageLinkNavigation(
@@ -135,7 +136,7 @@ function App() {
           <Box sx={{ width: "100%" }}>
     <img src={colapsLogo} className="colaps-logo"/>
             <div style={{position: 'absolute', top: '3%', right: '5%', zIndex: 1000}}>
-   <IconButton onClick={toggleTheme} color="inherit">
+   <IconButton onClick={toggleTheme}>
         {isDark ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>
       </div>

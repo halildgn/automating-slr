@@ -1,4 +1,3 @@
-import asyncio
 from playwright.async_api import async_playwright, Playwright
 from pathlib import Path
 
@@ -67,12 +66,11 @@ if __name__ == "__main__":
           await page.wait_for_timeout(40000)
           await browser.close()
 
-    async def main():
+    async def main(library: str, query: str):
         async with async_playwright() as playwright:
             # await run_wos(playwright)
             # await run_ieee(playwright) 
             await run_acm(playwright) 
-    asyncio.run(main())
 
     # async def check_for_blocking_banner():
     #     try:

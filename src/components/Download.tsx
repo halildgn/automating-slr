@@ -5,13 +5,24 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Button } from "@mui/material";
-
+import axios from "axios";
+import { useState } from "react";
 
 function Download() {
+  const [library , setLibrary] = useState<null | 'WOS'>(null);
+  const [query, setQuery] = useState<null | string>(null);
 
-  // async function downloadFilesForLibrary(){
-
-  // }
+   async function downloadFilesForLibrary(){
+      const {status} = await axios.post("http://localhost:9998/download", {
+      library: library,
+      query: query
+    });
+    if(status === 200){
+      // show success alert
+    }else{
+      // show network error
+    }
+   }
 
 
   return (
@@ -24,13 +35,11 @@ function Download() {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="Field"
-            // value={fieldMaps[index].logical_operator}
-            // onChange={(e) => {
-            //   changeRelationType(e as SelectChangeEvent);
-            // }}
+             onChange={(e) => {
+               setLibrary((e as SelectChangeEvent).target.value);
+             }}
           >
             <MenuItem value={"WOS"}>WOS</MenuItem>
-            <MenuItem value={"AND"}>AND</MenuItem>
           </Select>
         </FormControl>
       </Box>
@@ -38,9 +47,9 @@ function Download() {
   <FormControl>
         <TextField
           label="Query"
-          // onChange={(e) => {
-          //   changeFieldKeywords(e as SelectChangeEvent, i);
-          // }}
+           onChange={(e) => {
+               setQuery((e as SelectChangeEvent).target.value);
+           }}
         />
       </FormControl>
       </Box>
