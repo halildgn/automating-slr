@@ -142,6 +142,7 @@ function QueryGenerator() {
           slidesPerView={1}
           spaceBetween={30}
           mousewheel={true}
+          loop={true}
           pagination={{
             clickable: true,
           }}
