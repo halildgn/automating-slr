@@ -10,7 +10,7 @@ import Tabs from "@mui/material/Tabs";
 import IconButton from '@mui/material/IconButton';
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import QueryGenerator from "./components/QueryGenerator";
 import Filtering from "./components/Filtering";
 import { COMPONENTS } from "./types/index";
@@ -18,40 +18,8 @@ import Download from "./components/Download";
 import colapsLogo from './assets/colaps.png';
 
 function App() {
-  // let theme: 'light' | 'dark'
-  // useEffect(() => {
-  //   getCurrentTheme();
-  // }, []);
-
-  // function getCurrentTheme(){
-  //   return localStorage.getItem('theme') ??
-  // }
-
-  // function setTheme(){
-
-  // }
-
-  const [isDark, setToDark] = useState<boolean>(false); 
-
-
-  
-  const dark = createTheme({
-    palette: {
-      mode: "dark",
-    },
-  });
-  const light = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
 
   const [component, setComponent] = useState<COMPONENTS>(0);
-
-  function toggleTheme(){
-    setToDark(!isDark);
-    console.log('AAAAAAAA: ', isDark)
-  }
 
   function samePageLinkNavigation(
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -130,16 +98,9 @@ function App() {
 
   return (
     <>
-      <ThemeProvider theme={ isDark ? dark : light}>
-        <CssBaseline />
         <div className={component === COMPONENTS.DOWNLOAD ? 'download-container' : 'container'}>
           <Box sx={{ width: "100%" }}>
     <img src={colapsLogo} className="colaps-logo"/>
-            <div style={{position: 'absolute', top: '3%', right: '5%', zIndex: 1000}}>
-   <IconButton onClick={toggleTheme}>
-        {isDark ? <Brightness7Icon /> : <Brightness4Icon />}
-      </IconButton>
-      </div>
             <Tabs
               value={component}
               onChange={handleChange}
@@ -154,7 +115,6 @@ function App() {
           </Box>
           <MainComponent />
         </div>
-      </ThemeProvider>
     </>
   );
 }

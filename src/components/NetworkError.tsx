@@ -3,7 +3,7 @@ import Alert from "@mui/material/Alert";
 
 
 
-function NetworkError({displayError } : {displayError: boolean}){
+function NetworkError({displayError, customErrorMessage } : {displayError: boolean, customErrorMessage: string}){
 return (
 <>
       <Backdrop

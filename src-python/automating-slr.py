@@ -8,6 +8,7 @@ import os
 import bibtexparser
 from modules.query import *
 from modules.bib_to_csv import *
+from modules.crawler import *
 from flask import Flask, request, jsonify 
 from flask_cors import CORS
 app = Flask(__name__)
@@ -44,6 +45,12 @@ def filter():
     # clear the cache
     del bib_files
     gc.collect()
+    return app.response_class(status=200)
+
+@app.route("/download",methods=['POST'])
+def getQueries():
+    payload = request.json
+    crawl_n_download()
     return app.response_class(status=200)
 
 def resource_path(relative_path):
