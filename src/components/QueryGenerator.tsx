@@ -18,12 +18,15 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Swiper, SwiperSlide } from "swiper/react";
 import NetworkError from "./NetworkError";
+import { useBearStore } from "../stores/query-generation-store";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
 function QueryGenerator() {
+  const bears = useBearStore((state) => state.bears)
+ const increasePopulation = useBearStore((state) => state.increasePopulation)
   useEffect(() => {
     function handleQueryViewQuit(event: KeyboardEvent) {
       if (event.key === "q") {
@@ -354,6 +357,13 @@ function QueryGenerator() {
         }}
       >
         Generate queries
+      </Button>
+      {bears}
+   <Button
+        variant="outlined"
+        onClick={increasePopulation}
+      >
+        Increase bear
       </Button>
     </>
   );
