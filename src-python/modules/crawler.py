@@ -2,7 +2,7 @@ from playwright.async_api import async_playwright, Playwright
 from pathlib import Path
 
 # https://www.webofscience.com/wos/woscc/advanced-search
-async def run_wos(playwright: Playwright):
+async def run_wos(playwright: Playwright, query: str):
     chromium = playwright.chromium # or "firefox" or "webkit".
     browser = await chromium.launch(channel="chrome",headless=True)
     page = await browser.new_page()
@@ -10,7 +10,7 @@ async def run_wos(playwright: Playwright):
     await page.wait_for_selector('#onetrust-accept-btn-handler')
     await page.locator("#onetrust-accept-btn-handler").click()
     await page.get_by_placeholder("Enter or edit your query here").click()
-    await page.get_by_placeholder("Enter or edit your query here").fill("TI=(hackathon) OR TI=(teaching)")
+    await page.get_by_placeholder("Enter or edit your query here").fill(query)
     await page.get_by_label("Query editor").locator("button").filter(has_text="Search").click()
     # await page.get_by_role("button", name="Search", exact=True).click();
     # If "Accept all" button is there, accept all
@@ -40,13 +40,13 @@ async def run_ieee(playwright: Playwright):
     # Wait for the download process to complete and save the downloaded file somewhere
     await download.save_as(Path.home().joinpath('Downloads', download.suggested_filename))
 
-async def run_acm(playwright: Playwright):
+async def run_acm(playwright: Playwright, query: str):
     chromium = playwright.chromium # or "firefox" or "webkit".
     browser = await chromium.launch(channel="chrome",headless=False)
     page = await browser.new_page()
     await page.goto("https://dl.acm.org/search/advanced")
     await page.get_by_role("link", name="Use necessary cookies only").click()
-    await page.get_by_placeholder("Enter Search term").locator("nth=0").type("Title:(hackathon) OR Title:(teaching)",delay=100)
+    await page.get_by_placeholder("Enter Search term").locator("nth=0").type(query,delay=100)
     await page.locator("#advanced-search-btn").click()
     await page.wait_for_timeout(1000)
     await page.locator('.item-results__checkbox').click()
@@ -65,6 +65,6 @@ async def run_acm(playwright: Playwright):
 
 async def crawl_n_download(library: str, query: str):
     async with async_playwright() as playwright:
-        # await run_wos(playwright)
-        # await run_ieee(playwright) 
-        await run_acm(playwright) 
+        match library: 
+            case "WOS":
+                await run_wos(playwright,query)
