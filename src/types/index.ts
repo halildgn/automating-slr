@@ -4,7 +4,7 @@ export enum COMPONENTS {
   DOWNLOAD,
 }
 
-export type FieldMap = {
+export type Field = {
   label: string | null;
   keywords: string[] | null;
   logical_operator: string | null;

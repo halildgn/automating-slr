@@ -16,8 +16,16 @@ import Filtering from "./components/Filtering";
 import { COMPONENTS } from "./types/index";
 import Download from "./components/Download";
 import colapsLogo from './assets/colaps.png';
+import classNames from 'classnames';
 
 function App() {
+const [component, setComponent] = useState<COMPONENTS>(0);
+
+  const mainContainerClass = classNames({
+'container': component !== COMPONENTS.DOWNLOAD,
+'download-container': component === COMPONENTS.DOWNLOAD
+	});
+
   const dark = createTheme({
     palette: {
       mode: "dark",
@@ -28,9 +36,6 @@ function App() {
       mode: "light",
     },
   });
-
-  const [component, setComponent] = useState<COMPONENTS>(0);
-
 
 const [theme, setTheme] = useState(() => {
 		const initialTheme = localStorage.getItem("theme");
@@ -137,7 +142,7 @@ const [theme, setTheme] = useState(() => {
  <>
       <ThemeProvider theme={ theme === 'dark' ? dark : light}>
         <CssBaseline />
-        <div className={component === COMPONENTS.DOWNLOAD ? 'download-container' : 'container'}>
+        <div className={mainContainerClass}>
           <Box sx={{ width: "100%" }}>
     <img src={colapsLogo} className="colaps-logo"/>
             <div style={{position: 'absolute', top: '3%', right: '5%', zIndex: 1000}}>

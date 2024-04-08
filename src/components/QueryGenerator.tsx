@@ -1,4 +1,4 @@
-import { FieldMap, Queries, INFO } from "../types/index";
+import { Field, Queries, INFO } from "../types/index";
 import { Mousewheel, Pagination } from "swiper/modules";
 import InfoIcon from "@mui/icons-material/Info";
 import { useState, useEffect } from "react";
@@ -18,15 +18,16 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Swiper, SwiperSlide } from "swiper/react";
 import NetworkError from "./NetworkError";
-import { useBearStore } from "../stores/query-generation-store";
+import { useFieldsStore } from "../stores/query-generation-store";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
 function QueryGenerator() {
-  const bears = useBearStore((state) => state.bears)
- const increasePopulation = useBearStore((state) => state.increasePopulation)
+  const fields = useFieldsStore((state) => state.fields)
+ const setFields = useFieldsStore((state) => state.setFields)
   useEffect(() => {
     function handleQueryViewQuit(event: KeyboardEvent) {
       if (event.key === "q") {
@@ -39,9 +40,7 @@ function QueryGenerator() {
   }, []);
   const [loadingOverlayOpen, setLoadingOverlayOpen] = useState<boolean>(false);
   const [quriesOverlayOpen, setQueriesOverlayOpen] = useState<boolean>(false);
-  const [fieldMaps, setFieldMaps] = useState<Array<FieldMap>>([
-    { label: null, keywords: null, logical_operator: null },
-  ]);
+
   const [queries, setQueries] = useState<Queries>({
     acm: null,
     ieee: null,
@@ -72,48 +71,48 @@ function QueryGenerator() {
     //   return;
     // }
     setLoadingOverlayOpen(true);
-    const { data } = await axios.post("http://localhost:9998/query", fieldMaps);
+    const { data } = await axios.post("http://localhost:9998/query", fields);
     setQueries(data);
     setLoadingOverlayOpen(false);
     setQueriesOverlayOpen(true);
   }
 
   function changeFieldType(event: SelectChangeEvent, index: number) {
-    const fields = [...fieldMaps];
-    fields[index].label = event.target.value;
-    setFieldMaps(fields);
+    const updatedFields = [...fields];
+    updatedFields[index].label = event.target.value;
+    setFields(updatedFields);
   }
 
   function changeRelationType(event: SelectChangeEvent, index: number) {
-    const fields = [...fieldMaps];
-    fields[index].logical_operator = event.target.value;
-    setFieldMaps(fields);
+    const updatedFields = [...fields];
+    updatedFields[index].logical_operator = event.target.value;
+    setFields(updatedFields);
   }
 
   function changeFieldKeywords(event: SelectChangeEvent, index: number) {
     const keywords = event.target.value.split(",");
-    const filteredKeywords = keywords.filter((keyword) => {
-      return !!keyword;
-    });
-    const fields = [...fieldMaps];
-    fields[index].keywords = filteredKeywords;
-    setFieldMaps(fields);
+    // const filteredKeywords = keywords.filter((keyword) => {
+    //   return !!keyword;
+    // });
+    const updatedFields = [...fields];
+    updatedFields[index].keywords = keywords;
+    setFields(updatedFields);
   }
 
   function addField() {
-    const fields = [
-      ...fieldMaps,
+    const updatedFields = [
+      ...fields,
       { label: null, keywords: null, logical_operator: null },
     ];
-    setFieldMaps(fields);
+    setFields(updatedFields);
   }
 
   function resetFields() {
-    setFieldMaps([{ label: null, keywords: null, logical_operator: null }]);
+    setFields([{ label: null, keywords: null, logical_operator: null }]);
   }
 
   function Relation({ isFirst, index }: { isFirst: boolean; index: number }) {
-    if (fieldMaps.length === 1 || isFirst) {
+    if (fields.length === 1 || isFirst) {
       return null;
     }
     return (
@@ -124,7 +123,7 @@ function QueryGenerator() {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="Field"
-            value={fieldMaps[index].logical_operator}
+            value={fields[index].logical_operator}
             onChange={(e) => {
               changeRelationType(e as SelectChangeEvent, index);
             }}
@@ -271,7 +270,7 @@ function QueryGenerator() {
       </>
     );
   }
-  function FieldTypes(fieldEl: FieldMap, i: number) {
+  function FieldTypes(fieldEl: Field, i: number) {
     return (
       <FormControl className="flex-item" fullWidth>
         <InputLabel id="demo-simple-select-label">Field</InputLabel>
@@ -294,11 +293,12 @@ function QueryGenerator() {
     );
   }
 
-  function Keywords(i: number) {
+  function Keywords(fieldEl: Field,i: number) {
     return (
       <FormControl className="flex-item">
         <TextField
-          label="Keywords"
+          label="Keywords(Comma separated)"
+          value={fieldEl.keywords?.toString() ?? ''}
           onChange={(e) => {
             changeFieldKeywords(e as SelectChangeEvent, i);
           }}
@@ -315,7 +315,7 @@ function QueryGenerator() {
       >
         <Queries />
       </Backdrop>
-      {fieldMaps.map((fieldEl, i) => (
+      {fields.map((fieldEl: Field, i: number) => (
         <>
           <Backdrop
             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -326,7 +326,7 @@ function QueryGenerator() {
           <Relation isFirst={i === 0} index={i} />
           <Box className="field-container" sx={{ minWidth: 120 }}>
             {FieldTypes(fieldEl, i)}
-            {Keywords(i)}
+            {Keywords(fieldEl,i)}
           </Box>
         </>
       ))}
@@ -357,13 +357,6 @@ function QueryGenerator() {
         }}
       >
         Generate queries
-      </Button>
-      {bears}
-   <Button
-        variant="outlined"
-        onClick={increasePopulation}
-      >
-        Increase bear
       </Button>
     </>
   );

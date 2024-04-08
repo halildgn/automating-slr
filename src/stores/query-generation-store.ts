@@ -1,27 +1,16 @@
 import { create } from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
+import {Field} from '../types/index'
 
-interface BearState {
-  bears: number
-  increase: (by: number) => void
+
+interface FieldStore{
+  fields: Array<Field>,
+  setFields: (updatedFields: Array<Field>) => void
 }
 
-// export const useBearStore = create<BearState>()(
-//   devtools(
-//     persist(
-//       (set) => ({
-//         bears: 0,
-//         increase: (by) => set((state) => ({ bears: state.bears + by })),
-//       }),
-//       {
-//         name: 'bear-storage',
-//       },
-//     ),
-//   ),
-// )
-
-export const useBearStore=  create((set) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
+export const useFieldsStore =  create<FieldStore>((set) => ({
+  fields: [
+    { label: null, keywords: null, logical_operator: null },
+  ],
+  setFields: (updatedFields) => set(() => ({fields : updatedFields })),
 }))
+

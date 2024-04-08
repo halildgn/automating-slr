@@ -6,11 +6,13 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Button } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import {useDownloadStore} from '../stores/download-store.ts';
 
 function Download() {
-  const [library , setLibrary] = useState<null | 'WOS'>(null);
-  const [query, setQuery] = useState<null | string>(null);
+  const library = useDownloadStore((state) => state.library)
+ const setLibrary = useDownloadStore((state) => state.setLibrary)
+  const query = useDownloadStore((state) => state.query)
+ const setQuery = useDownloadStore((state) => state.setQuery)
 
    async function downloadFilesForLibrary(){
     await axios.post("http://localhost:9998/download", {
@@ -35,6 +37,7 @@ function Download() {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label="Field"
+            value={library}
              onChange={(e) => {
                setLibrary((e as SelectChangeEvent).target.value);
              }}
@@ -47,6 +50,7 @@ function Download() {
   <FormControl>
         <TextField
           label="Query"
+           value={query}
            onChange={(e) => {
                setQuery((e as SelectChangeEvent).target.value);
            }}
