@@ -29,6 +29,9 @@ const [component, setComponent] = useState<COMPONENTS>(0);
   const dark = createTheme({
     palette: {
       mode: "dark",
+      background: {
+        default: '#464545'
+      }
     },
   });
   const light = createTheme({

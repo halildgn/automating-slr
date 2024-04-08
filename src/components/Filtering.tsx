@@ -181,7 +181,7 @@ function Filtering() {
 
   function PublicationTypes() {
     if (Object.keys(includedPublicationTypes).length < 1) {
-      return;
+      return null;
     }
     return (
       <div className="field-container queries-container">
@@ -193,7 +193,6 @@ function Filtering() {
                 onChange={(e) => {
                   selectDeSelectPublicationType(e, pubType);
                 }}
-                name="example"
               />
             }
             label={pubType}
@@ -272,7 +271,7 @@ function Filtering() {
 
   function UploadSuccessFailIndicator() {
     if (isUploadSuccess === null) {
-      return;
+      return null;
     }
     if (isUploadSuccess) {
       return (
@@ -281,11 +280,11 @@ function Filtering() {
           open={isUploadSuccess}
           onClick={() => setIsUploadSuccess(null)}
           in={isUploadSuccess} //Write the needed condition here to make it appear
-          timeout={{ enter: 1000, exit: 2000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+          timeout={{ enter: 1000, exit: 5000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
           addEndListener={() => {
             setTimeout(() => {
               setIsUploadSuccess(null);
-            }, 3000);
+            }, 5000);
           }}
         >
           <Alert severity="success">
@@ -302,11 +301,11 @@ function Filtering() {
         open={!isUploadSuccess}
         onClick={() => setIsUploadSuccess(null)}
         in={!isUploadSuccess} //Write the needed condition here to make it appear
-        timeout={{ enter: 1000, exit: 2000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+        timeout={{ enter: 1000, exit: 5000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
         addEndListener={() => {
           setTimeout(() => {
             setIsUploadSuccess(null);
-          }, 3000);
+          }, 5000);
         }}
       >
         <Alert severity="error">Upload was not succesful</Alert>
@@ -325,11 +324,11 @@ function Filtering() {
           open={isFilteringSuccess}
           in={isFilteringSuccess} //Write the needed condition here to make it appear
           onClick={() => setIsFilteringSuccess(null)}
-          timeout={{ enter: 1000, exit: 2000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+          timeout={{ enter: 1000, exit: 5000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
           addEndListener={() => {
             setTimeout(() => {
               setIsFilteringSuccess(null);
-            }, 3000);
+            }, 5000);
           }}
         >
           <Alert severity="success">
@@ -345,11 +344,11 @@ function Filtering() {
         open={!isFilteringSuccess}
         onClick={() => setIsFilteringSuccess(null)}
         in={!isFilteringSuccess} //Write the needed condition here to make it appear
-        timeout={{ enter: 1000, exit: 2000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+        timeout={{ enter: 1000, exit: 5000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
         addEndListener={() => {
           setTimeout(() => {
             setIsUploadSuccess(null);
-          }, 3000);
+          }, 5000);
         }}
       >
         <Alert severity="error">Filtering was not sucessful</Alert>
