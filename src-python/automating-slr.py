@@ -73,10 +73,10 @@ def spin_up_server():
         app.run(host="localhost", port=9998, debug=False) 
 
 if __name__ == '__main__':
-    multiprocessing.freeze_support()
-    frontend = resource_path("index.html")
+    # multiprocessing.freeze_support()
+    # frontend = resource_path("index.html")
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
-    webview.create_window('Automating SLR', frontend, resizable=True)
-    webview.start()
-    server_process.terminate()
+    # webview.create_window('Automating SLR', frontend, resizable=True)
+    # webview.start()
+    # server_process.terminate()

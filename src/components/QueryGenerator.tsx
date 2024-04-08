@@ -1,7 +1,7 @@
 import { Field, LibraryQuery,Library  } from "../types/index";
 import InfoIcon from "@mui/icons-material/Info";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { useState, useEffect, forwardRef, ReactElement, Ref, Fragment } from "react";
+import { useState,forwardRef, ReactElement, Ref, Fragment } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -45,16 +45,7 @@ const Transition = forwardRef(function Transition(
 function QueryGenerator() {
   const fields = useFieldsStore((state) => state.fields)
  const setFields = useFieldsStore((state) => state.setFields)
-  useEffect(() => {
-    function handleQueryViewQuit(event: KeyboardEvent) {
-      if (event.key === "q") {
-        setQueriesOverlayOpen(false);
-      }
-    }
 
-    document.addEventListener("keydown", handleQueryViewQuit);
-    return () => document.removeEventListener("keydown", handleQueryViewQuit);
-  }, []);
   const [loadingOverlayOpen, setLoadingOverlayOpen] = useState<boolean>(false);
   const [queriesOverlayOpen, setQueriesOverlayOpen] = useState<boolean>(false);
 
