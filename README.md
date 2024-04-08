@@ -55,3 +55,6 @@ if __name__ == '__main__':
     # webview.start()
     # server_process.terminate()
 ```
+
+##### Things to be aware of
+1. Changing theme(dark/light) during the work is going to re-render the DOM elements(the filled fields are going to be emptied). Please only change it before working on stuff.  
