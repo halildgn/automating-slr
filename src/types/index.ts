@@ -13,11 +13,11 @@ export type Field = {
 export type PublicationTypes = { [publicationTypes: string]: boolean };
 
 export type LibraryQuery = {
-  ACM: null | string;
-  IEEE: null | string;
-  WOS: null | string;
-  SCOPUS: null | string;
-  EBSCO: null | string;
+  acm: null | string;
+  ieee: null | string;
+  wos: null | string;
+  scopus: null | string;
+  ebsco: null | string;
 };
 
 // Convert this into a union type of DateRange and PageRange:
@@ -28,4 +28,4 @@ export type DateAndPageRange = {
   endYear: string | null;
 };
 
-export type Library = 'ACM' | 'IEEE' | 'WOS' | 'SCOPUS' | 'EBSCO'
+export type Library = 'acm' | 'ieee' | 'wos' | 'scopus' | 'ebsco'

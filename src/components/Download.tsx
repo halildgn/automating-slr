@@ -7,6 +7,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Button } from "@mui/material";
 import axios from "axios";
 import {useDownloadStore} from '../stores/download-store.ts';
+import { Library } from "@/types/index.ts";
 
 function Download() {
   const library = useDownloadStore((state) => state.library)
@@ -39,10 +40,10 @@ function Download() {
             label="Field"
             value={library}
              onChange={(e) => {
-               setLibrary((e as SelectChangeEvent).target.value);
+               setLibrary(((e as SelectChangeEvent).target.value as Library));
              }}
           >
-            <MenuItem value={"WOS"}>WOS</MenuItem>
+            <MenuItem value={"wos"}>WOS</MenuItem>
           </Select>
         </FormControl>
       </Box>

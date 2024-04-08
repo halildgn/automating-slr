@@ -1,9 +1,10 @@
 import { create } from 'zustand'
+import { Library} from '../types/index'
 
 
 interface DownloadStore{
-  library: null | 'WOS',
-  setLibrary: (lib: 'WOS') => void,
+  library: null | Library,
+  setLibrary: (lib: Library) => void,
   query: string | null,
   setQuery: (q: string) => void
 }

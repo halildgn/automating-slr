@@ -1,8 +1,8 @@
 export const libraryInfo =  Object.freeze({
-   WOS : "wos info string",
-  IEEE : "ieee info string",
-  ACM : "acm info string",
-  SCOPUS : "scopus info string",
-  EBSCO : "ebsco info string",});
+  wos : "wos info string",
+  ieee : "ieee info string",
+  acm : "acm info string",
+  scopus : "scopus info string",
+  ebsco : "ebsco info string",});
 
 

@@ -1,5 +1,5 @@
 import { Field, LibraryQuery,Library  } from "../types/index";
-import InfoIcon from "@mui/icons-material/Info";
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { useState,forwardRef, ReactElement, Ref, Fragment } from "react";
 import axios from "axios";
@@ -29,6 +29,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import { libraryInfo } from "../constant";
+import QuestionMark from "@mui/icons-material/QuestionMark";
 
 
 const Transition = forwardRef(function Transition(
@@ -50,11 +51,11 @@ function QueryGenerator() {
   const [queriesOverlayOpen, setQueriesOverlayOpen] = useState<boolean>(false);
 
   const [queries, setQueries] = useState<LibraryQuery>({
-    ACM: null,
-    IEEE: null,
-    WOS: null,
-    SCOPUS: null,
-    EBSCO: null,
+    acm: null,
+    ieee: null,
+    wos: null,
+    scopus: null,
+    ebsco: null,
   });
 
   // function emptyFieldsPresent(): boolean{
@@ -191,7 +192,7 @@ function Queries(){
           <ListItemButton onClick={()=>{navigator.clipboard.writeText(queries[(library as Library)] ?? "")}}>
             <ListItemText primary={queries[(library as Library)]} secondary={library} />
   <Tooltip title={libraryInfo[(library as Library)]}>
-                <InfoIcon/>
+                <QuestionMarkIcon/>
               </Tooltip>
           </ListItemButton>
           <ListDivider isLast={i === Object.keys(queries).length-1} />
