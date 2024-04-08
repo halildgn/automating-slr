@@ -1,7 +1,7 @@
-import { Field, Queries, INFO } from "../types/index";
-import { Mousewheel, Pagination } from "swiper/modules";
+import { Field, LibraryQuery,Library  } from "../types/index";
 import InfoIcon from "@mui/icons-material/Info";
-import { useState, useEffect } from "react";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { useState, useEffect, forwardRef, ReactElement, Ref, Fragment } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -9,21 +9,38 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import AutorenewIcon from "@material-ui/icons/Autorenew";
-import FileCopyIcon from "@material-ui/icons/FileCopy";
 import Tooltip from "@mui/material/Tooltip";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Swiper, SwiperSlide } from "swiper/react";
 import NetworkError from "./NetworkError";
 import { useFieldsStore } from "../stores/query-generation-store";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Dialog from '@mui/material/Dialog';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
+import Slide from '@mui/material/Slide';
+import { TransitionProps } from '@mui/material/transitions';
+import { libraryInfo } from "../constant";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
+
+const Transition = forwardRef(function Transition(
+  props: TransitionProps & {
+    children: ReactElement;
+  },
+  ref: Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+
 
 function QueryGenerator() {
   const fields = useFieldsStore((state) => state.fields)
@@ -39,14 +56,14 @@ function QueryGenerator() {
     return () => document.removeEventListener("keydown", handleQueryViewQuit);
   }, []);
   const [loadingOverlayOpen, setLoadingOverlayOpen] = useState<boolean>(false);
-  const [quriesOverlayOpen, setQueriesOverlayOpen] = useState<boolean>(false);
+  const [queriesOverlayOpen, setQueriesOverlayOpen] = useState<boolean>(false);
 
-  const [queries, setQueries] = useState<Queries>({
-    acm: null,
-    ieee: null,
-    wos: null,
-    scopus: null,
-    ebsco: null,
+  const [queries, setQueries] = useState<LibraryQuery>({
+    ACM: null,
+    IEEE: null,
+    WOS: null,
+    SCOPUS: null,
+    EBSCO: null,
   });
 
   // function emptyFieldsPresent(): boolean{
@@ -136,140 +153,74 @@ function QueryGenerator() {
     );
   }
 
-  function Queries() {
+function Queries(){
+
     return (
-      <>
-        <Swiper
-          direction={"vertical"}
-          slidesPerView={1}
-          spaceBetween={30}
-          mousewheel={true}
-          loop={true}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Mousewheel, Pagination]}
-          className="swiper-container"
-        >
-          <SwiperSlide className="swiper-content-container">
-            <Paper className="swiper-paper-content" elevation={3}>
-              <div className="swiper-paper-content-query-name-icons-container">
-              <div style={{ color: "#1976d2" }}>WOS Query</div>
-                <div>
-              <Tooltip title="Copy">
-                <FileCopyIcon
-                  onClick={() => {
-                    navigator.clipboard.writeText(queries.wos ?? "");
-                  }}
-                  style={{ color: "gray" }}
-                />
+<Fragment>
+     <Button
+        variant="outlined"
+        onClick={() => {
+          generateQueries();
+        }}
+      >
+        Generate queries
+      </Button>
+      <Dialog
+        fullScreen
+        open={queriesOverlayOpen}
+        TransitionComponent={Transition}
+      >
+        <AppBar sx={{ position: 'relative' }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={()=>setQueriesOverlayOpen(false)}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              Queries
+            </Typography>
+ 
+  <Tooltip title="You can add by save, load from myqueries and copy by clicking on them">
+                <HelpOutlineIcon/>
               </Tooltip>
-              <Tooltip title={INFO.WOS}>
-                <InfoIcon style={{ color: "gray" }} />
+            <Button autoFocus color="inherit" 
+                 // onClick={}
+              >
+              Save
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <List>
+     {Object.keys(queries).map((library: string,i: number) => (
+        <>
+          <ListItemButton onClick={()=>{navigator.clipboard.writeText(queries[(library as Library)] ?? "")}}>
+            <ListItemText primary={queries[(library as Library)]} secondary={library} />
+  <Tooltip title={libraryInfo[(library as Library)]}>
+                <InfoIcon/>
               </Tooltip>
-              </div>
-              </div>
-              <div className="swiper-paper-content-query-text">
-              {queries.wos}
-              </div>
-            </Paper>
-          </SwiperSlide>
-  <SwiperSlide className="swiper-content-container">
-            <Paper className="swiper-paper-content" elevation={3}>
-              <div className="swiper-paper-content-query-name-icons-container">
-              <div style={{ color: "#1976d2" }}>IEEE Query</div>
-                <div>
-              <Tooltip title="Copy">
-                <FileCopyIcon
-                  onClick={() => {
-                    navigator.clipboard.writeText(queries.ieee ?? "");
-                  }}
-                  style={{ color: "gray" }}
-                />
-              </Tooltip>
-              <Tooltip title={INFO.IEEE}>
-                <InfoIcon style={{ color: "gray" }} />
-              </Tooltip>
-              </div>
-              </div>
-              <div className="swiper-paper-content-query-text">
-              {queries.ieee}
-              </div>
-            </Paper>
-          </SwiperSlide>
-   <SwiperSlide className="swiper-content-container">
-            <Paper className="swiper-paper-content" elevation={3}>
-              <div className="swiper-paper-content-query-name-icons-container">
-              <div style={{ color: "#1976d2" }}>ACM Query</div>
-                <div>
-              <Tooltip title="Copy">
-                <FileCopyIcon
-                  onClick={() => {
-                    navigator.clipboard.writeText(queries.acm ?? "");
-                  }}
-                  style={{ color: "gray" }}
-                />
-              </Tooltip>
-              <Tooltip title={INFO.ACM}>
-                <InfoIcon style={{ color: "gray" }} />
-              </Tooltip>
-              </div>
-              </div>
-              <div className="swiper-paper-content-query-text">
-              {queries.acm}
-              </div>
-            </Paper>
-          </SwiperSlide>
-   <SwiperSlide className="swiper-content-container">
-            <Paper className="swiper-paper-content" elevation={3}>
-              <div className="swiper-paper-content-query-name-icons-container">
-              <div style={{ color: "#1976d2" }}>SCOPUS Query</div>
-                <div>
-              <Tooltip title="Copy">
-                <FileCopyIcon
-                  onClick={() => {
-                    navigator.clipboard.writeText(queries.scopus ?? "");
-                  }}
-                  style={{ color: "gray" }}
-                />
-              </Tooltip>
-              <Tooltip title={INFO.SCOPUS}>
-                <InfoIcon style={{ color: "gray" }} />
-              </Tooltip>
-              </div>
-              </div>
-              <div className="swiper-paper-content-query-text">
-              {queries.scopus}
-              </div>
-            </Paper>
-          </SwiperSlide>
-   <SwiperSlide className="swiper-content-container">
-            <Paper className="swiper-paper-content" elevation={3}>
-              <div className="swiper-paper-content-query-name-icons-container">
-              <div style={{ color: "#1976d2" }}>EBSCO Query</div>
-                <div>
-              <Tooltip title="Copy">
-                <FileCopyIcon
-                  onClick={() => {
-                    navigator.clipboard.writeText(queries.ebsco ?? "");
-                  }}
-                  style={{ color: "gray" }}
-                />
-              </Tooltip>
-              <Tooltip title={INFO.EBSCO}>
-                <InfoIcon style={{ color: "gray" }} />
-              </Tooltip>
-              </div>
-              </div>
-              <div className="swiper-paper-content-query-text">
-              {queries.ebsco}
-              </div>
-            </Paper>
-          </SwiperSlide>
-        </Swiper>
-      </>
+          </ListItemButton>
+          <ListDivider isLast={i === Object.keys(queries).length-1} />
+        </>
+      ))}
+        </List>
+      </Dialog>
+    </Fragment>
+
     );
   }
+
+  function ListDivider({isLast} : {isLast: boolean}){
+    if(isLast){
+      return null;
+    }
+
+    return <Divider />
+  }
+
   function FieldTypes(fieldEl: Field, i: number) {
     return (
       <FormControl className="flex-item" fullWidth>
@@ -309,12 +260,7 @@ function QueryGenerator() {
 
   return (
     <>
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={quriesOverlayOpen}
-      >
-        <Queries />
-      </Backdrop>
+   
       {fields.map((fieldEl: Field, i: number) => (
         <>
           <Backdrop
@@ -349,15 +295,7 @@ function QueryGenerator() {
       >
         Reset
       </Button>
-
-      <Button
-        variant="outlined"
-        onClick={() => {
-          generateQueries();
-        }}
-      >
-        Generate queries
-      </Button>
+    <Queries/>
     </>
   );
 }

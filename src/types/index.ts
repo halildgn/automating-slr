@@ -10,15 +10,15 @@ export type Field = {
   logical_operator: string | null;
 };
 
-export type Queries = {
-  acm: null | string;
-  ieee: null | string;
-  wos: null | string;
-  scopus: null | string;
-  ebsco: null | string;
-};
-
 export type PublicationTypes = { [publicationTypes: string]: boolean };
+
+export type LibraryQuery = {
+  ACM: null | string;
+  IEEE: null | string;
+  WOS: null | string;
+  SCOPUS: null | string;
+  EBSCO: null | string;
+};
 
 // Convert this into a union type of DateRange and PageRange:
 export type DateAndPageRange = {
@@ -28,10 +28,4 @@ export type DateAndPageRange = {
   endYear: string | null;
 };
 
-export enum INFO {
-  WOS = "wos info string",
-  IEEE = "ieee info string",
-  ACM = "acm info string",
-  SCOPUS = "scopus info string",
-  EBSCO = "ebsco info string",
-}
+export type Library = 'ACM' | 'IEEE' | 'WOS' | 'SCOPUS' | 'EBSCO'
