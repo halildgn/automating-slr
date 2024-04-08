@@ -6,5 +6,4 @@ pywebview
 Flask
 flask_cors
 bibtexparser
-asyncio
 playwright
