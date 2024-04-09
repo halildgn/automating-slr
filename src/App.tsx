@@ -24,8 +24,9 @@ function App() {
 const [component, setComponent] = useState<COMPONENTS>(0);
 
   const mainContainerClass = classNames({
-'container': component !== COMPONENTS.DOWNLOAD,
-'download-container': component === COMPONENTS.DOWNLOAD
+'container': component !== COMPONENTS.DOWNLOAD && component !== COMPONENTS.MY_BUILDS,
+'download-container': component === COMPONENTS.DOWNLOAD ,
+'my-builds-container': component === COMPONENTS.MY_BUILDS 
 	});
 
   const dark = createTheme({

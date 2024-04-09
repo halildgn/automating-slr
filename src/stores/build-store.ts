@@ -1,28 +1,35 @@
+import { create } from 'zustand'
+import { persist, createJSONStorage } from 'zustand/middleware'
 import { Build } from "../types/index";
 
-export function getBuilds(){
-return JSON.parse(localStorage.getItem('builds') as string);
+interface BuildStore{
+  builds: Array<Build>,
+  saveBuild: (build:Build)=> void,
+  removeBuild: (id: string)=> void
 }
 
 export function buildsArePresent(): boolean{
-    const builds = localStorage.getItem('builds');
+    const builds = localStorage.getItem('builds-storage');
       return !!builds;
 }
 
 export function setInitialBuilds(){
-      localStorage.setItem('builds', JSON.stringify([]));
+      localStorage.setItem('builds-storage', JSON.stringify({builds: []}));
   }
 
-export function saveBuild(build:Build){
-  const builds: Array<Build> = getBuilds();
-  builds.push(build);
-  localStorage.setItem('builds', JSON.stringify(builds));
-}
-
-
- export function removeBuild(id: string){
-    const builds: Array<Build> = getBuilds();
-    const index = builds.findIndex((build)=>build.id === id)
-    builds.splice(index,1);
-    localStorage.setItem('builds', JSON.stringify(builds));
- }
+export const useBuildsStore = create(
+  persist<BuildStore>(
+    (set, get) =>{
+      const storage = localStorage.getItem('builds-storage')
+return ({
+      builds: storage ? (JSON.parse(storage) as BuildStore).builds : [],
+      saveBuild: (build: Build) => set({builds: [...get().builds, build]}),
+      removeBuild: (id: string)=> set({builds: get().builds.filter((build)=>build.id !== id)})
+    })
+    } 
+    ,{
+      name: 'builds-storage',
+      storage: createJSONStorage(() => localStorage), 
+    },
+  ),
+)
