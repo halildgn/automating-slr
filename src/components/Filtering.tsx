@@ -279,8 +279,8 @@ function Filtering() {
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={isUploadSuccess}
           onClick={() => setIsUploadSuccess(null)}
-          in={isUploadSuccess} //Write the needed condition here to make it appear
-          timeout={{ enter: 1000, exit: 5000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+          in={isUploadSuccess} 
+          timeout={{ enter: 1000, exit: 5000 }} 
           addEndListener={() => {
             setTimeout(() => {
               setIsUploadSuccess(null);
@@ -300,8 +300,8 @@ function Filtering() {
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={!isUploadSuccess}
         onClick={() => setIsUploadSuccess(null)}
-        in={!isUploadSuccess} //Write the needed condition here to make it appear
-        timeout={{ enter: 1000, exit: 5000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+        in={!isUploadSuccess} 
+        timeout={{ enter: 1000, exit: 5000 }} 
         addEndListener={() => {
           setTimeout(() => {
             setIsUploadSuccess(null);
@@ -322,9 +322,9 @@ function Filtering() {
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={isFilteringSuccess}
-          in={isFilteringSuccess} //Write the needed condition here to make it appear
+          in={isFilteringSuccess} 
           onClick={() => setIsFilteringSuccess(null)}
-          timeout={{ enter: 1000, exit: 5000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+          timeout={{ enter: 1000, exit: 5000 }} 
           addEndListener={() => {
             setTimeout(() => {
               setIsFilteringSuccess(null);
@@ -343,8 +343,8 @@ function Filtering() {
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={!isFilteringSuccess}
         onClick={() => setIsFilteringSuccess(null)}
-        in={!isFilteringSuccess} //Write the needed condition here to make it appear
-        timeout={{ enter: 1000, exit: 5000 }} //Edit these two values to change the duration of transition when the element is getting appeared and disappeard
+        in={!isFilteringSuccess} 
+        timeout={{ enter: 1000, exit: 5000 }} 
         addEndListener={() => {
           setTimeout(() => {
             setIsUploadSuccess(null);
