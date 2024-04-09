@@ -233,8 +233,7 @@ function Queries(){
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Queries
             </Typography>
- 
-  <Tooltip title="You can add by save, load from myqueries and copy by clicking on them">
+  <Tooltip title={`To copy a query please click on it`}>
                 <HelpOutlineIcon/>
               </Tooltip>
             <Button autoFocus color="inherit" 
