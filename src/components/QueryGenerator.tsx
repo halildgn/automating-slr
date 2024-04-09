@@ -15,7 +15,7 @@ import AutorenewIcon from "@material-ui/icons/Autorenew";
 import Tooltip from "@mui/material/Tooltip";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import NetworkError from "./NetworkError";
+import ErrorAlert from "./ErrorAlert";
 import { useFieldsStore } from "../stores/query-generation-store";
 import Dialog from '@mui/material/Dialog';
 import ListItemText from '@mui/material/ListItemText';
@@ -64,7 +64,7 @@ function QueryGenerator() {
     ebsco: null,
   });
 
-  const [networkErrorPresent, setNetworkErrorPresent] = useState<boolean>(false);
+  const [errorPresent, setErrorPresent] = useState<boolean>(false);
 
   // function emptyFieldsPresent(): boolean{
   //   const firstField = fieldMaps[0];
@@ -92,7 +92,7 @@ function QueryGenerator() {
     setQueriesOverlayOpen(true);
     }catch{
   setLoadingOverlayOpen(false);
-      setNetworkErrorPresent(true);
+      setErrorPresent(true);
     }
   }
 
@@ -316,7 +316,7 @@ function Queries(){
    
       {fields.map((fieldEl: Field, i: number) => (
         <>
-          <NetworkError displayError={networkErrorPresent} setDisplayError={setNetworkErrorPresent} errorMessage="Queries couldn't be generated. Please make sure that no fields are empty."/>
+          <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage="Queries couldn't be generated. Please make sure that no field is empty."/>
           <SaveDialog/>
           <Backdrop
             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

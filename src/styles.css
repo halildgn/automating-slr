@@ -105,11 +105,3 @@ display: flex;
 display: flex;
   justify-content: center;
 }
-
-
-
-.info-icon-queries-overlay {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}

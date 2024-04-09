@@ -3,7 +3,7 @@ import Alert from "@mui/material/Alert";
 
 
 
-function NetworkError({displayError, setDisplayError, errorMessage } : {displayError: boolean, setDisplayError(state: boolean): void, errorMessage?: string}){
+function ErrorAlert({displayError, setDisplayError, errorMessage } : {displayError: boolean, setDisplayError(state: boolean): void, errorMessage?: string}){
   if(!displayError){
     return null;
   }
@@ -26,4 +26,4 @@ return (
 );
 }
 
-export default NetworkError;
+export default ErrorAlert;

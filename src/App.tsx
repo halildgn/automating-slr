@@ -157,7 +157,7 @@ const [theme, setTheme] = useState(() => {
       <ThemeProvider theme={ theme === 'dark' ? dark : light}>
         <CssBaseline />
         <div className={mainContainerClass}>
-          <Box sx={{ width: "100%" }}>
+          <Box sx={{ width: "100%" , position: "relative"}}>
     <img src={colapsLogo} className="colaps-logo"/>
             <div style={{position: 'absolute', top: '3%', right: '5%', zIndex: 1000}}>
    <IconButton onClick={toggleTheme}>
