@@ -64,6 +64,8 @@ function QueryGenerator() {
     ebsco: null,
   });
 
+  const [networkErrorPresent, setNetworkErrorPresent] = useState<boolean>(false);
+
   // function emptyFieldsPresent(): boolean{
   //   const firstField = fieldMaps[0];
   //     // other than first one all consequtive field should have keywords.
@@ -82,14 +84,16 @@ function QueryGenerator() {
   // }
 
   async function generateQueries() {
-    // if(emptyFieldsPresent()){
-    //   return;
-    // }
-    setLoadingOverlayOpen(true);
-    const { data } = await axios.post("http://localhost:9998/query", fields);
+    try{
+  setLoadingOverlayOpen(true);
+  const { data } = await axios.post("http://localhost:9998/query", fields)
     setQueries(data);
-    setLoadingOverlayOpen(false);
+  setLoadingOverlayOpen(false);
     setQueriesOverlayOpen(true);
+    }catch{
+  setLoadingOverlayOpen(false);
+      setNetworkErrorPresent(true);
+    }
   }
 
   function changeFieldType(event: SelectChangeEvent, index: number) {
@@ -312,6 +316,7 @@ function Queries(){
    
       {fields.map((fieldEl: Field, i: number) => (
         <>
+          <NetworkError displayError={networkErrorPresent} setDisplayError={setNetworkErrorPresent} errorMessage="Queries couldn't be generated. Please make sure that no fields are empty."/>
           <SaveDialog/>
           <Backdrop
             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
