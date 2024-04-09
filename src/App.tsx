@@ -17,6 +17,7 @@ import { COMPONENTS } from "./types/index";
 import Download from "./components/Download";
 import colapsLogo from './assets/colaps.png';
 import classNames from 'classnames';
+import MyBuilds from "./components/MyBuilds";
 
 function App() {
 const [component, setComponent] = useState<COMPONENTS>(0);
@@ -122,6 +123,9 @@ const [theme, setTheme] = useState(() => {
         case COMPONENTS.DOWNLOAD:
           setComponent(COMPONENTS.DOWNLOAD);
           break;
+        case COMPONENTS.MY_BUILDS:
+          setComponent(COMPONENTS.MY_BUILDS);
+          break;
         default:
           break;
       }
@@ -136,6 +140,8 @@ const [theme, setTheme] = useState(() => {
         return <Filtering />;
       case COMPONENTS.DOWNLOAD:
         return <Download />;
+      case COMPONENTS.MY_BUILDS:
+        return <MyBuilds />;
       default:
         break;
     }
@@ -163,6 +169,7 @@ const [theme, setTheme] = useState(() => {
               <LinkTab label="Query Generator" />
               <LinkTab label="Filtering" />
               <LinkTab label="Download" />
+              <LinkTab label="My Builds" />
             </Tabs>
           </Box>
           <MainComponent />

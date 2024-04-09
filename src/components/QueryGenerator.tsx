@@ -1,7 +1,7 @@
 import { Field, LibraryQuery,Library  } from "../types/index";
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { useState,forwardRef, ReactElement, Ref, Fragment } from "react";
+import { useState,forwardRef, ReactElement, Ref, Fragment, FormEvent } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -29,7 +29,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import { libraryInfo } from "../constant";
-import QuestionMark from "@mui/icons-material/QuestionMark";
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 const Transition = forwardRef(function Transition(
@@ -49,6 +52,7 @@ function QueryGenerator() {
 
   const [loadingOverlayOpen, setLoadingOverlayOpen] = useState<boolean>(false);
   const [queriesOverlayOpen, setQueriesOverlayOpen] = useState<boolean>(false);
+  const [saveDialogOpen, setSaveDialogOpen] = useState<boolean>(false);
 
   const [queries, setQueries] = useState<LibraryQuery>({
     acm: null,
@@ -145,6 +149,41 @@ function QueryGenerator() {
     );
   }
 
+function SaveDialog(){
+return (
+      <Dialog
+        open={saveDialogOpen}
+         PaperProps={{
+          component: 'form',
+          onSubmit: (event: FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+            // save with uuid to local storage (use nanoid package)
+            setSaveDialogOpen(false);
+          },
+        }}
+      >
+        <DialogTitle>Save to my builds</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+         The query structure is going to be saved to "my builds". It can be loaded from there in the future. 
+          </DialogContentText>
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            label="Name"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={()=>setSaveDialogOpen(false)}>Cancel</Button>
+          <Button type="submit">Save</Button>
+        </DialogActions>
+      </Dialog>
+);
+  }
+
 function Queries(){
 
     return (
@@ -180,7 +219,10 @@ function Queries(){
                 <HelpOutlineIcon/>
               </Tooltip>
             <Button autoFocus color="inherit" 
-                 // onClick={}
+                  onClick={()=>{
+                  setQueriesOverlayOpen(false);
+                  setSaveDialogOpen(true);
+                }}
               >
               Save
             </Button>
@@ -255,6 +297,7 @@ function Queries(){
    
       {fields.map((fieldEl: Field, i: number) => (
         <>
+          <SaveDialog/>
           <Backdrop
             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={loadingOverlayOpen}

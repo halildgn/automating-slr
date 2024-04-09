@@ -2,6 +2,7 @@ export enum COMPONENTS {
   GENERATOR,
   FILTERING,
   DOWNLOAD,
+  MY_BUILDS
 }
 
 export type Field = {
