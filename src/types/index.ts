@@ -29,4 +29,10 @@ export type DateAndPageRange = {
   endYear: string | null;
 };
 
+export type Build = {
+  id: string,
+  name: string,
+  fields: Array<Field>
+}
+
 export type Library = 'acm' | 'ieee' | 'wos' | 'scopus' | 'ebsco'

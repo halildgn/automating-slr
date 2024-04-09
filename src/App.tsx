@@ -18,6 +18,7 @@ import Download from "./components/Download";
 import colapsLogo from './assets/colaps.png';
 import classNames from 'classnames';
 import MyBuilds from "./components/MyBuilds";
+import { buildsArePresent, setInitialBuilds } from "./stores/build-store";
 
 function App() {
 const [component, setComponent] = useState<COMPONENTS>(0);
@@ -60,12 +61,16 @@ const [theme, setTheme] = useState(() => {
 			return newTheme;
 		});
 	}
-
+  
 	useEffect(() => {
 		getThemeFromLocalStorage();
 	}, [theme]);
 
-
+	useEffect(() => {
+	  if(!buildsArePresent()){
+      setInitialBuilds();
+    }	
+	});
 
   function samePageLinkNavigation(
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,

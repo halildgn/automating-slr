@@ -1,4 +1,5 @@
-import { Field, LibraryQuery,Library  } from "../types/index";
+import { Field, LibraryQuery,Library, Build  } from "../types/index";
+import {nanoid} from 'nanoid';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { useState,forwardRef, ReactElement, Ref, Fragment, FormEvent } from "react";
@@ -33,6 +34,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { saveBuild } from "../stores/build-store";
 
 
 const Transition = forwardRef(function Transition(
@@ -149,6 +151,15 @@ function QueryGenerator() {
     );
   }
 
+function saveQueryBuild(name:string){
+    const build : Build = {
+      id: nanoid(),
+      name: name,
+      fields: fields
+    };
+    saveBuild(build); 
+}
+
 function SaveDialog(){
 return (
       <Dialog
@@ -157,7 +168,10 @@ return (
           component: 'form',
           onSubmit: (event: FormEvent<HTMLFormElement>) => {
             event.preventDefault();
-            // save with uuid to local storage (use nanoid package)
+     const formData = new FormData(event.currentTarget);
+            const formJson = Object.fromEntries((formData as any).entries());
+            const buildName = formJson.buildName;
+            saveQueryBuild(buildName);
             setSaveDialogOpen(false);
           },
         }}
@@ -171,6 +185,7 @@ return (
             autoFocus
             required
             margin="dense"
+            name="buildName"
             label="Name"
             fullWidth
             variant="standard"
