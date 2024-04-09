@@ -19,9 +19,11 @@ import colapsLogo from './assets/colaps.png';
 import classNames from 'classnames';
 import MyBuilds from "./components/MyBuilds";
 import { buildsArePresent, setInitialBuilds } from "./stores/build-store";
+import { useComponentStore } from "./stores/component-store";
 
 function App() {
-const [component, setComponent] = useState<COMPONENTS>(0);
+  const component = useComponentStore((state)=>state.currentComponent) 
+    const setComponent = useComponentStore((state)=>state.setCurrentComponent)
 
   const mainContainerClass = classNames({
 'container': component !== COMPONENTS.DOWNLOAD && component !== COMPONENTS.MY_BUILDS,

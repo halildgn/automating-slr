@@ -23,7 +23,7 @@ export const useBuildsStore = create(
       const storage = localStorage.getItem('builds-storage')
 return ({
       builds: storage ? (JSON.parse(storage) as BuildStore).builds : [],
-      saveBuild: (build: Build) => set({builds: [...get().builds, build]}),
+      saveBuild: (build: Build) =>set({builds: [...get().builds, build]}),
       removeBuild: (id: string)=> set({builds: get().builds.filter((build)=>build.id !== id)})
     })
     } 

@@ -11,6 +11,6 @@ export const useFieldsStore =  create<FieldStore>((set) => ({
   fields: [
     { label: null, keywords: null, logical_operator: null },
   ],
-  setFields: (updatedFields) => set(() => ({fields : updatedFields })),
+  setFields: (updatedFields) => set(() => ({fields : [...updatedFields] })),
 }))
 
