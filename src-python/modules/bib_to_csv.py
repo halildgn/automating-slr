@@ -73,3 +73,4 @@ def bib_to_csv(bib_databases, min_pages = None, max_pages= None,
                     unique_doi.add(entry_doi)
                 else:
                     duplicate_count += 1 
+    return duplicate_count

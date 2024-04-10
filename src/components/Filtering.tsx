@@ -18,8 +18,8 @@ import LoadingIndicator from "./LoadingIndicator";
 function Filtering() {
   const [isUploadSuccess, setIsUploadSuccess] = useState<null | boolean>(null);
   const [uploadOrReset, setUploadOrReset] = useState<string>("upload");
-  const [isFilteringSuccess, setIsFilteringSuccess] = useState<null | boolean>(
-    null,
+  const [filteringSuccessIndicators, setFilteringSuccessIndicators] = useState<{success: null | boolean, duplicateCount: null | boolean}>(
+    {success: null, duplicateCount: null}
   );
   const [displayFilterButton, setDisplayFilterButton] = useState(false);
   const [displayFields, setDisplayFields] = useState(false);
@@ -155,14 +155,14 @@ function Filtering() {
         filteredDateAndPageRanges[key] = null;
       }
     }
-    const { status } = await axios.post("http://localhost:9998/filter", {
+    try{
+   const { data }  = await axios.post("http://localhost:9998/filter", {
       publicationTypes: includedPubTypes,
       ...filteredDateAndPageRanges,
     });
-    if (status === 200) {
-      setIsFilteringSuccess(true);
-    } else {
-      setIsFilteringSuccess(false);
+      setFilteringSuccessIndicators({success: true, duplicateCount: data.duplicateCount});
+    }catch{
+      setFilteringSuccessIndicators({success:false , duplicateCount: null});
     }
   }
 
@@ -321,26 +321,27 @@ function Filtering() {
   }
 
   function FilterSuccessFailIndicator() {
-    if (isFilteringSuccess === null) {
+    if (filteringSuccessIndicators.success === null) {
       return;
     }
-    if (isFilteringSuccess) {
+    if (filteringSuccessIndicators.success) {
       return (
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={isFilteringSuccess}
-          in={isFilteringSuccess} 
-          onClick={() => setIsFilteringSuccess(null)}
+          open={filteringSuccessIndicators.success}
+          in={filteringSuccessIndicators.success} 
+          onClick={() => setFilteringSuccessIndicators({success:null, duplicateCount: null})}
           timeout={{ enter: 1000, exit: 5000 }} 
           addEndListener={() => {
             setTimeout(() => {
-              setIsFilteringSuccess(null);
+setFilteringSuccessIndicators({success:null, duplicateCount: null})
             }, 5000);
           }}
         >
           <Alert severity="success">
-            Csv file that consists of filtered entries is saved to Downloads
-            directory
+            {`Csv file that consists of filtered entries is saved to Downloads
+            directory. Number of removed duplicates: ${filteringSuccessIndicators.duplicateCount}`}
+             
           </Alert>
         </Backdrop>
       );
@@ -348,13 +349,13 @@ function Filtering() {
     return (
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={!isFilteringSuccess}
-        onClick={() => setIsFilteringSuccess(null)}
-        in={!isFilteringSuccess} 
+        open={!filteringSuccessIndicators.success}
+        onClick={() => setFilteringSuccessIndicators({success:null, duplicateCount: null})}
+        in={!filteringSuccessIndicators.success} 
         timeout={{ enter: 1000, exit: 5000 }} 
         addEndListener={() => {
           setTimeout(() => {
-            setIsUploadSuccess(null);
+setFilteringSuccessIndicators({success:null, duplicateCount: null})
           }, 5000);
         }}
       >
