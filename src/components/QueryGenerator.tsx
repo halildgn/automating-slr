@@ -33,7 +33,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useBuildsStore } from "../stores/build-store";
+import { useConfigStore } from "../stores/config-store";
 import LoadingIndicator from "./LoadingIndicator";
 
 
@@ -49,7 +49,7 @@ const Transition = forwardRef(function Transition(
 
 
 function QueryGenerator() {
-  const saveBuild = useBuildsStore((state)=>state.saveBuild)
+  const saveBuild = useConfigStore((state)=>state.saveBuild)
   const fields = useFieldsStore((state) => state.fields)
  const setFields = useFieldsStore((state) => state.setFields)
 

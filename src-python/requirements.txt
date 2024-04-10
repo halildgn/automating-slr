@@ -3,6 +3,7 @@ pyinstaller; sys_platform != 'darwin'
 py2app; sys_platform == 'darwin'
 psutil
 pywebview
+pickledb
 Flask
 flask_cors
 bibtexparser

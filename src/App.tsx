@@ -10,7 +10,7 @@ import Tabs from "@mui/material/Tabs";
 import IconButton from '@mui/material/IconButton';
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import QueryGenerator from "./components/QueryGenerator";
 import Filtering from "./components/Filtering";
 import { COMPONENTS } from "./types/index";
@@ -18,12 +18,15 @@ import Download from "./components/Download";
 import colapsLogo from './assets/colaps.png';
 import classNames from 'classnames';
 import MyBuilds from "./components/MyBuilds";
-import { buildsArePresent, setInitialBuilds } from "./stores/build-store";
+import {useConfigStore } from "./stores/config-store";
 import { useComponentStore } from "./stores/component-store";
+import { getConfiguration } from "./resources/configuration-resource";
 
 function App() {
   const component = useComponentStore((state)=>state.currentComponent) 
     const setComponent = useComponentStore((state)=>state.setCurrentComponent)
+  const theme = useConfigStore((state)=>state.theme)
+  const setTheme = useConfigStore((state)=> state.setTheme) 
 
   const mainContainerClass = classNames({
 'container': component !== COMPONENTS.DOWNLOAD && component !== COMPONENTS.MY_BUILDS,
@@ -45,35 +48,19 @@ function App() {
     },
   });
 
-const [theme, setTheme] = useState(() => {
-		const initialTheme = localStorage.getItem("theme");
-		return initialTheme ? initialTheme : "light";
-	});
+  useEffect(()=>{
+  const setInitialConfiguration = async () => {
+    const {theme,builds} = await getConfiguration();  
+      useConfigStore.setState({theme, builds})
+  }
+setInitialConfiguration();
+  })
 
-	function getThemeFromLocalStorage() {
-		const savedTheme = localStorage.getItem("theme");
-		if (savedTheme) {
-			setTheme(savedTheme);
-		}
-	}
 
 	function toggleTheme() {
-		setTheme((prevTheme) => {
-			const newTheme = prevTheme === "light" ? "dark" : "light";
-			localStorage.setItem("theme", newTheme);
-			return newTheme;
-		});
+			const newTheme =  theme === "light" ? "dark" : "light";
+      setTheme(newTheme)
 	}
-  
-	useEffect(() => {
-		getThemeFromLocalStorage();
-	}, [theme]);
-
-	useEffect(() => {
-	  if(!buildsArePresent()){
-      setInitialBuilds();
-    }	
-	});
 
   function samePageLinkNavigation(
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,

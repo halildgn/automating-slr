@@ -1,6 +1,8 @@
+from signal import signal
 from typing import List
 import gc
 import socket
+import pickledb
 import webview
 import multiprocessing
 import sys
@@ -14,6 +16,31 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 bib_files = None
+
+@app.route("/config", methods=['GET'])
+def getConfiguration():
+    config_dir_missing = not config_dir_exists() 
+    if(config_dir_missing):
+       os.makedirs(Path.home().joinpath('automating-slr-conf')) 
+    db = pickledb.load(config_path(),auto_dump=True, sig=False) 
+    if(config_dir_missing):
+        db.set('theme','light')
+        db.set('builds', [])
+    theme = db.get('theme')
+    builds = db.get('builds')
+    return jsonify({"theme": theme, "builds": builds})
+
+@app.route('/setThemeConfig', methods=['POST'])
+def setThemeConfig():
+     db = pickledb.load(config_path(),auto_dump=True, sig=False)
+     db.set('theme', request.json['theme'])
+     return app.response_class(status=200)
+
+@app.route('/setBuildsConfig', methods=['POST'])
+def setBuildsConfig():
+     db = pickledb.load(config_path(),auto_dump=True, sig=False)
+     db.set('builds', request.json['builds'])
+     return app.response_class(status=200)
 
 @app.route("/query",methods=['POST'])
 def getQueries():
@@ -63,6 +90,11 @@ def resource_path(relative_path):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
 
+def config_dir_exists() -> bool:
+   return os.path.exists(Path.home().joinpath('automating-slr-conf'))
+
+def config_path():
+    return Path.home().joinpath('automating-slr-conf', 'config.db')
 
 def is_port_in_use(port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

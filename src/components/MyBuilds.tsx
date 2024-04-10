@@ -3,15 +3,14 @@ import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from "@mui/material/Tooltip";
 import LaunchIcon from '@mui/icons-material/Launch';
-import { useBuildsStore} from '../stores/build-store';
+import { useConfigStore} from '../stores/config-store';
 import { useFieldsStore } from '../stores/query-generation-store';
 import { useComponentStore } from '../stores/component-store';
 import { Box } from '@mui/material';
 
 function MyBuilds(){
-const builds = useBuildsStore((state)=>state.builds)
-
-const removeBuild = useBuildsStore((state)=>state.removeBuild)
+const builds = useConfigStore((state)=>state.builds)
+const removeBuild = useConfigStore((state)=>state.removeBuild)
  const setFields = useFieldsStore((state) => state.setFields)
   const setComponent = useComponentStore((state)=>state.setCurrentComponent)
 
