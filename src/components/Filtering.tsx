@@ -81,6 +81,8 @@ function Filtering() {
     setDisplayFields(false);
     setDisplayFilterButton(false);
     setOverlayOpen(true);
+
+    try{
     const response = await axios.post(
       "http://localhost:9998/boundariesForFilterParameters",
       formData,
@@ -115,6 +117,11 @@ function Filtering() {
       setUploadOrReset("reset");
     } else {
       setUploadOrReset("upload");
+      setOverlayOpen(false);
+      setIsUploadSuccess(false);
+    }
+    }catch{
+    setUploadOrReset("upload");
       setOverlayOpen(false);
       setIsUploadSuccess(false);
     }
