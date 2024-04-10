@@ -34,6 +34,10 @@ pip3 install -r requirements.txt && playwright install --with-deps chromium && p
 
 6. The generated binary should now be placed in the `automating-slr/src-python/dist`. You can now use this binary to launch the application without having to perform any additional steps(You can also distribute it to other machines with same OS&processor family but please see the warnings section below). 
 
+# Configuration
+
+* Your theme preference and build configurations are managed by `pickledDB` and stored in your home directory, in a file called `automating-slr-config.db`. In case of switching over to other machines in the future, you can still enjoy your existing builds by placing this file in that machine's home directory. 
+
 # For possible development cycles in the future
 * Install `nodejs`
 * In `automating-slr`, install the packages via `npm install`
@@ -42,11 +46,11 @@ pip3 install -r requirements.txt && playwright install --with-deps chromium && p
 * To spin up the flask server, comment out the following lines before running the `automating-slr.py` script:
 ```python
 if __name__ == '__main__':
-    # multiprocessing.freeze_support()
-    # frontend = resource_path("index.html")
+    multiprocessing.freeze_support()
+    frontend = resource_path("index.html")
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
-    # webview.create_window('Automating SLR', frontend, resizable=True)
-    # webview.start()
-    # server_process.terminate()
+    webview.create_window('Automating SLR', frontend, resizable=True)
+    webview.start()
+    server_process.terminate()
 ```

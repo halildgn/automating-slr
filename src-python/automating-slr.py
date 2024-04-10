@@ -19,11 +19,9 @@ bib_files = None
 
 @app.route("/config", methods=['GET'])
 def getConfiguration():
-    config_dir_missing = not config_dir_exists() 
-    if(config_dir_missing):
-       os.makedirs(Path.home().joinpath('automating-slr-conf')) 
+    config_missing = not config_exists() 
     db = pickledb.load(config_path(),auto_dump=True, sig=False) 
-    if(config_dir_missing):
+    if(config_missing):
         db.set('theme','light')
         db.set('builds', [])
     theme = db.get('theme')
@@ -90,11 +88,11 @@ def resource_path(relative_path):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
 
-def config_dir_exists() -> bool:
-   return os.path.exists(Path.home().joinpath('automating-slr-conf'))
+def config_exists() -> bool:
+   return os.path.exists(Path.home().joinpath('automating-slr-config.db'))
 
 def config_path():
-    return Path.home().joinpath('automating-slr-conf', 'config.db')
+    return Path.home().joinpath('automating-slr-config.db')
 
 def is_port_in_use(port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
