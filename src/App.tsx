@@ -175,9 +175,9 @@ const [theme, setTheme] = useState(() => {
               centered
             >
               <LinkTab label="Query Generator" />
+              <LinkTab label="My Builds" />
               <LinkTab label="Filtering" />
               <LinkTab label="Download" />
-              <LinkTab label="My Builds" />
             </Tabs>
           </Box>
           <MainComponent />
