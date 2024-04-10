@@ -32,7 +32,7 @@ pip3 install -r requirements.txt && playwright install --with-deps chromium && p
 pip3 install -r requirements.txt && playwright install --with-deps chromium && python3 py2app-macos-setup.py py2app
 ```
 
-6. The generated binary should now be placed in the `automating-slr/src-python/dist`. You can now use this binary to launch the application without having to perform any additional steps(You can also distribute it to other machines with same OS&processor family but please see the warnings section below). 
+6. The generated binary should now be placed in the `automating-slr/src-python/dist`. You can now use this binary to launch the application without having to perform any additional steps. 
 
 # Configuration
 
