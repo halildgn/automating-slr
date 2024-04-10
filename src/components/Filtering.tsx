@@ -12,8 +12,8 @@ import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@mui/material";
 import { ChangeEvent } from "react";
 import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
+import LoadingIndicator from "./LoadingIndicator";
 
 function Filtering() {
   const [isUploadSuccess, setIsUploadSuccess] = useState<null | boolean>(null);
@@ -393,12 +393,7 @@ function Filtering() {
 
   return (
     <>
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={overlayOpen}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      <LoadingIndicator loading={overlayOpen} /> 
       <UploadSuccessFailIndicator />
       <FilterSuccessFailIndicator />
       <FileUpload />

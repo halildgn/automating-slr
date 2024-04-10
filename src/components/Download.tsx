@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -8,27 +9,44 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import {useDownloadStore} from '../stores/download-store.ts';
 import { Library } from "@/types/index.ts";
+import SuccessAlert from "./SuccessAlert.tsx";
+import ErrorAlert from "./ErrorAlert.tsx";
+import LoadingIndicator from "./LoadingIndicator.tsx";
 
 function Download() {
   const library = useDownloadStore((state) => state.library)
  const setLibrary = useDownloadStore((state) => state.setLibrary)
   const query = useDownloadStore((state) => state.query)
  const setQuery = useDownloadStore((state) => state.setQuery)
+  const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
+  const [downloadSuccess, setDownloadSuccess] = useState<boolean>(false);
+const [errorPresent, setErrorPresent] = useState<boolean>(false);
+
 
    async function downloadFilesForLibrary(){
-    await axios.post("http://localhost:9998/download", {
+    setOverlayOpen(true);
+    try{
+ const {status} = await axios.post("http://localhost:9998/download", {
       library: library,
       query: query
     });
-    // if(status === 200){
-    //   // show success alert
-    // }else{
-    //   // show network error
-    // }
+      setOverlayOpen(false);
+     if(status === 200){
+     setDownloadSuccess(true); 
+     }else{
+    setErrorPresent(true);
+     }
+    }catch{
+      setErrorPresent(true);
+  }   
    }
 
 
   return (
+    <>
+      <LoadingIndicator loading={overlayOpen}/>
+      <SuccessAlert displaySuccess={downloadSuccess} setDisplaySuccess={setDownloadSuccess}/>
+      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent}/>
     <div className="download-setters-container">
       <Box className="download-setters-items-container">
         <Box className="download-setters-individual-items-container">
@@ -71,6 +89,7 @@ function Download() {
         </Box>
       </Box>
   </div>
+  </>
   );
 }
 
