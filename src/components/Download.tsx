@@ -37,6 +37,7 @@ const [errorPresent, setErrorPresent] = useState<boolean>(false);
     setErrorPresent(true);
      }
     }catch{
+      setOverlayOpen(false);
       setErrorPresent(true);
   }   
    }
@@ -46,7 +47,7 @@ const [errorPresent, setErrorPresent] = useState<boolean>(false);
     <>
       <LoadingIndicator loading={overlayOpen}/>
       <SuccessAlert displaySuccess={downloadSuccess} setDisplaySuccess={setDownloadSuccess}/>
-      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent}/>
+      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage={`Download was not successful. Please make sure that you have access to ${library} digital library`} />
     <div className="download-setters-container">
       <Box className="download-setters-items-container">
         <Box className="download-setters-individual-items-container">
