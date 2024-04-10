@@ -6,6 +6,7 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import { useBuildsStore} from '../stores/build-store';
 import { useFieldsStore } from '../stores/query-generation-store';
 import { useComponentStore } from '../stores/component-store';
+import { Box } from '@mui/material';
 
 function MyBuilds(){
 const builds = useBuildsStore((state)=>state.builds)
@@ -15,21 +16,23 @@ const removeBuild = useBuildsStore((state)=>state.removeBuild)
   const setComponent = useComponentStore((state)=>state.setCurrentComponent)
 
   return (
-  <>
+  <div className="my-builds-container-builds">
 {builds.map((build: Build) => (
         <>
- <Paper elevation={3}> 
+ <Paper elevation={3} className="my-builds-container-paper"> 
             {build.name}
+            <Box className="my-builds-container-paper-icons">
     <Tooltip title="Load to generator">
               <LaunchIcon onClick={()=>{setFields(build.fields);setComponent(COMPONENTS.GENERATOR)}}/>
           </Tooltip>
                 <Tooltip title="Delete">
               <DeleteIcon onClick={()=>removeBuild(build.id)}/>
           </Tooltip>
+          </Box>
             </Paper>
                  </>
       ))} 
-  </>
+  </div>
   );
 }
 
