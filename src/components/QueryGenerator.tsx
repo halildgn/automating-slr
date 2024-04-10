@@ -1,5 +1,6 @@
 import { Field, LibraryQuery,Library, Build  } from "../types/index";
 import {nanoid} from 'nanoid';
+import DeleteIcon from '@mui/icons-material/Delete';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { useState,forwardRef, ReactElement, Ref, Fragment, FormEvent } from "react";
@@ -92,9 +93,6 @@ function QueryGenerator() {
 
   function changeFieldKeywords(event: SelectChangeEvent, index: number) {
     const keywords = event.target.value.split(",");
-    // const filteredKeywords = keywords.filter((keyword) => {
-    //   return !!keyword;
-    // });
     const updatedFields = [...fields];
     updatedFields[index].keywords = keywords;
     setFields(updatedFields);
@@ -257,7 +255,7 @@ function Queries(){
 
   function FieldTypes(fieldEl: Field, i: number) {
     return (
-      <FormControl className="flex-item" fullWidth>
+      <FormControl className={ i=== 0 ? "generator-view-field-item-first" : "generator-view-field-item"} fullWidth>
         <InputLabel id="demo-simple-select-label">Field</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -278,9 +276,28 @@ function Queries(){
     );
   }
 
+  function removeField(index: number){
+  const updatedFields = [...fields];
+    updatedFields.splice(index,1);
+    setFields(updatedFields);
+  }
+
+  function FieldRemoveIcon({isFirst, index}: {isFirst:boolean, index:number}){
+      if(isFirst){
+        return null;
+      }
+  return (
+   <Box className="generator-view-delete-icon-item"> 
+        <Tooltip title="Delete">
+              <DeleteIcon  onClick={()=>removeField(index)}/>
+          </Tooltip>
+          </Box>
+  );
+  }
+
   function Keywords(fieldEl: Field,i: number) {
     return (
-      <FormControl className="flex-item">
+      <FormControl className={ i=== 0 ? "generator-view-keywords-item-first" : "generator-view-keywords-item"} fullWidth>
         <TextField
           label="Keywords(Comma separated)"
           value={fieldEl.keywords?.toString() ?? ''}
@@ -301,9 +318,10 @@ function Queries(){
           <SaveDialog/>
         <LoadingIndicator loading={loadingOverlayOpen} /> 
           <Relation isFirst={i === 0} index={i} />
-          <Box className="field-container" sx={{ minWidth: 120 }}>
+          <Box className="field-container-generator-view" sx={{ minWidth: 120 }}>
             {FieldTypes(fieldEl, i)}
             {Keywords(fieldEl,i)}
+      <FieldRemoveIcon isFirst={i === 0} index={i}/> 
           </Box>
         </>
       ))}
