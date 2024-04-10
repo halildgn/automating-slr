@@ -65,24 +65,6 @@ function QueryGenerator() {
     ebsco: null,
   });
 
-
-  // function emptyFieldsPresent(): boolean{
-  //   const firstField = fieldMaps[0];
-  //     // other than first one all consequtive field should have keywords.
-  //   if(fieldMaps.length === 1 && (!firstField.label || !firstField.logical_operator -> wrong || !firstField.keywords ||firstField.keywords.length === 0 )){
-
-  //     return true;
-  //   }
-  //   // TEST THIS:
-  //   // if fieldMaps.length > 1, the last logical operator can be empty the others can't be
-  //   // //Insted of every use findIndex and "-1", then use that index to display warning:
-  //  // return fieldMaps.every((field, index)=>{
-  //  //    // TEST THIS:
-  //  //  return !!field.label && field.keywords && field.keywords.length > 0 && (fieldMaps.length > 1 && index !== fieldMaps.length -1 ? !!field.logical_operator : true)
-  //  //  })
-  //   return false;
-  // }
-
   async function generateQueries() {
     try{
   setLoadingOverlayOpen(true);

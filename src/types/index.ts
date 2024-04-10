@@ -21,7 +21,6 @@ export type LibraryQuery = {
   ebsco: null | string;
 };
 
-// Convert this into a union type of DateRange and PageRange:
 export type DateAndPageRange = {
   minPages: string | null;
   maxPages: string | null;
