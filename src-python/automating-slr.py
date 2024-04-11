@@ -1,5 +1,5 @@
-from signal import signal
-from typing import List
+from typing import cast
+from typing import Dict, List
 import gc
 import socket
 import pickledb
@@ -30,14 +30,16 @@ def getConfiguration():
 
 @app.route('/setThemeConfig', methods=['POST'])
 def setThemeConfig():
+     data = cast(Dict,request.json)  
      db = pickledb.load(config_path(),auto_dump=True, sig=False)
-     db.set('theme', request.json['theme'])
+     db.set('theme', data['theme'])
      return app.response_class(status=200)
 
 @app.route('/setBuildsConfig', methods=['POST'])
 def setBuildsConfig():
+     data = cast(Dict,request.json)  
      db = pickledb.load(config_path(),auto_dump=True, sig=False)
-     db.set('builds', request.json['builds'])
+     db.set('builds', data['builds'])
      return app.response_class(status=200)
 
 @app.route("/query",methods=['POST'])
@@ -60,12 +62,13 @@ def getBoundaries():
 
 @app.route("/filter",methods=['POST'])
 def filter():
+    data = cast(Dict,request.json)
     global bib_files
-    min_pages: str = request.json['minPages'] 
-    max_pages: str =  request.json['maxPages']
-    start_year: str =  request.json['startYear']
-    end_year: str = request.json['endYear']
-    publication_types: List[str] = request.json['publicationTypes']
+    min_pages: str = data['minPages'] 
+    max_pages: str = data['maxPages']
+    start_year: str =  data['startYear']
+    end_year: str = data['endYear']
+    publication_types: List[str] = data['publicationTypes']
     removed_duplicate_count: int = bib_to_csv(bib_files, min_pages,max_pages, start_year, end_year, publication_types)
     # clear the cache
     del bib_files
@@ -74,13 +77,14 @@ def filter():
 
 @app.route("/download",methods=['POST'])
 async def download():
-    library: str = request.json['library']
-    query: str = request.json['query']
+    data = cast(Dict,request.json)
+    library: str = data['library']
+    query: str = data['query']
     await crawl_n_download(library, query)
     return app.response_class(status=200)
 
-def resource_path(relative_path):
-    #macos&py2app
+def resource_path(relative_path) -> str:
+    #macos
     if os.path.exists(os.path.join(os.path.dirname(__file__), '/Resources/index.html')):
         return '/Resources/index.html'
     #linux&windows
@@ -91,14 +95,14 @@ def resource_path(relative_path):
 def config_exists() -> bool:
    return os.path.exists(Path.home().joinpath('automating-slr-config.db'))
 
-def config_path():
+def config_path() -> Path:
     return Path.home().joinpath('automating-slr-config.db')
 
 def is_port_in_use(port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         return s.connect_ex(('localhost', port)) == 0
 
-def spin_up_server():
+def spin_up_server() -> None:
      if(not is_port_in_use(9998)):
         app.run(host="localhost", port=9998, debug=False) 
 
