@@ -45,7 +45,7 @@ pip3 install -r requirements.txt && playwright install --with-deps chromium && p
 [Windows](https://github.com/coreybutler/nvm-windows)
 [Linux and MacOS](https://nodejs.org/en/download/package-manager)
 * Install `node` version `21.7.1` by using `nvm install 21.7.1`
-* In `automating-slr`, install the packages via `npm install`
+* In `automating-slr`, install the packages via `npm install --legacy-peer-deps`
 * To build, in `automating-slr`: `npm run build`(generates the standalone `html` in `automating-slr/src-python` which is going to be used while generating the binary)
 * To spin up a frontend development server, in `automating-slr`: `npm run dev` 
 * To spin up the flask server, comment out the following lines before running the `automating-slr.py` script with `python3 automating-slr.py`:
