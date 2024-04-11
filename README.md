@@ -4,7 +4,7 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 
 # Setup 
 
-Note: You need to perform steps below only once, after that you can just use the generated executable to launch the application.  
+Note: You need to perform steps below only once, after that you can just use the generated executable to launch the application. You can move this executable to some other location in your computer and remove the repository if you are not going to develop the application further.  
 
 1. Install `python3` and make sure that it is on your `PATH`(Even if it is already installed, please update it to the latest version) 
 
