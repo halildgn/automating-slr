@@ -4,6 +4,8 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 
 # Setup 
 
+Note: You need to perform steps below only once, after that you can just use the generated executable to launch the application.  
+
 1. Install `python3` and make sure that it is on your `PATH`(Even if it is already installed, please update it to the latest version) 
 
 2. For next steps use powershell in windows and your standard terminal in Linux&MacOS
