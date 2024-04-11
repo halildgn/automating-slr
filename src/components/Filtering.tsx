@@ -236,7 +236,7 @@ function Filtering() {
         </FormControl>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            label={`Start date in years -> Newest available entry is from ${boundaries.startYear}`}
+            label={`Start date in years -> Oldest available entry is from ${boundaries.startYear}`}
             views={["year"]}
             value={
               dateAndPageRange.startYear
