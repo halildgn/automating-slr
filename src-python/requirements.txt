@@ -4,7 +4,7 @@ py2app; sys_platform == 'darwin'
 psutil
 pywebview
 pickledb
-Flask
+Flask[async]
 flask_cors
 bibtexparser
 playwright
