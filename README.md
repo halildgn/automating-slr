@@ -45,7 +45,7 @@ pip3 install -r requirements.txt && playwright install --with-deps chromium && p
 * In `automating-slr`, install the packages via `npm install`
 * To build, in `automating-slr`: `npm run build`(generates the standalone `html` in `automating-slr/src-python` which is going to be used while generating the binary)
 * To spin up a frontend development server, in `automating-slr`: `npm run dev` 
-* To spin up the flask server, comment out the following lines before running the `automating-slr.py` script:
+* To spin up the flask server, comment out the following lines before running the `automating-slr.py` script with `python3 automating-slr.py`:
 ```python
 if __name__ == '__main__':
     # multiprocessing.freeze_support()
