@@ -3,7 +3,7 @@ from pathlib import Path
 
 # https://www.webofscience.com/wos/woscc/advanced-search
 async def run_wos(playwright: Playwright, query: str):
-    chromium = playwright.chromium # or "firefox" or "webkit".
+    chromium = playwright.chromium 
     browser = await chromium.launch(channel="chrome",headless=False)
     page = await browser.new_page()
     await page.goto("https://www.webofscience.com/wos/woscc/advanced-search")
@@ -25,7 +25,7 @@ async def run_wos(playwright: Playwright, query: str):
     
 async def run_ieee(playwright: Playwright):
 # ieee yi "items per page" i 100 yaparak ve "Showing 1-25 of 14,726 resultsfor" kismindaki 14,726/100 yaparak page sayisini hesapla ve 2 den crawlayarak durmadan indir
-    chromium = playwright.chromium # or "firefox" or "webkit".
+    chromium = playwright.chromium 
     browser = await chromium.launch(channel="chrome",headless=False)
     page = await browser.new_page()
     await page.goto("https://ieeexplore.ieee.org/search/advanced")
@@ -65,5 +65,5 @@ async def run_acm(playwright: Playwright, query: str):
 
 async def crawl_n_download(library: str, query: str):
     async with async_playwright() as playwright:
-        if library == "WOS": 
+        if library == "wos": 
             await run_wos(playwright,query)
