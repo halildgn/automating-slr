@@ -41,7 +41,10 @@ pip3 install -r requirements.txt && playwright install --with-deps chromium && p
 * Your theme preference and build configurations are managed by `pickledDB` and stored in your home directory, in a file called `automating-slr-config.db`. In case of switching over to other machines in the future, you can still enjoy your existing builds by placing this file in that machine's home directory. 
 
 # For possible development cycles in the future
-* Install `nodejs`
+* Install `NVM(node version manager)`:
+[Windows](https://github.com/coreybutler/nvm-windows)
+[Linux and MacOS](https://nodejs.org/en/download/package-manager)
+* Install `node` version `21.7.1` by using `nvm install 21.7.1`
 * In `automating-slr`, install the packages via `npm install`
 * To build, in `automating-slr`: `npm run build`(generates the standalone `html` in `automating-slr/src-python` which is going to be used while generating the binary)
 * To spin up a frontend development server, in `automating-slr`: `npm run dev` 
