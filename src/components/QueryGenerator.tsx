@@ -331,7 +331,7 @@ return(
       <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage="Queries couldn't be generated. Please make sure that no field is empty."/>
           <SaveDialog/>
         <LoadingIndicator loading={loadingOverlayOpen} /> 
-    <Fields />
+      {Fields()}
       <Button
         className="field-container"
         variant="outlined"
