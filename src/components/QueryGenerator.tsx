@@ -326,13 +326,9 @@ return(
 )
   }
 
-  return (
-    <div className="generic-scroll-container">
-      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage="Queries couldn't be generated. Please make sure that no field is empty."/>
-          <SaveDialog/>
-        <LoadingIndicator loading={loadingOverlayOpen} /> 
-      {Fields()}
-      <Button
+  function AddField(){
+    return (
+   <Button
         className="field-container"
         variant="outlined"
         onClick={() => {
@@ -341,7 +337,12 @@ return(
       >
         Add field
       </Button>
-      <Button
+    );
+  }
+
+  function Reset(){
+    return (
+<Button
         className="field-container"
         variant="outlined"
         startIcon={<AutorenewIcon />}
@@ -351,6 +352,18 @@ return(
       >
         Reset
       </Button>
+
+    );
+     }
+
+  return (
+    <div className="generic-scroll-container">
+      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage="Queries couldn't be generated. Please make sure that no field is empty."/>
+          <SaveDialog/>
+        <LoadingIndicator loading={loadingOverlayOpen} /> 
+      {Fields()}
+    <AddField /> 
+    <Reset />
     <Queries/>
     </div>
   );
