@@ -29,9 +29,7 @@ function App() {
   const setTheme = useConfigStore((state)=> state.setTheme) 
 
   const mainContainerClass = classNames({
-'container': component !== COMPONENTS.DOWNLOAD && component !== COMPONENTS.MY_BUILDS,
-'download-container': component === COMPONENTS.DOWNLOAD ,
-'my-builds-container': component === COMPONENTS.MY_BUILDS 
+ 'main-container': true,   
 	});
 
   const dark = createTheme({

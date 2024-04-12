@@ -309,14 +309,11 @@ function Queries(){
     );
   }
 
-  return (
-    <>
-   
-      {fields.map((fieldEl: Field, i: number) => (
+  function Fields(){
+return(
+      <>
+   {fields.map((fieldEl: Field, i: number) => (
         <>
-          <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage="Queries couldn't be generated. Please make sure that no field is empty."/>
-          <SaveDialog/>
-        <LoadingIndicator loading={loadingOverlayOpen} /> 
           <Relation isFirst={i === 0} index={i} />
           <Box className="field-container-generator-view" sx={{ minWidth: 120 }}>
             {FieldTypes(fieldEl, i)}
@@ -325,6 +322,16 @@ function Queries(){
           </Box>
         </>
       ))}
+      </>
+)
+  }
+
+  return (
+    <div className="generic-scroll-container">
+      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage="Queries couldn't be generated. Please make sure that no field is empty."/>
+          <SaveDialog/>
+        <LoadingIndicator loading={loadingOverlayOpen} /> 
+    <Fields />
       <Button
         className="field-container"
         variant="outlined"
@@ -345,7 +352,7 @@ function Queries(){
         Reset
       </Button>
     <Queries/>
-    </>
+    </div>
   );
 }
 

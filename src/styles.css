@@ -21,6 +21,11 @@
     display: none;  /* Safari and Chrome */
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
 body {
   margin: 0;
 }
@@ -33,7 +38,15 @@ height: 50px;
 width: 50px;
 }
 
-.container {
+.main-container{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.generic-scroll-container {
   height: 100%;
   width: 100%;
   display: grid;
@@ -43,6 +56,7 @@ width: 50px;
   grid-template-columns: unset; /* do not set template columns and rows */
   grid-template-rows: unset;
   overflow: scroll;
+  overflow-x: hidden;
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
 }
@@ -66,7 +80,7 @@ width: 50px;
 }
 
 .download-setters-container{
-  height: 90%;
+  height: 100%;
     width: 100%;
 display: flex;
   justify-content: center;
@@ -89,7 +103,7 @@ flex-basis: 100%;
 }
 
 .my-builds-container-builds{
-  height: 90%;
+  height: 100%;
     width: 100%;
   display: grid;
   justify-content: center;

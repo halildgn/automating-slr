@@ -400,7 +400,7 @@ setFilteringSuccessIndicators({success:null, duplicateCount: null})
   }
 
   return (
-    <>
+    <div className="generic-scroll-container">
       <LoadingIndicator loading={overlayOpen} /> 
       <UploadSuccessFailIndicator />
       <FilterSuccessFailIndicator />
@@ -408,7 +408,7 @@ setFilteringSuccessIndicators({success:null, duplicateCount: null})
       <PublicationTypes />
       {PageNDate()}
       <FilterButton />
-    </>
+    </div>
   );
 }
 
