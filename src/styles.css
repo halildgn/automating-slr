@@ -47,7 +47,7 @@ width: 50px;
 }
 
 .generic-scroll-container {
-  height: 100%;
+  height: 90%;
   width: 100%;
   display: grid;
   align-items: center;
@@ -80,7 +80,7 @@ width: 50px;
 }
 
 .download-setters-container{
-  height: 100%;
+  height: 90%;
     width: 100%;
 display: flex;
   justify-content: center;
@@ -97,13 +97,8 @@ flex-basis: 100%;
   flex-grow: 0;
 }
 
-.my-builds-container{
-  height: 100%;
-  width: 100%;
-}
-
 .my-builds-container-builds{
-  height: 100%;
+  height: 90%;
     width: 100%;
   display: grid;
   justify-content: center;
