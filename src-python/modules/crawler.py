@@ -22,6 +22,7 @@ async def run_wos(playwright: Playwright, query: str):
     download = await download_info.value
     # Wait for the download process to complete and save the downloaded file somewhere
     await download.save_as(Path.home().joinpath('Downloads', download.suggested_filename))
+    return download.suggested_filename
     
 async def run_ieee(playwright: Playwright):
 # ieee yi "items per page" i 100 yaparak ve "Showing 1-25 of 14,726 resultsfor" kismindaki 14,726/100 yaparak page sayisini hesapla ve 2 den crawlayarak durmadan indir
@@ -63,7 +64,8 @@ async def run_acm(playwright: Playwright, query: str):
     await page.wait_for_timeout(40000)
     await browser.close()
 
-async def crawl_n_download(library: str, query: str):
+async def crawl_n_download(library: str, query: str) -> str | None:
     async with async_playwright() as playwright:
         if library == "wos": 
-            await run_wos(playwright,query)
+            downloaded_file_name = await run_wos(playwright,query)
+            return downloaded_file_name

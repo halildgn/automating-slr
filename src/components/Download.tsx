@@ -20,37 +20,29 @@ function Download() {
  const setQuery = useDownloadStore((state) => state.setQuery)
   const [overlayOpen, setOverlayOpen] = useState<boolean>(false);
   const [downloadSuccess, setDownloadSuccess] = useState<boolean>(false);
+  const [downloadedFileName, setDownloadedFileName] = useState<null | string>(null); 
 const [errorPresent, setErrorPresent] = useState<boolean>(false);
 
 
    async function downloadFilesForLibrary(){
     setOverlayOpen(true);
     try{
- const {status} = await axios.post("http://localhost:9998/download", {
+ const {data} = await axios.post("http://localhost:9998/download", {
       library: library,
       query: query
     });
       setOverlayOpen(false);
-     if(status === 200){
+      setDownloadedFileName(data.fileName);
      setDownloadSuccess(true); 
-     }else{
-    setErrorPresent(true);
-     }
     }catch{
       setOverlayOpen(false);
       setErrorPresent(true);
   }   
    }
 
-
-  return (
-    <>
-      <LoadingIndicator loading={overlayOpen}/>
-      <SuccessAlert displaySuccess={downloadSuccess} setDisplaySuccess={setDownloadSuccess}/>
-      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage={`Download was not successful. Please make sure that you have access to ${library} digital library`} />
-    <div className="download-setters-container">
-      <Box className="download-setters-items-container">
-        <Box className="download-setters-individual-items-container">
+  function Library(){
+    return (
+      <Box className="download-setters-individual-items-container">
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Digital Library</InputLabel>
           <Select
@@ -66,6 +58,11 @@ const [errorPresent, setErrorPresent] = useState<boolean>(false);
           </Select>
         </FormControl>
       </Box>
+    );
+  }
+
+function Query(){
+    return (
       <Box className="download-setters-individual-items-container">
   <FormControl>
         <TextField
@@ -77,7 +74,12 @@ const [errorPresent, setErrorPresent] = useState<boolean>(false);
         />
       </FormControl>
       </Box>
-              <Box className="download-setters-individual-items-container">
+    );
+  }
+
+  function DownloadButton(){
+    return (
+          <Box className="download-setters-individual-items-container">
     <Button
             variant="outlined"
      fullWidth={true}
@@ -88,6 +90,19 @@ const [errorPresent, setErrorPresent] = useState<boolean>(false);
             Download
           </Button>
         </Box>
+    );
+  }
+
+  return (
+    <>
+      <LoadingIndicator loading={overlayOpen}/>
+      <SuccessAlert displaySuccess={downloadSuccess} setDisplaySuccess={setDownloadSuccess} successMessage={`${downloadedFileName} was successfully saved to your Downloads directory`}/>
+      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage={`Download was not successful. Please make sure that you have access to ${library} digital library`} />
+    <div className="download-setters-container">
+      <Box className="download-setters-items-container">
+      <Library /> 
+      <Query />
+      <DownloadButton /> 
       </Box>
   </div>
   </>
