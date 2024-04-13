@@ -64,7 +64,7 @@ async def run_acm(playwright: Playwright, query: str):
     await page.wait_for_timeout(40000)
     await browser.close()
 
-async def crawl_n_download(library: str, query: str) -> str | None:
+async def crawl_n_download(library: str, query: str):
     async with async_playwright() as playwright:
         if library == "wos": 
             downloaded_file_name = await run_wos(playwright,query)

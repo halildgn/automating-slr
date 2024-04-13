@@ -80,7 +80,7 @@ async def download():
     data = cast(Dict,request.json)
     library: str = data['library']
     query: str = data['query']
-    downloaded_file_name = await crawl_n_download(library, query)
+    downloaded_file_name: str = cast(str,await crawl_n_download(library, query))
     return jsonify({"fileName": downloaded_file_name}) 
 
 def resource_path(relative_path) -> str:
