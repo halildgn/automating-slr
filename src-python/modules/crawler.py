@@ -4,11 +4,13 @@ import os
 
 
 def get_available_file_name(suggested_name: str):
-    count = 1
-    filename = "{suggested_file_name}-{counter}.bib"
-    while os.path.isfile(Path.home().joinpath('Downloads', filename.format(suggested_file_name = suggested_name , counter=count))):
-        count += 1
-    filename = filename.format(suggested_file_name = suggested_name , counter=count)
+    counter = 2
+    filename = "{0}-{1}"
+    if not os.path.isfile(Path.home().joinpath('Downloads', suggested_name)):
+        return suggested_name
+    while os.path.isfile(Path.home().joinpath('Downloads', filename.format(counter,suggested_name))):
+        counter += 1
+    filename = filename.format(counter,suggested_name)
     return filename
 
 # https://www.webofscience.com/wos/woscc/advanced-search
