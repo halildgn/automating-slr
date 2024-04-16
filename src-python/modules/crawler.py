@@ -1,7 +1,25 @@
 from playwright.async_api import async_playwright, Playwright
 from pathlib import Path
 import os
+from typing import Union
+# from sys import modules
+# from os import listdir, path
 
+# def get_windows_executable_path() -> Union[str, None]:
+
+#     parent_folder = Path(modules['playwright'].__file__).parent / 'driver' / 'package' / '.local-browsers'
+
+#     if not path.exists(parent_folder):
+#         return None
+
+#     child_folders = [name for name in listdir(parent_folder) if path.isdir(parent_folder / name) and name.strip().lower().startswith('chromium')]
+
+#     if len(child_folders) != 1:
+#         return None
+
+#     chromium_folder = child_folders[0]
+
+#     return parent_folder / chromium_folder / 'chrome-win' / 'chrome.exe'
 
 def get_available_file_name(suggested_name: str):
     counter = 2
@@ -16,7 +34,7 @@ def get_available_file_name(suggested_name: str):
 # https://www.webofscience.com/wos/woscc/advanced-search
 async def run_wos(playwright: Playwright, query: str):
     chromium = playwright.chromium 
-    browser = await chromium.launch(headless=True)
+    browser = await chromium.launch(headless=True,channel="chrome")
     page = await browser.new_page()
     await page.goto("https://www.webofscience.com/wos/woscc/advanced-search")
     await page.wait_for_selector('#onetrust-accept-btn-handler')
@@ -41,7 +59,7 @@ async def run_wos(playwright: Playwright, query: str):
 async def run_ieee(playwright: Playwright):
 # Use "items per page" "100" and grab 14,726 from "Showing 1-25 of 14,726 resultsfor" and crawl pages with "14,726/100" and download per each page
     chromium = playwright.chromium 
-    browser = await chromium.launch(headless=True)
+    browser = await chromium.launch(headless=True, channel="chrome")
     page = await browser.new_page()
     await page.goto("https://ieeexplore.ieee.org/search/advanced")
     await page.get_by_label("main").click()
@@ -60,7 +78,7 @@ async def run_ieee(playwright: Playwright):
 
 async def run_acm(playwright: Playwright, query: str):
     chromium = playwright.chromium # or "firefox" or "webkit".
-    browser = await chromium.launch(headless=True)
+    browser = await chromium.launch(headless=True, channel="chrome")
     page = await browser.new_page()
     await page.goto("https://dl.acm.org/search/advanced")
     await page.get_by_role("link", name="Use necessary cookies only").click()
@@ -82,7 +100,7 @@ async def run_acm(playwright: Playwright, query: str):
     await browser.close()
     return available_file_name
 
-async def crawl_n_download(library: str, query: str):
+async def crawl_n_download(library: str, query: str) -> Union[str,None]:
     async with async_playwright() as playwright:
         if library == "wos": 
             downloaded_file_name = await run_wos(playwright,query)
