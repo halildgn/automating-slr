@@ -14,7 +14,9 @@ Note: You need to perform steps below only once, after that you can just use the
 
 4. Navigate to `automating-slr/src-python` directory   
 
-5. Run the following to generate the binary for your OS&processor :
+5. Copy and run the following command to generate the binary for your OS&processor :
+
+* Important Note: Sometimes using `eduroam` causes problems while cloning a git repository or installing python packages. If you encounter such problem, please execute following commands while using your private network.
 
 ### Windows:
 
