@@ -4,7 +4,7 @@ from pathlib import Path
 # https://www.webofscience.com/wos/woscc/advanced-search
 async def run_wos(playwright: Playwright, query: str):
     chromium = playwright.chromium 
-    browser = await chromium.launch(channel="chrome",headless=True)
+    browser = await chromium.launch(headless=True)
     page = await browser.new_page()
     await page.goto("https://www.webofscience.com/wos/woscc/advanced-search")
     await page.wait_for_selector('#onetrust-accept-btn-handler')
@@ -25,9 +25,9 @@ async def run_wos(playwright: Playwright, query: str):
     return download.suggested_filename
     
 async def run_ieee(playwright: Playwright):
-# ieee yi "items per page" i 100 yaparak ve "Showing 1-25 of 14,726 resultsfor" kismindaki 14,726/100 yaparak page sayisini hesapla ve 2 den crawlayarak durmadan indir
+# Use "items per page" "100" and grab 14,726 from "Showing 1-25 of 14,726 resultsfor" and crawl pages with "14,726/100" and download per each page
     chromium = playwright.chromium 
-    browser = await chromium.launch(channel="chrome",headless=True)
+    browser = await chromium.launch(headless=True)
     page = await browser.new_page()
     await page.goto("https://ieeexplore.ieee.org/search/advanced")
     await page.get_by_label("main").click()
@@ -43,7 +43,7 @@ async def run_ieee(playwright: Playwright):
 
 async def run_acm(playwright: Playwright, query: str):
     chromium = playwright.chromium # or "firefox" or "webkit".
-    browser = await chromium.launch(channel="chrome",headless=True)
+    browser = await chromium.launch(headless=True)
     page = await browser.new_page()
     await page.goto("https://dl.acm.org/search/advanced")
     await page.get_by_role("link", name="Use necessary cookies only").click()
