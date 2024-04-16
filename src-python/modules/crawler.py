@@ -1,5 +1,15 @@
 from playwright.async_api import async_playwright, Playwright
 from pathlib import Path
+import os
+
+
+def get_available_file_name(suggested_name: str):
+    count = 1
+    filename = "{suggested_file_name}-{counter}.bib"
+    while os.path.isfile(Path.home().joinpath('Downloads', filename.format(suggested_file_name = suggested_name , counter=count))):
+        count += 1
+    filename = filename.format(suggested_file_name = suggested_name , counter=count)
+    return filename
 
 # https://www.webofscience.com/wos/woscc/advanced-search
 async def run_wos(playwright: Playwright, query: str):
@@ -21,8 +31,10 @@ async def run_wos(playwright: Playwright, query: str):
         await page.get_by_text(" Export ", exact=True).click()
     download = await download_info.value
     # Wait for the download process to complete and save the downloaded file somewhere
-    await download.save_as(Path.home().joinpath('Downloads', download.suggested_filename))
-    return download.suggested_filename
+    available_file_name = get_available_file_name(download.suggested_filename)
+    await download.save_as(Path.home().joinpath('Downloads', available_file_name))
+    await browser.close()
+    return available_file_name
     
 async def run_ieee(playwright: Playwright):
 # Use "items per page" "100" and grab 14,726 from "Showing 1-25 of 14,726 resultsfor" and crawl pages with "14,726/100" and download per each page
@@ -39,7 +51,10 @@ async def run_ieee(playwright: Playwright):
         await page.get_by_role("button", name="Download").click()
     download = await download_info.value
     # Wait for the download process to complete and save the downloaded file somewhere
-    await download.save_as(Path.home().joinpath('Downloads', download.suggested_filename))
+    available_file_name = get_available_file_name(download.suggested_filename)
+    await download.save_as(Path.home().joinpath('Downloads', available_file_name))
+    await browser.close()
+    return available_file_name
 
 async def run_acm(playwright: Playwright, query: str):
     chromium = playwright.chromium # or "firefox" or "webkit".
@@ -60,9 +75,10 @@ async def run_acm(playwright: Playwright, query: str):
         await page.locator("#allResultstab > div > a").click()
     download = await download_info.value
     # Wait for the download process to complete and save the downloaded file somewhere
-    await download.save_as(Path.home().joinpath('Downloads', download.suggested_filename))
-    await page.wait_for_timeout(40000)
+    available_file_name = get_available_file_name(download.suggested_filename)
+    await download.save_as(Path.home().joinpath('Downloads', available_file_name))
     await browser.close()
+    return available_file_name
 
 async def crawl_n_download(library: str, query: str):
     async with async_playwright() as playwright:
