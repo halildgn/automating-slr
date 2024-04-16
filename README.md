@@ -18,22 +18,44 @@ Note: You need to perform steps below only once, after that you can just use the
 
 * Important Note: Sometimes using `eduroam` causes problems while cloning a git repository or installing python packages. If you encounter such problem, please execute following commands while using your private network.
 
+## If you have chrome browser NOT installed and you want to use "Download" functionality:
+
 ### Windows:
 
 ```
-pip3 install -r requirements.txt ; playwright install --with-deps chromium; pyinstaller --add-data="index.html;." --icon=colaps.ico --noconsole --onefile automating-slr.py
+pip3 install -r requirements.txt ; playwright install --with-deps chrome; pyinstaller --add-data="index.html;." --icon=colaps.ico --noconsole --onefile automating-slr.py
 ```
 
 ### Linux:
 
 ```
-pip3 install -r requirements.txt && playwright install --with-deps chromium && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
+pip3 install -r requirements.txt && playwright install --with-deps chrome && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
 ```
 
 ### MacOS:
 
 ```
-pip3 install -r requirements.txt && playwright install --with-deps chromium && python3 py2app-macos-setup.py py2app
+pip3 install -r requirements.txt && playwright install --with-deps chrome && python3 py2app-macos-setup.py py2app
+```
+
+## If you have chrome browser already installed or you dont want to use "Download" functionality: 
+
+### Windows:
+
+```
+pip3 install -r requirements.txt ; pyinstaller --add-data="index.html;." --icon=colaps.ico --noconsole --onefile automating-slr.py
+```
+
+### Linux:
+
+```
+pip3 install -r requirements.txt && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py
+```
+
+### MacOS:
+
+```
+pip3 install -r requirements.txt && python3 py2app-macos-setup.py py2app
 ```
 
 6. The generated binary should now be placed in the `automating-slr/src-python/dist`. You can now use this binary to launch the application without having to perform any additional steps. 
