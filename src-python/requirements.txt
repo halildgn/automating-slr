@@ -8,3 +8,4 @@ Flask[async]
 flask_cors
 bibtexparser
 playwright
+pyperclip
