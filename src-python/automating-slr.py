@@ -80,7 +80,11 @@ async def download():
     data = cast(Dict,request.json)
     library: str = data['library']
     query: str = data['query']
+    if(not library or not query):
+        return app.response_class(status=400)
     downloaded_file_name: str = cast(str,await download_data(library, query))
+    if downloaded_file_name is None:
+        return app.response_class(status=500)
     return jsonify({"fileName": downloaded_file_name}) 
 
 def resource_path(relative_path) -> str:
@@ -107,7 +111,6 @@ def spin_up_server() -> None:
         app.run(host="localhost", port=9998, debug=False) 
 
 if __name__ == '__main__':
-    print('F')
     multiprocessing.freeze_support()
     frontend = resource_path("index.html")
     server_process = multiprocessing.Process(target=spin_up_server) 
