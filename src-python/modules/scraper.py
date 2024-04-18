@@ -100,7 +100,7 @@ async def run_acm(playwright: Playwright, query: str):
     await browser.close()
     return available_file_name
 
-async def crawl_n_download(library: str, query: str) -> Union[str,None]:
+async def download_data(library: str, query: str) -> Union[str,None]:
     async with async_playwright() as playwright:
         if library == "wos": 
             downloaded_file_name = await run_wos(playwright,query)
