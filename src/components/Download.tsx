@@ -101,7 +101,7 @@ function Query(){
     <div className="download-setters-container">
       <Box className="download-setters-items-container">
       <Library /> 
-      <Query />
+      {Query()}
       <DownloadButton /> 
       </Box>
   </div>

@@ -3,6 +3,7 @@ from typing import Dict, List
 import gc
 import socket
 import pickledb
+import pyperclip
 import webview
 import multiprocessing
 import sys
@@ -16,6 +17,14 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 bib_files = None
+
+# only for qt, since qtwebengine blocks clipboard api of javascript
+@app.route("/copy", methods=['POST'])
+def copy():
+    data = cast(Dict,request.json)  
+    pyperclip.copy(data['text'])
+    return app.response_class(status=200)
+
 
 @app.route("/config", methods=['GET'])
 def getConfiguration():
