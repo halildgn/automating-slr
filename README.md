@@ -28,7 +28,7 @@ Note: You need to perform steps below only once, after that you can just use the
 ### Windows:
 
 ```
- py -m pip install virtualenv; virtualenv src-python ; src-python\Scripts\activate; py -m pip install -r requirements.txt; $env:PLAYWRIGHT_BROWSERS_PATH="0"; playwright install chromium;pyinstaller --add-data="index.html;." --icon=colaps.ico --noconsole --onefile automating-slr.py ; deactivate
+ py -m pip install virtualenv; py -m virtualenv src-python ; src-python\Scripts\activate; cd .\src-python\ ; py -m pip install -r requirements.txt; $env:PLAYWRIGHT_BROWSERS_PATH="0"; playwright install chromium;pyinstaller --add-data="index.html;." --icon=colaps.ico --noconsole --onefile automating-slr.py ; deactivate
 ```
 
 ### Linux:
