@@ -12,7 +12,7 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 
 Note: You need to perform steps below only once, after that you can just use the generated executable to launch the application. You can move this executable to some other location in your computer and remove the repository if you are not going to develop the application further.  
 
-1. Install `python3` and make sure that it is on your `PATH`(Even if it is already installed, please upgrade it to the latest version) 
+1. Install `python3` (Even if it is already installed, please upgrade it to the latest version) and make sure that it is on your `PATH`
 
 2. For next steps use powershell in windows and your standard terminal in Linux&MacOS
 
