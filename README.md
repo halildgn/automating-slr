@@ -12,9 +12,9 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 
 Note: You need to perform steps below only once, after that you can just use the generated executable to launch the application. You can move this executable to some other location in your computer and remove the repository if you are not going to develop the application further.  
 
-1. Install `python3` (Even if it is already installed, please upgrade it to the latest version) and make sure that it is on your `PATH`
+1. Install `python3` (Even if it is already installed, please upgrade it to the latest version) and make sure that it is on your `PATH`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
 
-2. For next steps use powershell in windows and your standard terminal in Linux&MacOS
+2. For next steps use powershell in windows and your standard bash terminal in Linux&MacOS
 
 3. Clone the repository 
 
