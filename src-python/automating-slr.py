@@ -124,6 +124,6 @@ if __name__ == '__main__':
     frontend = resource_path("index.html")
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
-    webview.create_window('Automating SLR', frontend, fullscreen=True)
+    webview.create_window('Automating SLR', frontend, resizable=True)
     webview.start()
     server_process.terminate()
