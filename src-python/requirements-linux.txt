@@ -1,0 +1,10 @@
+setuptools
+pyinstaller
+psutil
+pywebview[qt]
+pickledb
+Flask[async]
+flask_cors
+bibtexparser
+playwright
+pyperclip
