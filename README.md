@@ -16,7 +16,7 @@ Note: You need to perform steps below only once, after that you can just use the
 
 2. For next steps use powershell in windows and your standard bash terminal in Linux&MacOS
 
-3. Clone the repository 
+3. Clone the repository(via `git clone https://gitlab.com/halildgn/automating-slr.git`) 
 
 4. Navigate to repository(`automating-slr`)  
 
@@ -34,7 +34,7 @@ Note: You need to perform steps below only once, after that you can just use the
 ### Linux:
 
 ```
-pip3 install virtualenv && virtualenv src-python &&  source src-python/bin/activate && cd src-python &&  python3 -m pip install -r requirements-linux.txt && PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium  && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py && deactivate
+python3 -m pip install virtualenv && python3 -m virtualenv src-python &&  source src-python/bin/activate && cd src-python &&  python3 -m pip install -r requirements-linux.txt && PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium  && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py && deactivate
 ```
 
 ### MacOS:

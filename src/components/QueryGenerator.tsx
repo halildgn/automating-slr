@@ -71,7 +71,7 @@ async function writeToClipboard(text: string | null){
 const result = await navigator.permissions.query({ name: "clipboard-write" });
 const isCopyingAllowedByWebRenderer = result.state === "granted"
     if(!isCopyingAllowedByWebRenderer){
-  await axios.post("http://localhost:9998/copy", {text: text})
+  await axios.post("http://localhost:9998/copy", {text: text ?? ""})
     }else{
       navigator.clipboard.writeText( text ?? "")
     }
