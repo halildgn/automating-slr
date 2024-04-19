@@ -12,7 +12,7 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 
 Note: You need to perform steps below only once, after that you can just use the generated executable to launch the application. You can move this executable to some other location in your computer and remove the repository if you are not going to develop the application further.  
 
-1. Install `python3` (Even if it is already installed, please upgrade it to the at least `python 3.12`) and make sure that it is on your `PATH`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
+1. Install `python3` (Even if it is already installed, please upgrade it to the at least `python 3.12`) and make sure that it is on your `PATH` or in Windows jargon it is added to the `environment variables`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
 
 2. For next steps use powershell in windows and your standard bash terminal in Linux&MacOS
 
@@ -28,7 +28,7 @@ Note: You need to perform steps below only once, after that you can just use the
 ### Windows:
 
 ```
- pip3 install virtualenv; virtualenv src-python ; src-python\Scripts\activate; py -m pip install -r requirements.txt; $env:PLAYWRIGHT_BROWSERS_PATH="0"; playwright install chromium;pyinstaller --add-data="index.html;." --icon=colaps.ico --noconsole --onefile automating-slr.py ; deactivate
+ py -m pip install virtualenv; virtualenv src-python ; src-python\Scripts\activate; py -m pip install -r requirements.txt; $env:PLAYWRIGHT_BROWSERS_PATH="0"; playwright install chromium;pyinstaller --add-data="index.html;." --icon=colaps.ico --noconsole --onefile automating-slr.py ; deactivate
 ```
 
 ### Linux:
