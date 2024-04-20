@@ -4,6 +4,7 @@ import os
 from typing import Union
 
 # To extend the automation future collaborators can get help from https://playwright.dev/python/docs/codegen
+# To see what is going on while the automation is running , set "headless" parameters to "False"
 
 def get_available_file_name(suggested_name: str):
     counter = 2
