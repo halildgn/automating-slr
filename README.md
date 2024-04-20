@@ -11,7 +11,7 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 # Installing dependencies:
 
 
-1. Install `python3` (Even if it is already installed, please upgrade it to the at least `python 3.12`) and make sure that it is on your `PATH` or in Windows jargon it is added to the `environment variables`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
+1. Install `python3` and `pip` (Even if it is already installed, please upgrade it to the at least `python 3.12`) and make sure that they on your `PATH` or in Windows jargon they are added to the `environment variables`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
 
 2. For next steps use powershell in Windows and your standard bash terminal in Linux&MacOS
 
@@ -28,19 +28,19 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 ### Windows:
 
 ```
-py -m pip install -r requirements.txt; playwright install --with-deps chrome
+py -m pip install -r requirements.txt; py -m playwright install --with-deps chrome
 ```
 
 ### Linux:
 
 ```
-python3 -m pip install -r requirements-linux.txt && playwright install --with-deps chrome
+python3 -m pip install -r requirements-linux.txt && python3 -m playwright install --with-deps chrome
 ```
 
 ### MacOS:
 
 ```
-python3 -m pip install -r requirements.txt && playwright install --with-deps chrome
+python3 -m pip install -r requirements.txt && python3 -m playwright install --with-deps chrome
 ```
 
 ## If you have chrome browser already installed or you dont want to use "Download" functionality: 
