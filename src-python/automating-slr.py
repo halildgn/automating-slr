@@ -104,8 +104,8 @@ def resource_path(relative_path) -> str:
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
    # unfrozen (when executed by python interpreter directly) 
-    if os.path.exists(os.path.join(os.path.dirname(__file__), 'index.html')):
-        return 'index.html' 
+    if os.path.exists(os.path.join(os.path.dirname(__file__), relative_path)):
+        return relative_path 
 
 def config_exists() -> bool:
    return os.path.exists(Path.home().joinpath('automating-slr-config.db'))
@@ -126,6 +126,6 @@ if __name__ == '__main__':
     frontend = resource_path("index.html")
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
-    webview.create_window('Automating SLR', frontend, resizable=True)
+    webview.create_window('Automating SLR', frontend, fullscreen=True)
     webview.start()
     server_process.terminate()
