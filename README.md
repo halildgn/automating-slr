@@ -13,11 +13,11 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 
 1. Install `python3` (Even if it is already installed, please upgrade it to the at least `python 3.12`) and make sure that it is on your `PATH` or in Windows jargon it is added to the `environment variables`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
 
-2. For next steps use powershell in windows and your standard bash terminal in Linux&MacOS
+2. For next steps use powershell in Windows and your standard bash terminal in Linux&MacOS
 
 3. Clone the repository(via `git clone https://gitlab.com/halildgn/automating-slr.git`) 
 
-4. Navigate to repository(`automating-slr`) (via `cd .\automating-slr\` on Windows powershell and via `cd automating-slr` on Linux&MacOS) 
+4. Navigate to `automating-slr/src-python` -> via `cd .\automating-slr\src-python\` on Windows powershell and via `cd automating-slr/src-python` on Linux&MacOS 
 
 5. Copy and run the following command to install the dependencies:
 
