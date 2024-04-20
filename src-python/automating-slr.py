@@ -1,4 +1,5 @@
 from typing import cast
+from typing import Union
 from typing import Dict, List
 import gc
 import socket
@@ -96,11 +97,11 @@ async def download():
         return app.response_class(status=500)
     return jsonify({"fileName": downloaded_file_name}) 
 
-def resource_path(relative_path) -> str:
-    # macos frozen(executable)
+def resource_path(relative_path) -> Union[str,None]:
+    # macos frozen(executable) -> via "py2app-macos-setup.py"
     if os.path.exists(os.path.join(os.path.dirname(__file__), '/Resources/index.html')):
         return '/Resources/index.html'
-    # linux&windows frozen
+    # linux&windows frozen -> via pyinstaller
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
    # unfrozen (when executed by python interpreter directly) 
@@ -108,10 +109,10 @@ def resource_path(relative_path) -> str:
         return relative_path 
 
 def config_exists() -> bool:
-   return os.path.exists(Path.home().joinpath('automating-slr-config.db'))
+   return os.path.exists(os.path.join(os.path.dirname(__file__), 'config.db'))
 
-def config_path() -> Path:
-    return Path.home().joinpath('automating-slr-config.db')
+def config_path() -> str:
+    return os.path.join(os.path.dirname(__file__), 'config.db')
 
 def is_port_in_use(port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -123,7 +124,7 @@ def spin_up_server() -> None:
 
 if __name__ == '__main__':
     multiprocessing.freeze_support()
-    frontend = resource_path("index.html")
+    frontend = cast(str,resource_path("index.html"))
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
     webview.create_window('Automating SLR', frontend, fullscreen=True)

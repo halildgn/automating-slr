@@ -8,9 +8,8 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 
 Defects like usage of `Newest available entry is from` instead of `Oldest available entry is from` (`10:08`) and there should had been an error displayed at `13:55` 
 
-# Setup 
+# Installing dependencies:
 
-Note: You need to perform steps below only once, after that you can just use the generated executable to launch the application. You can move this executable to some other location in your computer and remove the repository if you are not going to develop the application further.  
 
 1. Install `python3` (Even if it is already installed, please upgrade it to the at least `python 3.12`) and make sure that it is on your `PATH` or in Windows jargon it is added to the `environment variables`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
 
@@ -18,37 +17,55 @@ Note: You need to perform steps below only once, after that you can just use the
 
 3. Clone the repository(via `git clone https://gitlab.com/halildgn/automating-slr.git`) 
 
-4. Navigate to repository(`automating-slr`)  
+4. Navigate to repository(`automating-slr`) (via `cd .\automating-slr\` on Windows powershell and via `cd automating-slr` on Linux&MacOS) 
 
-5. Copy and run the following command to generate the binary for your OS&processor :
+5. Copy and run the following command to install the dependencies:
 
 * Important Note: Sometimes using `eduroam` causes problems while cloning a git repository or installing python packages. If you encounter such problem, please execute following commands while using your private network.
 
+## If you have chrome browser NOT installed and you want to use "Download" functionality:
 
 ### Windows:
 
 ```
- py -m pip install virtualenv; py -m virtualenv src-python ; .\src-python\Scripts\activate; cd .\src-python\ ; py -m pip install -r requirements.txt; $env:PLAYWRIGHT_BROWSERS_PATH="0"; playwright install chromium;pyinstaller --add-data="index.html;." --icon=colaps.ico --noconsole --onefile automating-slr.py ; deactivate
+py -m pip install -r requirements.txt; playwright install --with-deps chrome
 ```
 
 ### Linux:
 
 ```
-python3 -m pip install virtualenv && python3 -m virtualenv src-python &&  source src-python/bin/activate && cd src-python &&  python3 -m pip install -r requirements-linux.txt && PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium  && pyinstaller --add-data="index.html:." --noconsole --onefile automating-slr.py && deactivate
+python3 -m pip install -r requirements-linux.txt && playwright install --with-deps chrome
 ```
 
 ### MacOS:
 
 ```
- pip3 install virtualenv && virtualenv src-python &&  source src-python/bin/activate && cd src-python && python3 -m pip install -r requirements.txt  && PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium  && python3 py2app-macos-setup.py py2app && deactivate
+python3 -m pip install -r requirements.txt && playwright install --with-deps chrome
 ```
 
+## If you have chrome browser already installed or you dont want to use "Download" functionality: 
 
-6. The generated binary should now be placed in the `automating-slr/src-python/dist`. You can now use this binary to launch the application without having to perform any additional steps. 
+### Windows:
+
+```
+py -m pip install -r requirements.txt
+```
+
+### Linux:
+
+```
+python3 -m pip install -r requirements-linux.txt
+```
+
+### MacOS:
+
+```
+python3 -m pip install -r requirements.txt
+```
 
 # Configuration
 
-* Your theme preference and build configurations are managed by `pickledDB` and stored in your home directory, in a file called `automating-slr-config.db`. In case of switching over to other machines in the future, you can still enjoy your existing builds by placing this file in that machine's home directory. 
+* Your theme preference and build configurations are managed by `pickledDB` and stored in `automating-slr/src-python/config.db`. In case of switching over to other machines in the future, you can still enjoy your existing builds by placing this `config.db` file from old computer in the new computer's `automating-slr/src-python` directory. 
 
 # For possible development cycles in the future
 * Install `NVM(node version manager)`:
