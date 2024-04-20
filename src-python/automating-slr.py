@@ -128,5 +128,5 @@ if __name__ == '__main__':
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
     webview.create_window('Automating SLR', frontend, fullscreen=True)
-    webview.start(debug=True)
+    webview.start()
     server_process.terminate()
