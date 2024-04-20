@@ -97,13 +97,15 @@ async def download():
     return jsonify({"fileName": downloaded_file_name}) 
 
 def resource_path(relative_path) -> str:
-    #macos
+    # macos frozen(executable)
     if os.path.exists(os.path.join(os.path.dirname(__file__), '/Resources/index.html')):
         return '/Resources/index.html'
-    #linux&windows
+    # linux&windows frozen
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
-    return os.path.join(os.path.abspath("."), relative_path)
+   # unfrozen (when executed by python interpreter directly) 
+    if os.path.exists(os.path.join(os.path.dirname(__file__), 'index.html')):
+        return 'index.html' 
 
 def config_exists() -> bool:
    return os.path.exists(Path.home().joinpath('automating-slr-config.db'))
