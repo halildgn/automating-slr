@@ -245,7 +245,10 @@ function Queries(){
         <>
           <ListItemButton onClick={()=>{copyQueryToClipboard(queries[(library as Library)] )}}>
             <ListItemText primary={queries[(library as Library)]} secondary={library} />
-  <Tooltip title={libraryInfo[(library as Library)]}>
+  <Tooltip placement="left-start" arrow title={
+<div style={{ whiteSpace: 'pre-line' }}>{libraryInfo[(library as Library)].join('\n')}</div>
+                    
+                  }>
                 <QuestionMarkIcon/>
               </Tooltip>
           </ListItemButton>
