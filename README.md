@@ -31,13 +31,13 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 py -m pip install -r requirements.txt; py -m playwright install --with-deps chrome
 ```
 
-### Linux:
-
-```
-python3 -m pip install -r requirements-linux.txt && python3 -m playwright install --with-deps chrome
-```
-
 ### MacOS:
+
+```
+python3 -m pip install -r requirements.txt && python3 -m playwright install --with-deps chrome
+```
+
+### Linux:
 
 ```
 python3 -m pip install -r requirements.txt && python3 -m playwright install --with-deps chrome
@@ -51,13 +51,13 @@ python3 -m pip install -r requirements.txt && python3 -m playwright install --wi
 py -m pip install -r requirements.txt
 ```
 
-### Linux:
-
-```
-python3 -m pip install -r requirements-linux.txt
-```
-
 ### MacOS:
+
+```
+python3 -m pip install -r requirements.txt
+```
+
+### Linux:
 
 ```
 python3 -m pip install -r requirements.txt
