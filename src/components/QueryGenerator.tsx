@@ -66,15 +66,18 @@ function QueryGenerator() {
     ebsco: null,
   });
 
-async function writeToClipboard(text: string | null){
-      // @ts-expect-error
+async function copyQueryToClipboard(text: string | null){
+// Since in some web renderers writing to clipboard is blocked, use native js clipboard to copy if allowed, otherwise use backend to copy to OS clipboard. 
+    if(navigator && navigator.permissions && typeof navigator.permissions.query !== 'undefined'){
+    // @ts-expect-error
 const result = await navigator.permissions.query({ name: "clipboard-write" });
 const isCopyingAllowedByWebRenderer = result.state === "granted"
-    if(!isCopyingAllowedByWebRenderer){
-  await axios.post("http://localhost:9998/copy", {text: text ?? ""})
-    }else{
+      if(isCopyingAllowedByWebRenderer){
       navigator.clipboard.writeText( text ?? "")
+        return;
+      }
     }
+  await axios.post("http://localhost:9998/copy", {text: text ?? ""})
   }
 
   async function generateQueries() {
@@ -240,7 +243,7 @@ function Queries(){
         <List>
      {Object.keys(queries).map((library: string,i: number) => (
         <>
-          <ListItemButton onClick={()=>{writeToClipboard(queries[(library as Library)] )}}>
+          <ListItemButton onClick={()=>{copyQueryToClipboard(queries[(library as Library)] )}}>
             <ListItemText primary={queries[(library as Library)]} secondary={library} />
   <Tooltip title={libraryInfo[(library as Library)]}>
                 <QuestionMarkIcon/>
