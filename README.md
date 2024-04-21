@@ -2,6 +2,10 @@
 
 This work is an extention of the work of `Yunhai Zhang` that resides on https://github.com/zsf520/Automating_SLR. The code there is used in this repo for educational&research purposes only. 
 
+# Remark 
+
+Queries that are generated for `scopus` and `ebsco` libraries are quick prototypes and they haven't been tested during `Yunhai Zhang`'s research.
+
 # Short Demo
 
 [Video](https://drive.google.com/file/d/1vioJWOljcYnq2YBTflH1gs0jA5Kh6C_W/view)
