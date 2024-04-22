@@ -12,16 +12,27 @@ Queries that are generated for `scopus` and `ebsco` libraries are quick prototyp
 
 Defects like usage of `Newest available entry is from` instead of `Oldest available entry is from` (`10:08`) and there should had been an error displayed at `13:55` 
 
+
+# https://visualstudio.microsoft.com/visual-cpp-build-tools
+
+# https://stackoverflow.com/a/53705283
+
+# py ./waf distclean all
+
+# pip install wheel
+
+# pip install .
+
 # Installing dependencies:
 
 
 1. Install `python3` and `pip` (Even if it is already installed, please upgrade it to the at least `python 3.12`) and make sure that they on your `PATH` or in Windows jargon they are added to the `environment variables`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
 
-2. For next steps use powershell in Windows and your standard bash terminal in Linux&MacOS
+2. For next steps use `Git Bash`(already installed with `git`) in Windows and your standard bash terminal in Linux&MacOS
 
 3. Clone the repository(via `git clone https://gitlab.com/halildgn/automating-slr.git`) 
 
-4. Navigate to `automating-slr/src-python` -> via `cd .\automating-slr\src-python\` on Windows powershell and via `cd automating-slr/src-python` on Linux&MacOS 
+4. Navigate to `automating-slr/src-python` -> via `cd automating-slr/src-python` 
 
 5. Copy and run the following command to install the dependencies:
 
@@ -32,7 +43,7 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 ### Windows:
 
 ```
-py -m pip install -r requirements.txt; py -m playwright install --with-deps chrome
+py -m pip install -r requirements.txt && py -m playwright install --with-deps chrome
 ```
 
 ### MacOS:
