@@ -73,8 +73,21 @@ After installing the dependencies, in `automating-slr/src-python` run via `py au
 
 * Your theme preference and build configurations are managed by `pickledDB` and stored in `automating-slr/src-python/config.db`. In case of switching over to other machines in the future, you can still enjoy your existing builds by placing this `config.db` file from old computer in the new computer's `automating-slr/src-python` directory. 
 
-# As last resort, if things don't work out for you, e.g. if you launch the app but GUI is not being displayed:
-Since we are using flask in a in another process and not in the main one(otherwise it blocks the main process and prevents renderer to run), if things don't work out for you, you can manually launch `index.html` file in `automating-slr/src-python` after launching the `automating-slr.py` 
+# Backup Option/Last Resort
+
+If you had problems while running the GUI with `webui2` or you would like to launch the GUI inside your webbrowser, you can use the `webbrowser` module and change the `main` of `src-python/automating-slr.py` as following: 
+```python
+import webbrowser
+```
+```python
+if __name__ == '__main__':
+#   needed when freezing the app:
+#   multiprocessing.freeze_support()
+    frontend = cast(str,resource_path("index.html"))
+    server_process = multiprocessing.Process(target=spin_up_server) 
+    server_process.start()
+    webbrowser.open_new(frontend)
+```
 
 # For possible development cycles in the future
 * Install `NVM(node version manager)`:
