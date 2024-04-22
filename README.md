@@ -31,7 +31,7 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 ### Windows:
 
 ```
-pip install -r requirements.txt && playwright install --with-deps chrome
+py -m pip install -r requirements.txt && py -m playwright install --with-deps chrome
 ```
 
 ### MacOS:
@@ -51,7 +51,7 @@ python3 -m pip install -r requirements.txt && python3 -m playwright install --wi
 ### Windows:
 
 ```
-pip install -r requirements.txt
+py -m pip install -r requirements.txt
 ```
 
 ### MacOS:
@@ -67,11 +67,14 @@ python3 -m pip install -r requirements.txt
 ```
 
 # Running the App
-After installing the dependencies, run via `python3 automating-slr.py` in `automating-slr/src-python`.
+After installing the dependencies, in `automating-slr/src-python` run via `py automating-slr.py` on Windows and via `python3 automating-slr.py` on MacOS&Linux
 
 # Configuration
 
 * Your theme preference and build configurations are managed by `pickledDB` and stored in `automating-slr/src-python/config.db`. In case of switching over to other machines in the future, you can still enjoy your existing builds by placing this `config.db` file from old computer in the new computer's `automating-slr/src-python` directory. 
+
+# As last resort, if things don't work out for you, e.g. if you launch the app but GUI is not being displayed:
+Since we are using flask in a in another process and not in the main one(otherwise it blocks the main process and prevents renderer to run), if things don't work out for you, you can manually launch `index.html` file in `automating-slr/src-python` after launching the `automating-slr.py` 
 
 # For possible development cycles in the future
 * Install `NVM(node version manager)`:
