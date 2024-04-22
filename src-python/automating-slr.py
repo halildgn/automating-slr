@@ -26,27 +26,17 @@ def copy():
     pyperclip.copy(data['text'])
     return app.response_class(status=200)
 
+
 @app.route("/config", methods=['GET'])
 def getConfiguration():
-    app_frozen =  app_is_frozen()
-    if(app_frozen):
-        config_missing = not frozen_app_config_exists() 
-        db = pickledb.load(frozen_app_config_path(),auto_dump=True, sig=False) 
-        if(config_missing):
-            db.set('theme','light')
-            db.set('builds', [])
-        theme = db.get('theme')
-        builds = db.get('builds')
-        return jsonify({"theme": theme, "builds": builds})    
-    else:
-        config_missing = not config_exists() 
-        db = pickledb.load(config_path(),auto_dump=True, sig=False) 
-        if(config_missing):
-            db.set('theme','light')
-            db.set('builds', [])
-        theme = db.get('theme')
-        builds = db.get('builds')
-        return jsonify({"theme": theme, "builds": builds})
+    config_missing = not config_exists() 
+    db = pickledb.load(config_path(),auto_dump=True, sig=False) 
+    if(config_missing):
+        db.set('theme','light')
+        db.set('builds', [])
+    theme = db.get('theme')
+    builds = db.get('builds')
+    return jsonify({"theme": theme, "builds": builds})
 
 @app.route('/setThemeConfig', methods=['POST'])
 def setThemeConfig():
@@ -117,19 +107,6 @@ def resource_path(relative_path) -> Union[str,None]:
    # unfrozen (when executed by python interpreter directly) 
     if os.path.exists(os.path.join(os.path.dirname(__file__), relative_path)):
         return relative_path 
-
-def app_is_frozen() -> bool:
-    frozen_for_macos = os.path.exists(os.path.join(os.path.dirname(__file__), '/Resources/index.html'))
-    frozen_for_windows_or_linux = hasattr(sys, '_MEIPASS')
-    return frozen_for_macos or frozen_for_windows_or_linux
-    
-
-def frozen_app_config_exists() -> bool:
-    return os.path.exists(Path.home().joinpath('automating-slr-config.db'))
-
-def frozen_app_config_path() -> Path:
-    return Path.home().joinpath('automating-slr-config.db')
-
 
 def config_exists() -> bool:
    return os.path.exists(os.path.join(os.path.dirname(__file__), 'config.db'))
