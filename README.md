@@ -16,11 +16,11 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 
 1. Install `python3` and `pip` (Even if it is already installed, please upgrade it to the at least `python 3.12`) and make sure that they on your `PATH` or in Windows jargon they are added to the `environment variables`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
 
-2. For next steps use `Git Bash`(already installed with `git`) in Windows and your standard bash terminal in Linux&MacOS
+2. For next steps use `Git Bash`(already installed with `git`, you can paste commands via right clicking and clicking on paste, `ctrl+v` wouldn't work) in Windows and your standard bash terminal in Linux&MacOS
 
 3. Clone the repository(via `git clone https://gitlab.com/halildgn/automating-slr.git`) 
 
-4. Navigate to `automating-slr/src-python` -> via `cd automating-slr/src-python` 
+4. Navigate to `automating-slr/src-python` via `cd automating-slr/src-python` 
 
 5. Copy and run the following command to install the dependencies:
 
@@ -31,7 +31,7 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 ### Windows:
 
 ```
-py -m pip install -r requirements.txt && py -m playwright install --with-deps chrome
+pip install -r requirements.txt && playwright install --with-deps chrome
 ```
 
 ### MacOS:
@@ -51,7 +51,7 @@ python3 -m pip install -r requirements.txt && python3 -m playwright install --wi
 ### Windows:
 
 ```
-py -m pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### MacOS:
@@ -65,6 +65,9 @@ python3 -m pip install -r requirements.txt
 ```
 python3 -m pip install -r requirements.txt
 ```
+
+# Running the App
+After installing the dependencies, run via `python3 automating-slr.py` in `automating-slr/src-python`.
 
 # Configuration
 
