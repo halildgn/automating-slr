@@ -67,7 +67,7 @@ function QueryGenerator() {
   });
 
 async function copyQueryToClipboard(text: string | null){
-// Since in some web renderers writing to clipboard is blocked, use native js clipboard to copy if allowed, otherwise use backend to copy to OS clipboard. 
+// Since some web engines block certain js features (writing to clipboard can be one of those), use native js clipboard to copy if allowed, otherwise use backend to copy to OS clipboard. 
     if(navigator && navigator.permissions && typeof navigator.permissions.query !== 'undefined'){
     // @ts-expect-error
 const result = await navigator.permissions.query({ name: "clipboard-write" });

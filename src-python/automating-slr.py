@@ -19,7 +19,7 @@ app = Flask(__name__)
 CORS(app)
 bib_files = None
 
-# only for qt, since qtwebengine blocks clipboard api of javascript
+# In case webengine blocks clipboard api of javascript(it is checked in the frontend before the request is made)
 @app.route("/copy", methods=['POST'])
 def copy():
     data = cast(Dict,request.json)  
