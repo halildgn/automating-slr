@@ -75,7 +75,7 @@ After installing the dependencies, in `automating-slr/src-python` run via `py au
 
 # Backup Option/Last Resort
 
-If you had problems while running the GUI with `webui2` or you would like to launch the GUI inside your webbrowser, you can use the `webbrowser` module and change the `main` of `src-python/automating-slr.py` as following: 
+If you had problems while running the GUI with `webui2` or you would like to launch the GUI inside your webbrowser, you import the `webbrowser` module(it is included in python by default, no need to install) and change the `main` of `src-python/automating-slr.py` as following: 
 ```python
 import webbrowser
 ```
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     frontend = cast(str,resource_path("index.html"))
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
-    webbrowser.open_new(frontend)
+    webbrowser.open(frontend, new=1 , autoraise=True )
 ```
 
 # For possible development cycles in the future
@@ -108,5 +108,5 @@ if __name__ == '__main__':
 #   app_window = webui.window()
 #   app_window.show(frontend)
 #   webui.wait()
-#    server_process.terminate()
+#   server_process.terminate()
 ```
