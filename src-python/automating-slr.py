@@ -1,11 +1,11 @@
 from typing import cast
 from typing import Union
 from typing import Dict, List
+from webui import webui
 import gc
 import socket
 import pickledb
 import pyperclip
-import webview
 import multiprocessing
 import sys
 import os
@@ -98,7 +98,7 @@ async def download():
     return jsonify({"fileName": downloaded_file_name}) 
 
 def resource_path(relative_path) -> Union[str,None]:
-    # macos frozen(executable) -> via "py2app-macos-setup.py"
+    # macos frozen(executable) -> via "py2app-macos-setup.py"(by making use of py2app)
     if os.path.exists(os.path.join(os.path.dirname(__file__), '/Resources/index.html')):
         return '/Resources/index.html'
     # linux&windows frozen -> via pyinstaller
@@ -123,10 +123,12 @@ def spin_up_server() -> None:
         app.run(host="localhost", port=9998, debug=False) 
 
 if __name__ == '__main__':
-    multiprocessing.freeze_support()
+#   needed when freezing the app:
+#   multiprocessing.freeze_support()
     frontend = cast(str,resource_path("index.html"))
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
-    webview.create_window('Automating SLR', frontend, fullscreen=True)
-    webview.start()
+    app_window = webui.window()
+    app_window.show(frontend)
+    webui.wait()
     server_process.terminate()

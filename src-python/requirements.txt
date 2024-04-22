@@ -1,8 +1,6 @@
 setuptools
-pyinstaller; sys_platform != 'darwin'
-py2app; sys_platform == 'darwin'
 psutil
-pywebview
+webui2
 pickledb
 Flask[async]
 flask_cors

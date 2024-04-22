@@ -87,11 +87,13 @@ Since we are using flask in a in another process and not in the main one(otherwi
 * To spin up the flask server, comment out the following lines before running the `automating-slr.py` script with `python3 automating-slr.py`:
 ```python
 if __name__ == '__main__':
-    # multiprocessing.freeze_support()
-    # frontend = resource_path("index.html")
+#   needed when freezing the app:
+#   multiprocessing.freeze_support()
+#   frontend = cast(str,resource_path("index.html"))
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
-    # webview.create_window('Automating SLR', frontend, fullscreen=True)
-    # webview.start()
-    # server_process.terminate()
+#   app_window = webui.window()
+#   app_window.show(frontend)
+#   webui.wait()
+#    server_process.terminate()
 ```
