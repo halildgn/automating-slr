@@ -97,7 +97,7 @@ if __name__ == '__main__':
 * In `automating-slr`, install the packages via `npm install --legacy-peer-deps`
 * To build, in `automating-slr`: `npm run build`(generates the standalone `html` in `automating-slr/src-python` which is going to be used while generating the binary)
 * To spin up a frontend development server, in `automating-slr`: `npm run dev` 
-* To spin up the flask server, comment out the following lines before running the `automating-slr.py` script with `python3 automating-slr.py`:
+* To spin up the flask server, comment out the following lines before running the `automating-slr.py` script with `py automating-slr.py` on Windows and `python3 automating-slr.py` on MacOS&Linux:
 ```python
 if __name__ == '__main__':
 #   needed when freezing the app:
