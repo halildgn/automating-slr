@@ -12,19 +12,7 @@ Queries that are generated for `scopus` and `ebsco` libraries are quick prototyp
 
 Defects like usage of `Newest available entry is from` instead of `Oldest available entry is from` (`10:08`) and there should had been an error displayed at `13:55` 
 
-
-# https://visualstudio.microsoft.com/visual-cpp-build-tools
-
-# https://stackoverflow.com/a/53705283
-
-# py ./waf distclean all
-
-# pip install wheel
-
-# pip install .
-
 # Installing dependencies:
-
 
 1. Install `python3` and `pip` (Even if it is already installed, please upgrade it to the at least `python 3.12`) and make sure that they on your `PATH` or in Windows jargon they are added to the `environment variables`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
 
