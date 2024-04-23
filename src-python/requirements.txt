@@ -1,5 +1,3 @@
-setuptools
-psutil
 webui2
 pickledb
 Flask[async]
