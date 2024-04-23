@@ -5,7 +5,6 @@ from webui import webui
 import gc
 import socket
 import pickledb
-import pyperclip
 import multiprocessing
 import sys
 import os
@@ -18,14 +17,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 bib_files = None
-
-# In case webengine blocks clipboard api of javascript(it is checked in the frontend before the request is made)
-@app.route("/copy", methods=['POST'])
-def copy():
-    data = cast(Dict,request.json)  
-    pyperclip.copy(data['text'])
-    return app.response_class(status=200)
-
 
 @app.route("/config", methods=['GET'])
 def getConfiguration():
