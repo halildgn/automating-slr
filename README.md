@@ -46,26 +46,6 @@ python3 -m pip install -r requirements.txt && python3 -m playwright install --wi
 python3 -m pip install -r requirements.txt && python3 -m playwright install --with-deps chrome
 ```
 
-## If you have chrome browser already installed or you dont want to use "Download" functionality: 
-
-### Windows:
-
-```
-py -m pip install -r requirements.txt
-```
-
-### MacOS:
-
-```
-python3 -m pip install -r requirements.txt
-```
-
-### Linux:
-
-```
-python3 -m pip install -r requirements.txt
-```
-
 # Running the App
 After installing the dependencies, in `automating-slr/src-python` run via `py automating-slr.py` on Windows and via `python3 automating-slr.py` on MacOS&Linux
 
@@ -89,6 +69,15 @@ if __name__ == '__main__':
     webbrowser.open(frontend, new=1 , autoraise=True )
 ```
 
+# To make the server deployable
+Change the content of `main` with the following and instead of directly saving files to the host OS(since the server is going to run on another computer, we don't want to save files to that comptuer but we would like retrieve them instead), send those back to the client as response and save via client. 
+```python
+if __name__ == '__main__':
+    server_process = multiprocessing.Process(target=spin_up_server) 
+    server_process.start()
+```
+
+
 # For possible development cycles in the future
 * Install `NVM(node version manager)`:
 [Windows](https://github.com/coreybutler/nvm-windows)
@@ -107,6 +96,4 @@ if __name__ == '__main__':
     server_process.start()
 #   app_window = webui.window()
 #   app_window.show(frontend)
-#   webui.wait()
-#   server_process.terminate()
 ```

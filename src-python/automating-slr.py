@@ -130,5 +130,3 @@ if __name__ == '__main__':
     server_process.start()
     app_window = webui.window()
     app_window.show(frontend)
-    webui.wait()
-    server_process.terminate()
