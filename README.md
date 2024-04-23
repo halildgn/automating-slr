@@ -67,14 +67,15 @@ if __name__ == '__main__':
     webbrowser.open(frontend, new=1 , autoraise=True )
 ```
 
-# To make the server deployable
-Change the content of `main` with the following and instead of directly saving files to the host OS(since the server is going to run on another computer, we don't want to save files to that computer but we would like retrieve them instead), send those back to the client as response and save via client. 
+# To make the app deployable
+1. Adjust the content of `main` with the following and in the python modules, instead of directly saving files to the host OS(since the server is going to run on another computer, we don't want to save files to that computer but we would like retrieve them instead), send those back to the client as response.
+2. Adjust the content of the frontend, so that the response from the server(the file) is saved. 
+3. Deploy the server via vm or container and deploy the frontend(static html) to some static site hosting service like "gitlab pages".  
 ```python
 if __name__ == '__main__':
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
 ```
-
 
 # For possible development cycles in the future
 * Install `NVM(node version manager)`:
