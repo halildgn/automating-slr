@@ -113,6 +113,10 @@ def spin_up_server() -> None:
      if(not is_port_in_use(9998)):
         app.run(host="localhost", port=9998, debug=False) 
 
+def on_close():
+    if(not app_window.is_shown()):
+       server_process.terminate() 
+
 if __name__ == '__main__':
 #   needed when freezing the app:
 #   multiprocessing.freeze_support()
@@ -121,3 +125,4 @@ if __name__ == '__main__':
     server_process.start()
     app_window = webui.window()
     app_window.show(frontend)
+    app_window.bind("root", on_close)
