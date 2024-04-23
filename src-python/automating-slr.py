@@ -129,4 +129,4 @@ if __name__ == '__main__':
     server_process = multiprocessing.Process(target=spin_up_server) 
     server_process.start()
     app_window = webui.window()
-    app_window.show(frontend)
+    app_window.show(frontend, webui.browser.chrome)

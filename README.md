@@ -26,8 +26,6 @@ Defects like usage of `Newest available entry is from` instead of `Oldest availa
 
 * Important Note: Sometimes using `eduroam` causes problems while cloning a git repository or installing python packages. If you encounter such problem, please execute following commands while using your private network.
 
-## If you have chrome browser NOT installed and you want to use "Download" functionality:
-
 ### Windows:
 
 ```
