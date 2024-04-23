@@ -70,7 +70,7 @@ if __name__ == '__main__':
 ```
 
 # To make the server deployable
-Change the content of `main` with the following and instead of directly saving files to the host OS(since the server is going to run on another computer, we don't want to save files to that comptuer but we would like retrieve them instead), send those back to the client as response and save via client. 
+Change the content of `main` with the following and instead of directly saving files to the host OS(since the server is going to run on another computer, we don't want to save files to that computer but we would like retrieve them instead), send those back to the client as response and save via client. 
 ```python
 if __name__ == '__main__':
     server_process = multiprocessing.Process(target=spin_up_server) 
