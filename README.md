@@ -12,7 +12,7 @@ Queries that are generated for `scopus` and `ebsco` libraries are quick prototyp
 
 # Installing dependencies:
 
-1. Install `git`, `python3` and `pip` (Even if it is already installed, please upgrade it to the at least `python 3.12`) and make sure that they on your `PATH` or in Windows jargon they are added to the `environment variables`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
+1. Install `git`, `python3` and `pip` (Even if it is already installed, it is strongly recommended to upgrade to at least`python 3.12`) and make sure that they on your `PATH` or in Windows jargon they are added to the `environment variables`(meaning that you can execute `python` and `pip` related commands from your bash terminal or powershell(in case of Windows))
 
 2. For next steps use `Git Bash`(already installed with `git`, you can paste commands via right clicking and clicking on paste, `ctrl+v` wouldn't work) in Windows and your standard bash terminal in Linux&MacOS
 
