@@ -8,7 +8,7 @@ Queries that are generated for `scopus` and `ebsco` libraries are quick prototyp
 
 # Introduction 
 
-[Video](https://drive.google.com/file/d/14ftPF3AKGU2_TITwsdPz4_aWJmUQOdDb/view?usp=sharing)
+<iframe src="https://drive.google.com/file/d/14ftPF3AKGU2_TITwsdPz4_aWJmUQOdDb/preview" width="640" height="480"></iframe>
 
 # Installing dependencies:
 
