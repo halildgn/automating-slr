@@ -6,11 +6,9 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 
 Queries that are generated for `scopus` and `ebsco` libraries are quick prototypes and they haven't been tested during `Yunhai Zhang`'s research.
 
-# Short Demo
+# Introduction 
 
-[Video](https://drive.google.com/file/d/1vioJWOljcYnq2YBTflH1gs0jA5Kh6C_W/view)
-
-Defects like usage of `Newest available entry is from` instead of `Oldest available entry is from` (`10:08`) and there should had been an error displayed at `13:55` 
+[Video](https://drive.google.com/file/d/14ftPF3AKGU2_TITwsdPz4_aWJmUQOdDb/view?usp=sharing)
 
 # Installing dependencies:
 
