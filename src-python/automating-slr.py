@@ -1,7 +1,7 @@
 from typing import cast
 from typing import Union
 from typing import Dict, List
-from webui import webui
+from sys import platform
 import gc
 import socket
 import pickledb
@@ -14,6 +14,10 @@ from modules.bib_to_csv import *
 from modules.scraper import *
 from flask import Flask, request, jsonify 
 from flask_cors import CORS
+if platform == 'linux':
+    import webui_linux as webui 
+else:
+    from webui import webui
 app = Flask(__name__)
 CORS(app)
 bib_files = None
