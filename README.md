@@ -8,10 +8,7 @@ Queries that are generated for `scopus` and `ebsco` libraries are quick prototyp
 
 # Introduction 
 
-<video width="320" height="240" controls>
-<source src="https://drive.google.com/file/d/14ftPF3AKGU2_TITwsdPz4_aWJmUQOdDb/preview" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+[Video](https://drive.google.com/file/d/14ftPF3AKGU2_TITwsdPz4_aWJmUQOdDb/view?usp=sharing)
 
 # Installing dependencies:
 
