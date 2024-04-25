@@ -33,7 +33,6 @@ def bib_to_csv(bib_databases, min_pages = None, max_pages= None,
     if end_date is not None:
         end_date = int(end_date)
 
-    # Open CSV file for writing
     with open(csv_path, 'w', encoding='utf-8-sig', newline='') as csv_file:
         # Create a CSV writer, specify the quotation mark rule as csv.QUOTE_MINIMAL, and set the escape character to
         # double quotation marks
@@ -45,9 +44,8 @@ def bib_to_csv(bib_databases, min_pages = None, max_pages= None,
         # Process each BibTeX file
         for bib_database in bib_databases:
 
-            # Use filter_entries function to filter
             filtered_entries = filter_entries(bib_database.entries, min_pages, max_pages, publication_types)
-            # Use the new filter_by_publication_date function
+
             filtered_entries = filter_by_publication_date(filtered_entries, start_date, end_date)
 
             # Traverse each filtered item and write the required fields to the CSV file
@@ -62,8 +60,7 @@ def bib_to_csv(bib_databases, min_pages = None, max_pages= None,
                 pages = entry.get('pages', 'No data')
                 entry_type = entry.get('entry_type', 'No data')
 
-                # Use title and author information to determine whether the entry has been processed to prevent
-                # duplication
+                # Use title and author information to determine whether the entry has been processed to prevent duplication
                 entry_doi = f"{doi.lower()}"
                 entry_identifier = f"{title.lower()}_{authors.lower()}"
                 if entry_doi == 'no data':
