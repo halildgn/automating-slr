@@ -2,6 +2,11 @@ from pathlib import Path
 import csv
 from modules.filter import *
 import os
+from typing import TypedDict
+
+class FilteringFeedback(TypedDict):
+    duplicate_count: int
+    file_name: str
 
 # If "file.csv" in save directory exists, save as "file1.csv", and so on.
 def get_available_file_name():
@@ -13,11 +18,12 @@ def get_available_file_name():
     return filename
 
 def bib_to_csv(bib_databases, min_pages = None, max_pages= None,
-               start_date = None, end_date = None, publication_types = None):
+               start_date = None, end_date = None, publication_types = None) -> FilteringFeedback :
     unique_entries = set()  # Used to track items that have been processed
     unique_doi = set()
     duplicate_count = 0
-    csv_path = Path.home().joinpath('Downloads', get_available_file_name())
+    available_file_name = get_available_file_name() 
+    csv_path = Path.home().joinpath('Downloads', available_file_name)
     if min_pages is not None:
         min_pages = int(min_pages)
     if max_pages is not None:
@@ -73,4 +79,4 @@ def bib_to_csv(bib_databases, min_pages = None, max_pages= None,
                     unique_doi.add(entry_doi)
                 else:
                     duplicate_count += 1 
-    return duplicate_count
+    return {"duplicate_count": duplicate_count, "file_name": available_file_name}

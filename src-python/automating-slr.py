@@ -75,11 +75,11 @@ def filter():
     start_year: str =  data['startYear']
     end_year: str = data['endYear']
     publication_types: List[str] = data['publicationTypes']
-    removed_duplicate_count: int = bib_to_csv(bib_files, min_pages,max_pages, start_year, end_year, publication_types)
+    filtering_feedback : FilteringFeedback = bib_to_csv(bib_files, min_pages,max_pages, start_year, end_year, publication_types)
     # clear the cache
     del bib_files
     gc.collect()
-    return jsonify({"duplicateCount": removed_duplicate_count}) 
+    return jsonify(filtering_feedback) 
 
 @app.route("/download",methods=['POST'])
 async def download():

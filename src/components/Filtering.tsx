@@ -18,8 +18,8 @@ import LoadingIndicator from "./LoadingIndicator";
 function Filtering() {
   const [isUploadSuccess, setIsUploadSuccess] = useState<null | boolean>(null);
   const [uploadOrReset, setUploadOrReset] = useState<string>("upload");
-  const [filteringSuccessIndicators, setFilteringSuccessIndicators] = useState<{success: null | boolean, duplicateCount: null | boolean}>(
-    {success: null, duplicateCount: null}
+  const [filteringSuccessIndicators, setFilteringSuccessIndicators] = useState<{success: null | boolean, duplicateCount: null | boolean, fileName: null | string}>(
+    {success: null, duplicateCount: null, fileName: null}
   );
   const [displayFilterButton, setDisplayFilterButton] = useState(false);
   const [displayFields, setDisplayFields] = useState(false);
@@ -160,9 +160,9 @@ function Filtering() {
       publicationTypes: includedPubTypes,
       ...filteredDateAndPageRanges,
     });
-      setFilteringSuccessIndicators({success: true, duplicateCount: data.duplicateCount});
+      setFilteringSuccessIndicators({success: true, duplicateCount: data.duplicate_count, fileName: data.file_name});
     }catch{
-      setFilteringSuccessIndicators({success:false , duplicateCount: null});
+      setFilteringSuccessIndicators({success:false , duplicateCount: null, fileName: null});
     }
   }
 
@@ -326,19 +326,19 @@ function Filtering() {
     if (filteringSuccessIndicators.success) {
       return (
         <Backdrop
-          onClick={() => setFilteringSuccessIndicators({success:null, duplicateCount: null})}
+          onClick={() => setFilteringSuccessIndicators({success:null, duplicateCount: null, fileName: null})}
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={filteringSuccessIndicators.success}
           in={filteringSuccessIndicators.success} 
           timeout={{ enter: 1000, exit: 10000 }} 
           addEndListener={() => {
             setTimeout(() => {
-setFilteringSuccessIndicators({success:null, duplicateCount: null})
+setFilteringSuccessIndicators({success:null, duplicateCount: null, fileName: null})
             }, 10000);
           }}
         >
           <Alert severity="success">
-            {`Csv file that consists of filtered entries is saved to Downloads
+            {`${filteringSuccessIndicators.fileName} that consists of filtered entries is saved to Downloads
             directory. Number of removed duplicates: ${filteringSuccessIndicators.duplicateCount}(click to skip)`}
              
           </Alert>
@@ -347,14 +347,14 @@ setFilteringSuccessIndicators({success:null, duplicateCount: null})
     }
     return (
       <Backdrop
-        onClick={() => setFilteringSuccessIndicators({success:null, duplicateCount: null})}
+        onClick={() => setFilteringSuccessIndicators({success:null, duplicateCount: null, fileName: null})}
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={!filteringSuccessIndicators.success}
         in={!filteringSuccessIndicators.success} 
         timeout={{ enter: 1000, exit: 10000 }} 
         addEndListener={() => {
           setTimeout(() => {
-setFilteringSuccessIndicators({success:null, duplicateCount: null})
+setFilteringSuccessIndicators({success:null, duplicateCount: null, fileName: null})
           }, 10000);
         }}
       >
