@@ -283,39 +283,38 @@ function Filtering() {
     if (isUploadSuccess) {
       return (
         <Backdrop
+          onClick={() => setIsUploadSuccess(null)}
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={isUploadSuccess}
-          onClick={() => setIsUploadSuccess(null)}
           in={isUploadSuccess} 
-          timeout={{ enter: 1000, exit: 5000 }} 
+          timeout={{ enter: 1000, exit: 10000 }} 
           addEndListener={() => {
             setTimeout(() => {
               setIsUploadSuccess(null);
-            }, 5000);
+            }, 10000);
           }}
         >
           <Alert severity="success">
-            {" "}
             Upload was sucessful, please fill the filter conditions. To only
-            remove duplicates, click on "filter" without filling the fields.
+            remove duplicates, click on "filter" without filling the fields(click to skip)
           </Alert>
         </Backdrop>
       );
     }
     return (
       <Backdrop
+        onClick={() => setIsUploadSuccess(null)}
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={!isUploadSuccess}
-        onClick={() => setIsUploadSuccess(null)}
         in={!isUploadSuccess} 
-        timeout={{ enter: 1000, exit: 5000 }} 
+        timeout={{ enter: 1000, exit: 10000 }} 
         addEndListener={() => {
           setTimeout(() => {
             setIsUploadSuccess(null);
-          }, 5000);
+          }, 10000);
         }}
       >
-        <Alert severity="error">Upload was not succesful</Alert>
+        <Alert severity="error">Upload was not succesful(click to skip)</Alert>
       </Backdrop>
     );
   }
@@ -327,20 +326,20 @@ function Filtering() {
     if (filteringSuccessIndicators.success) {
       return (
         <Backdrop
+          onClick={() => setFilteringSuccessIndicators({success:null, duplicateCount: null})}
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={filteringSuccessIndicators.success}
           in={filteringSuccessIndicators.success} 
-          onClick={() => setFilteringSuccessIndicators({success:null, duplicateCount: null})}
-          timeout={{ enter: 1000, exit: 5000 }} 
+          timeout={{ enter: 1000, exit: 10000 }} 
           addEndListener={() => {
             setTimeout(() => {
 setFilteringSuccessIndicators({success:null, duplicateCount: null})
-            }, 5000);
+            }, 10000);
           }}
         >
           <Alert severity="success">
             {`Csv file that consists of filtered entries is saved to Downloads
-            directory. Number of removed duplicates: ${filteringSuccessIndicators.duplicateCount}`}
+            directory. Number of removed duplicates: ${filteringSuccessIndicators.duplicateCount}(click to skip)`}
              
           </Alert>
         </Backdrop>
@@ -348,18 +347,18 @@ setFilteringSuccessIndicators({success:null, duplicateCount: null})
     }
     return (
       <Backdrop
+        onClick={() => setFilteringSuccessIndicators({success:null, duplicateCount: null})}
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={!filteringSuccessIndicators.success}
-        onClick={() => setFilteringSuccessIndicators({success:null, duplicateCount: null})}
         in={!filteringSuccessIndicators.success} 
-        timeout={{ enter: 1000, exit: 5000 }} 
+        timeout={{ enter: 1000, exit: 10000 }} 
         addEndListener={() => {
           setTimeout(() => {
 setFilteringSuccessIndicators({success:null, duplicateCount: null})
-          }, 5000);
+          }, 10000);
         }}
       >
-        <Alert severity="error">Filtering was not sucessful</Alert>
+        <Alert severity="error">Filtering was not sucessful(click to skip)</Alert>
       </Backdrop>
     );
   }

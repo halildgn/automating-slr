@@ -10,16 +10,17 @@ function SuccessAlert({displaySuccess, setDisplaySuccess, successMessage } : {di
 return (
 <>
       <Backdrop
+        onClick={()=>setDisplaySuccess(false)}
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={displaySuccess}
-        timeout={{ enter: 1000, exit: 5000 }}
+        timeout={{ enter: 1000, exit: 10000 }}
          addEndListener={() => {
            setTimeout(() => {
              setDisplaySuccess(false);
-           }, 5000);
+           }, 10000);
          }}
       >
-        <Alert severity="success">{successMessage ?? "Operation was successful"}</Alert>
+        <Alert severity="success">{successMessage ?? "Operation was successful(click to skip)"}</Alert>
       </Backdrop>
 </>
 );

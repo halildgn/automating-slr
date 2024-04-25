@@ -96,8 +96,8 @@ function Query(){
   return (
     <>
       <LoadingIndicator loading={overlayOpen}/>
-      <SuccessAlert displaySuccess={downloadSuccess} setDisplaySuccess={setDownloadSuccess} successMessage={`${downloadedFileName} was successfully saved to your Downloads directory`}/>
-      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage={`Download was not successful. Please make sure that you have access to ${!!library ? library : 'the'} digital library and you have google chrome browser installed in your system`} />
+      <SuccessAlert displaySuccess={downloadSuccess} setDisplaySuccess={setDownloadSuccess} successMessage={`${downloadedFileName} was successfully saved to your Downloads directory(click to skip)`}/>
+      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage={`Download was not successful. Please make sure that you have access to ${!!library ? library : 'the'} digital library and you have google chrome browser installed in your system(click to skip)`} />
     <div className="download-setters-container">
       <Box className="download-setters-items-container">
       <Library /> 

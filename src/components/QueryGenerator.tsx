@@ -361,7 +361,7 @@ return(
 
   return (
     <div className="generic-scroll-container">
-      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage="Queries couldn't be generated. Please make sure that no field is empty."/>
+      <ErrorAlert displayError={errorPresent} setDisplayError={setErrorPresent} errorMessage="Queries couldn't be generated. Please make sure that no field is empty(click to skip)"/>
           <SaveDialog/>
         <LoadingIndicator loading={loadingOverlayOpen} /> 
       {Fields()}
