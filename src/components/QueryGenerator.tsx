@@ -163,7 +163,7 @@ return (
         <DialogTitle>Save to my builds</DialogTitle>
         <DialogContent>
           <DialogContentText>
-         The query structure is going to be saved to "my builds". It can be loaded from there in the future. 
+         {`The query structure is going to be saved to "my builds". It can be loaded from there in the future. The builds are also persisted in a file called "config.db" in the "src-python" directory and you can use this file in other computers to have your builds there.`} 
           </DialogContentText>
           <TextField
             autoFocus
