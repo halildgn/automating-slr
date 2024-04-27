@@ -16,7 +16,7 @@ Queries that are generated for `scopus` and `ebsco` libraries are quick prototyp
 
 2. For next steps use `Git Bash`(already installed with `git`, you can paste commands via right clicking and clicking on paste, `ctrl+v` wouldn't work) in Windows and your standard bash terminal in Linux&MacOS
 
-3. Clone the repository(via `git clone https://gitlab.com/halildgn/automating-slr.git`) 
+3. Clone the repository(via `git clone https://github.com/halildgn/automating-slr.git`) 
 
 4. Navigate to `automating-slr/src-python` via `cd automating-slr/src-python` 
 
