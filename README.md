@@ -62,7 +62,7 @@ if __name__ == '__main__':
 # To make the app deployable
 1. Adjust the content of `main` with the following and in the python modules, instead of directly saving files to the remote server(since the server is going to run on another computer, we don't want to save files to that computer but we would like retrieve them instead), send those back to the client as response.
 2. Adjust the content of the frontend, so that the response from the server(the file) is saved, also instead of making use of server to manage the builds&theme-preference, use `localStorage` instead(since we don't want to save our configs to the remote server) -> see the commit [here](https://gitlab.com/halildgn/automating-slr/-/commit/1470e149c61a5f2de333010586fe5efcd638382a) 
-3. Deploy the server via vm or container and deploy the frontend(static html) to some static site hosting service like "gitlab pages".  
+3. Deploy the server via vm or container and deploy the frontend(static html) to some static site hosting service like "github pages".  
 ```python
 if __name__ == '__main__':
     server_process = multiprocessing.Process(target=spin_up_server) 
