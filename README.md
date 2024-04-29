@@ -6,7 +6,11 @@ This work is an extention of the work of `Yunhai Zhang` that resides on https://
 
 Queries that are generated for `scopus` and `ebsco` libraries are quick prototypes and they haven't been tested during `Yunhai Zhang`'s research.
 
-# Introduction 
+# Quick showcase
+
+[Video](https://drive.google.com/file/d/1NRGVVLHmjQfztBWuQl8YAyOXfXE1WZdQ/view?usp=sharing)
+
+# Introducing the application(with voice-over) 
 
 [Video](https://drive.google.com/file/d/14ftPF3AKGU2_TITwsdPz4_aWJmUQOdDb/view?usp=sharing)
 
