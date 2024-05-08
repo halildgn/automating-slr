@@ -14,6 +14,7 @@ from modules.bib_to_csv import *
 from modules.scraper import *
 from flask import Flask, request, jsonify 
 from flask_cors import CORS
+# Remove the following if-else block when the next release("WebUI v2.4.3") is out on https://github.com/webui-dev/webui/releases(the required change is already in the "main" branch)
 # For linux use compiled version with glibc-2.31 since remote package requires glibc-2.33 which legacy linux distros don't have :
 if platform == 'linux':
     import webui_linux as webui 
